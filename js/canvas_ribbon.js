@@ -84,7 +84,6 @@
   document.ontouchstart = init;
   init();
 
-  // 拖动窗口时，重新获取元素
   var debounce = function (action, delay) {
     var timer = null;
 
@@ -99,6 +98,7 @@
     }
   }
 
+  // 拖动窗口时，重新获取元素
   window.onresize = debounce(function () {
     width = window.innerWidth
     canvasRibbon.width = width * dpr; // 返回实际宽高

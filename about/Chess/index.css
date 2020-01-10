@@ -2,7 +2,7 @@
 #game3_title {
     width: 70%;
     font-size: 18px;
-    margin: 140px auto 0 auto;
+    margin: 110px auto 0 auto;
     text-align: center;
     font-weight: bold;
     padding: 20px 0 0px 0;
@@ -16,6 +16,12 @@
     font-weight: bold;
     margin-bottom: 20px;
     font-size: 12px;
+}
+
+#game3_title2 a {
+    text-decoration: underline;
+    color: #2F4056;
+    margin-left: 5px;
 }
 
 #games3 canvas {

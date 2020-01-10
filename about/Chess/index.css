@@ -1,0 +1,50 @@
+/* 这里是标题 */
+#game3_title {
+    width: 70%;
+    font-size: 18px;
+    margin: 140px auto 0 auto;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0 0px 0;
+    border-top: 1px solid #999999;
+}
+
+#game3_title2 {
+    color: #888888;
+    margin: -6px auto 0 auto;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+#games3 canvas {
+    display: block;
+    margin: 0px auto 20px auto;
+    box-shadow: -2px -2px 2px #a38f8f, 5px 5px 5px #b9b9b9;
+    cursor: pointer;
+}
+
+#games3 .btn-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#games3 .btn-wrap div {
+    margin: 0 10px;
+}
+
+#games3 div>span {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #EE82EE;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#games3 div.unable span {
+    background: #D6D6D4;
+    color: #adacaa;
+}

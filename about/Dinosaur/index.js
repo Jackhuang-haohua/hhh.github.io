@@ -159,28 +159,88 @@
      */
     Runner.spriteDefinition = {
         LDPI: {
-            CACTUS_LARGE: { x: 332, y: 2 },
-            CACTUS_SMALL: { x: 228, y: 2 },
-            CLOUD: { x: 86, y: 2 },
-            HORIZON: { x: 2, y: 54 },
-            MOON: { x: 484, y: 2 },
-            PTERODACTYL: { x: 134, y: 2 },
-            RESTART: { x: 2, y: 2 },
-            TEXT_SPRITE: { x: 655, y: 2 },
-            TREX: { x: 848, y: 2 },
-            STAR: { x: 645, y: 2 }
+            CACTUS_LARGE: {
+                x: 332,
+                y: 2
+            },
+            CACTUS_SMALL: {
+                x: 228,
+                y: 2
+            },
+            CLOUD: {
+                x: 86,
+                y: 2
+            },
+            HORIZON: {
+                x: 2,
+                y: 54
+            },
+            MOON: {
+                x: 484,
+                y: 2
+            },
+            PTERODACTYL: {
+                x: 134,
+                y: 2
+            },
+            RESTART: {
+                x: 2,
+                y: 2
+            },
+            TEXT_SPRITE: {
+                x: 655,
+                y: 2
+            },
+            TREX: {
+                x: 848,
+                y: 2
+            },
+            STAR: {
+                x: 645,
+                y: 2
+            }
         },
         HDPI: {
-            CACTUS_LARGE: { x: 652, y: 2 },
-            CACTUS_SMALL: { x: 446, y: 2 },
-            CLOUD: { x: 166, y: 2 },
-            HORIZON: { x: 2, y: 104 },
-            MOON: { x: 954, y: 2 },
-            PTERODACTYL: { x: 260, y: 2 },
-            RESTART: { x: 2, y: 2 },
-            TEXT_SPRITE: { x: 1294, y: 2 },
-            TREX: { x: 1678, y: 2 },
-            STAR: { x: 1276, y: 2 }
+            CACTUS_LARGE: {
+                x: 652,
+                y: 2
+            },
+            CACTUS_SMALL: {
+                x: 446,
+                y: 2
+            },
+            CLOUD: {
+                x: 166,
+                y: 2
+            },
+            HORIZON: {
+                x: 2,
+                y: 104
+            },
+            MOON: {
+                x: 954,
+                y: 2
+            },
+            PTERODACTYL: {
+                x: 260,
+                y: 2
+            },
+            RESTART: {
+                x: 2,
+                y: 2
+            },
+            TEXT_SPRITE: {
+                x: 1294,
+                y: 2
+            },
+            TREX: {
+                x: 1678,
+                y: 2
+            },
+            STAR: {
+                x: 1276,
+                y: 2
+            }
         }
     };
 
@@ -201,9 +261,16 @@
      * @enum {Object}
      */
     Runner.keycodes = {
-        JUMP: { '38': 1, '32': 1 },  // Up, spacebar
-        DUCK: { '40': 1 },  // Down
-        RESTART: { '13': 1 }  // Enter
+        JUMP: {
+            '38': 1,
+            '32': 1
+        }, // Up, spacebar
+        DUCK: {
+            '40': 1
+        }, // Down
+        RESTART: {
+            '13': 1
+        } // Enter
     };
 
 
@@ -467,7 +534,7 @@
                     'from { width:' + Trex.config.WIDTH + 'px }' +
                     'to { width: ' + this.dimensions.WIDTH + 'px }' +
                     '}';
-                
+
                 // create a style sheet to put the keyframe rule in 
                 // and then place the style sheet in the html head    
                 var sheet = document.createElement('style');
@@ -596,7 +663,7 @@
             }
 
             if (this.playing || (!this.activated &&
-                this.tRex.blinkCount < Runner.config.MAX_BLINK_COUNT)) {
+                    this.tRex.blinkCount < Runner.config.MAX_BLINK_COUNT)) {
                 this.tRex.update(deltaTime);
                 this.scheduleNextUpdate();
             }
@@ -671,7 +738,7 @@
 
             if (e.target != this.detailsButton) {
                 if (!this.crashed && (Runner.keycodes.JUMP[e.keyCode] ||
-                    e.type == Runner.events.TOUCHSTART)) {
+                        e.type == Runner.events.TOUCHSTART)) {
                     if (!this.playing) {
                         this.loadSounds();
                         this.playing = true;
@@ -1371,7 +1438,7 @@
                         if (this.timer >= this.typeConfig.frameRate) {
                             this.currentFrame =
                                 this.currentFrame == this.typeConfig.numFrames - 1 ?
-                                    0 : this.currentFrame + 1;
+                                0 : this.currentFrame + 1;
                             this.timer = 0;
                         }
                     }
@@ -1428,8 +1495,7 @@
      * speedOffset: speed faster / slower than the horizon.
      * minSpeed: Minimum speed which the obstacle can make an appearance.
      */
-    Obstacle.types = [
-        {
+    Obstacle.types = [{
             type: 'CACTUS_SMALL',
             width: 17,
             height: 35,
@@ -2373,7 +2439,8 @@
         this.sourceDimensions = {};
         this.dimensions = HorizonLine.dimensions;
         this.sourceXPos = [this.spritePos.x, this.spritePos.x +
-            this.dimensions.WIDTH];
+            this.dimensions.WIDTH
+        ];
         this.xPos = [];
         this.yPos = 0;
         this.bumpThreshold = 0.5;
@@ -2713,3 +2780,20 @@ function onDocumentLoad() {
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);
+
+// 这里是控制移动
+document.onkeydown = function (evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 32) {
+        var box = document.getElementById("messageBox");
+        box.style.visibility = "hidden";
+    }
+};
+$(document).keydown(function (event) {
+    if (event.target.nodeName == 'TEXTAREA' || event.target.nodeName == 'INPUT') {
+        return;
+    };
+    if (event.keyCode == 32) {
+        event.preventDefault();
+    };
+});

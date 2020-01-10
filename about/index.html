@@ -46,17 +46,17 @@
   };
 </script>
 
-  <meta name="description" content="Document                                      我有一只小恐龙，我从来都不骑         使用↑↓←→控制小孔融">
+  <meta name="description" content="Document                                           我有一只小恐龙，我从来都不骑         使用↑↓←→控制小孔融">
 <meta property="og:type" content="website">
 <meta property="og:title" content="浩华好哇的小站">
 <meta property="og:url" content="https://github.com/Jackhuang-haohua/hhh.github.io/about/index.html">
 <meta property="og:site_name" content="浩华好哇的小站">
-<meta property="og:description" content="Document                                      我有一只小恐龙，我从来都不骑         使用↑↓←→控制小孔融">
+<meta property="og:description" content="Document                                           我有一只小恐龙，我从来都不骑         使用↑↓←→控制小孔融">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/Jackhuang-haohua/hhh.github.io/about/Dinosaur/100-offline-sprite.png">
 <meta property="og:image" content="https://github.com/Jackhuang-haohua/hhh.github.io/about/Dinosaur/200-offline-sprite.png">
-<meta property="article:published_time" content="2020-01-10T07:28:07.821Z">
-<meta property="article:modified_time" content="2020-01-10T07:28:07.821Z">
+<meta property="article:published_time" content="2020-01-10T08:33:16.659Z">
+<meta property="article:modified_time" content="2020-01-10T08:33:16.659Z">
 <meta property="article:author" content="浩华好哇">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/Jackhuang-haohua/hhh.github.io/about/Dinosaur/100-offline-sprite.png">
@@ -214,6 +214,7 @@
     <link rel="stylesheet" href="Dinosaur/game1.css">
     <link rel="stylesheet" href="Calculator/game2.css">
     <link rel="stylesheet" href="Calculator/base.css">
+    <link rel="stylesheet" href="Chess/index.css">
 <link rel="alternate" href="/hhh.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
 </head>
 
@@ -245,23 +246,6 @@
         </div>
 
         <script src="Dinosaur/index.js"></script>
-        <script>
-            document.onkeydown = function (evt) {
-                evt = evt || window.event;
-                if (evt.keyCode == 32) {
-                    var box = document.getElementById("messageBox");
-                    box.style.visibility = "hidden";
-                }
-            };
-            $(document).keydown(function (event) {
-                if (event.target.nodeName == 'TEXTAREA' || event.target.nodeName == 'INPUT') {
-                    return;
-                };
-                if (event.keyCode == 32) {
-                    event.preventDefault();
-                };
-            });
-        </script>
     </div>
 
     <!-- 计算机 -->
@@ -304,60 +288,29 @@
             <td><input class="btn loud-link-click" data-src="等于" type="button" value="=" /></td>
         </tr>
 
-        <script>
-            // 获取大盒子{
-            var box = document.getElementById('game2')
-            var text = document.getElementById('text')
-            var btn_way = document.getElementsByClassName("btn_click");
-            // 定义一个数组，用来接收值
-            var arr = []
-
-            game2.onclick = function (evt) {
-                var e = evt.target;
-
-                // 输入AC
-                if (e.id == 'AC') {
-                    arr = [];
-                    text.value = "";
-                }
-                // 输入DEL
-                else if (e.id == 'DEL') {
-                    text.value = text.value.substr(0, text.value.length - 1);
-                }
-                // 当屏幕显示为空时，输入点，则转换为0.
-                else if (text.value == "" && e.value == ".") {
-                    text.value = "0.";
-                }
-                // 输入的是数字或者点
-                else if (!isNaN(e.value) || e.value == '.') {
-                    if (text.value.indexOf('.') !== -1) {
-                        if (e.value != '.') {
-                            text.value += e.value
-                        }
-                    } else if (e.id != 'text') {
-                        text.value += e.value
-                    }
-                }
-                // 当用户输入的是符号 
-                else {
-                    // 用户输入的是符号，但不是等号
-                    if (e.value != '=') {
-                        arr[arr.length] = text.value
-                        arr[arr.length] = e.value
-                        text.value = ''
-                    }
-                    // 用户输入的是符号，并且是等号
-                    else if (e.value == '=') {
-                        arr[arr.length] = text.value
-                        text.value = eval(arr.join(''))
-                        arr = []
-                        // console.log(text.value);
-                    }
-                }
-            }
-        </script>
+        <script src="Calculator/game2.js"></script>
         <script src="Calculator/js/loudlinks.min.js"></script>
     </table>
+
+    <!-- 五子棋 -->
+    <p id="game3_title">简易计算机</p>
+    <p id="game3_title2">老铁们，双击666！</p>
+    <section class="" id="games3">
+        <canvas id="chess" width="450px" height="450px"></canvas>
+        <div class="btn-wrap">
+            <div id='restart' class="restart">
+                <span>重新开始</span>
+            </div>
+            <div id='goback' class="goback unable">
+                <span>悔棋</span>
+            </div>
+            <div id='return' class="return unable">
+                <span>撤销悔棋</span>
+            </div>
+        </div>
+
+        <script src="Chess/index.js" charset="utf-8"></script>
+    </section>
 </body>
 
 </html>

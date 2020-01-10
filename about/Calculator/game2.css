@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#game2 {
+    width: 604px;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+/* 这里是标题 */
+#game2_title {
+    width: 70%;
+    font-size: 18px;
+    margin: 150px auto 0 auto;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0 0px 0;
+    border-top: 1px solid #999999;
+}
+
+#game2_title2 {
+    color: #888888;
+    margin: -6px auto 0 auto;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+#game2 td {
+    width: 150px;
+    line-height: 70px;
+}
+
+#game2 .btn {
+    width: 150px;
+    line-height: 70px;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+#game2 .btn_click {
+    width: 302px;
+    line-height: 70px;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+#game2 .txt {
+    width: 604px;
+    line-height: 100px;
+    font-size: 50px;
+    text-align: right;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+/* next自带的input样式 */
+#text,
+#DEL,
+#AC {
+    overflow-wrap: break-word;
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-family: inherit;
+    overflow: visible;
+    -webkit-tap-highlight-color: transparent;
+    margin: 1px 0 2px 0;
+    outline: none;
+    background: #fff;
+    border: 2px solid #555;
+    border-radius: 2px;
+    color: #555;
+    display: inline-block;
+    padding: 0 20px;
+    text-decoration: none;
+    transition-property: background-color;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    -webkit-appearance: none;
+    resize: none;
+    width: 150px;
+    line-height: 70px;
+    font-size: x-large;
+    cursor: pointer;
+}

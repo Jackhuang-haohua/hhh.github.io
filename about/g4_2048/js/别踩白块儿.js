@@ -60,8 +60,9 @@
 
  }
 
+ //  错误在这里！！！！！！！！！！！！！！
  // 判断游戏是否结束
- function over() {
+ function game4over() {
      var rows = con.childNodes;
      if ((rows.length == 5) && (rows[rows.length - 1].pass !== 1)) {
          fail();
@@ -71,7 +72,6 @@
              fail();
          }
      }
-
  }
 
  // 游戏结束
@@ -125,7 +125,7 @@
          top += speed;
      }
      con.style.top = top + 'px'; //不断移动top值，使它动起来
-     over();
+     game4over();
      if (top == 0) {
          createrow();
          con.style.top = '-102px';

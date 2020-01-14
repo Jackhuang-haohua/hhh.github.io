@@ -25,11 +25,11 @@
     version: '7.7.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
-    mediumzoom: false,
+    mediumzoom: true,
     lazyload: false,
     pangu: false,
     comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
@@ -460,6 +460,16 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">32k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">57 分钟</span>
 </div>
 
 <!--
@@ -488,6 +498,7 @@
 
   
   <script src="/hhh.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
   <script src="/hhh.github.io/lib/velocity/velocity.min.js"></script>
   <script src="/hhh.github.io/lib/velocity/velocity.ui.min.js"></script>
 
@@ -529,7 +540,8 @@
   <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
 
   <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
-
+  
+  <!-- 点击爱心 -->
   <script src="js/clicklove.js"></script>
   <script src="../js/clicklove.js"></script>
 </html>

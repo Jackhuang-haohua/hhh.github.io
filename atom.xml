@@ -6,7 +6,7 @@
   <link href="/hhh.github.io/atom.xml" rel="self"/>
   
   <link href="https://github.com/Jackhuang-haohua/hhh.github.io/"/>
-  <updated>2020-02-23T13:52:34.729Z</updated>
+  <updated>2020-03-24T13:56:00.321Z</updated>
   <id>https://github.com/Jackhuang-haohua/hhh.github.io/</id>
   
   <author>
@@ -17,15 +17,129 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>闭包学习总结</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/23/%E7%AC%AC%E4%B8%89%E7%AF%87-%E9%97%AD%E5%8C%85%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/23/%E7%AC%AC%E4%B8%89%E7%AF%87-%E9%97%AD%E5%8C%85%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</id>
-    <published>2020-02-23T11:42:08.000Z</published>
-    <updated>2020-02-23T13:52:34.729Z</updated>
+    <title>vue生命周期</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
+    <published>2020-03-24T13:02:48.000Z</published>
+    <updated>2020-03-24T13:56:00.321Z</updated>
     
     <summary type="html">
     
-      利用Js基础知识做出轮播图
+      vue生命周期
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/vue/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2020-2-28-登录案例</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/28/2020-2-28-%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/28/2020-2-28-%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B/</id>
+    <published>2020-02-28T04:20:36.000Z</published>
+    <updated>2020-02-28T04:21:39.645Z</updated>
+    
+    <summary type="html">
+    
+      前后端交互，postman测试接口；
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2020-2-27-git和github</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/</id>
+    <published>2020-02-27T06:47:13.000Z</published>
+    <updated>2020-02-27T15:50:19.735Z</updated>
+    
+    <summary type="html">
+    
+      git和github的使用
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>npm的使用</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-npm/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-npm/</id>
+    <published>2020-02-26T16:00:08.000Z</published>
+    <updated>2020-02-27T06:52:23.255Z</updated>
+    
+    <summary type="html">
+    
+      npm，cnpm，nrm 傻傻分不清
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SASS--更高效的书写CSS</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/26/2020-2-26-sass/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/26/2020-2-26-sass/</id>
+    <published>2020-02-26T04:42:17.000Z</published>
+    <updated>2020-02-27T01:39:36.304Z</updated>
+    
+    <summary type="html">
+    
+      SASS的认识与使用
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2020-2-25-gulp</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/25/2020-2-25-gulp/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/25/2020-2-25-gulp/</id>
+    <published>2020-02-25T08:52:45.000Z</published>
+    <updated>2020-02-25T16:50:15.220Z</updated>
+    
+    <summary type="html">
+    
+      使用guly打包项目
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/javascript/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>node.js基础整理</title>
+    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/"/>
+    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/</id>
+    <published>2020-02-24T08:12:33.000Z</published>
+    <updated>2020-02-27T05:36:17.833Z</updated>
+    
+    <summary type="html">
+    
+      node.js基础复习笔记
     
     </summary>
     

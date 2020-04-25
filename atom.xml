@@ -5,9 +5,9 @@
   
   <link href="/hhh.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/Jackhuang-haohua/hhh.github.io/"/>
-  <updated>2020-03-24T13:56:00.321Z</updated>
-  <id>https://github.com/Jackhuang-haohua/hhh.github.io/</id>
+  <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/"/>
+  <updated>2020-04-25T10:23:57.292Z</updated>
+  <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/</id>
   
   <author>
     <name>浩华好哇</name>
@@ -17,11 +17,83 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>VUE项目实战</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/05/30/2020-3-Vue%E5%AE%9E%E6%88%98/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/05/30/2020-3-Vue%E5%AE%9E%E6%88%98/</id>
+    <published>2020-05-30T11:56:11.000Z</published>
+    <updated>2020-04-25T10:23:57.292Z</updated>
+    
+    <summary type="html">
+    
+      其实也不算项目，就是用vue还原一个网站
+    
+    </summary>
+    
+    
+      <category term="Vue" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/Vue/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nuxt服务端渲染</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/08/2020-4-8-nuxt/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/08/2020-4-8-nuxt/</id>
+    <published>2020-04-08T04:47:33.000Z</published>
+    <updated>2020-04-08T05:19:52.477Z</updated>
+    
+    <summary type="html">
+    
+      简单的服务端渲染
+    
+    </summary>
+    
+    
+      <category term="nuxt" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/nuxt/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2020-3-6-node.js接口</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/06/2020-3-6-node-js%E6%8E%A5%E5%8F%A3/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/06/2020-3-6-node-js%E6%8E%A5%E5%8F%A3/</id>
+    <published>2020-04-06T14:29:15.000Z</published>
+    <updated>2020-04-06T14:29:15.864Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2020-3-6-Vue+node注册与验证</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/06/2020-3-6-Vue-node%E6%B3%A8%E5%86%8C%E4%B8%8E%E9%AA%8C%E8%AF%81/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/06/2020-3-6-Vue-node%E6%B3%A8%E5%86%8C%E4%B8%8E%E9%AA%8C%E8%AF%81/</id>
+    <published>2020-04-06T14:01:43.000Z</published>
+    <updated>2020-04-16T17:29:18.565Z</updated>
+    
+    <summary type="html">
+    
+      一个登录页面
+    
+    </summary>
+    
+    
+      <category term="Node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/Node/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>vue生命周期</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/24/2020-3-24-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
     <published>2020-03-24T13:02:48.000Z</published>
-    <updated>2020-03-24T13:56:00.321Z</updated>
+    <updated>2020-03-24T14:02:49.970Z</updated>
     
     <summary type="html">
     
@@ -30,36 +102,17 @@
     </summary>
     
     
-      <category term="vue" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/vue/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>2020-2-28-登录案例</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/28/2020-2-28-%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/28/2020-2-28-%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B/</id>
-    <published>2020-02-28T04:20:36.000Z</published>
-    <updated>2020-02-28T04:21:39.645Z</updated>
-    
-    <summary type="html">
-    
-      前后端交互，postman测试接口；
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="vue" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/vue/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-2-27-git和github</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/27/2020-2-27-git%E5%92%8Cgithub/</id>
     <published>2020-02-27T06:47:13.000Z</published>
-    <updated>2020-02-27T15:50:19.735Z</updated>
+    <updated>2020-04-07T15:29:10.228Z</updated>
     
     <summary type="html">
     
@@ -68,15 +121,15 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/JavaScript/"/>
     
     
   </entry>
   
   <entry>
     <title>npm的使用</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-npm/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/27/2020-2-27-npm/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/27/2020-2-27-npm/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/27/2020-2-27-npm/</id>
     <published>2020-02-26T16:00:08.000Z</published>
     <updated>2020-02-27T06:52:23.255Z</updated>
     
@@ -87,15 +140,15 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/JavaScript/"/>
     
     
   </entry>
   
   <entry>
     <title>SASS--更高效的书写CSS</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/26/2020-2-26-sass/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/26/2020-2-26-sass/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/26/2020-2-26-sass/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/26/2020-2-26-sass/</id>
     <published>2020-02-26T04:42:17.000Z</published>
     <updated>2020-02-27T01:39:36.304Z</updated>
     
@@ -106,15 +159,15 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/JavaScript/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-2-25-gulp</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/25/2020-2-25-gulp/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/25/2020-2-25-gulp/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/25/2020-2-25-gulp/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/25/2020-2-25-gulp/</id>
     <published>2020-02-25T08:52:45.000Z</published>
     <updated>2020-02-25T16:50:15.220Z</updated>
     
@@ -125,15 +178,15 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/javascript/"/>
+      <category term="javascript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/javascript/"/>
     
     
   </entry>
   
   <entry>
     <title>node.js基础整理</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/</id>
     <published>2020-02-24T08:12:33.000Z</published>
     <updated>2020-02-27T05:36:17.833Z</updated>
     
@@ -144,15 +197,15 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/JavaScript/"/>
     
     
   </entry>
   
   <entry>
     <title>使用JavaScript循序渐进地写出轮播图</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/01/11/%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/01/11/%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/01/11/%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/01/11/%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/</id>
     <published>2020-01-11T11:37:43.000Z</published>
     <updated>2020-01-14T16:16:03.762Z</updated>
     
@@ -163,15 +216,15 @@
     </summary>
     
     
-      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/JavaScript/"/>
     
     
   </entry>
   
   <entry>
     <title>《你好，吃了吗》</title>
-    <link href="https://github.com/Jackhuang-haohua/hhh.github.io/2020/01/09/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
-    <id>https://github.com/Jackhuang-haohua/hhh.github.io/2020/01/09/%E7%AC%AC%E4%B8%80%E7%AF%87/</id>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/01/09/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/01/09/%E7%AC%AC%E4%B8%80%E7%AF%87/</id>
     <published>2020-01-09T01:50:23.000Z</published>
     <updated>2020-01-14T15:46:31.667Z</updated>
     
@@ -182,7 +235,26 @@
     </summary>
     
     
-      <category term="随笔" scheme="https://github.com/Jackhuang-haohua/hhh.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+      <category term="随笔" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>VUE基础梳理</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/01/2020-4-17-vue%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/01/2020-4-17-vue%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/</id>
+    <published>2019-05-01T14:53:43.000Z</published>
+    <updated>2020-04-25T11:33:35.608Z</updated>
+    
+    <summary type="html">
+    
+      项目要用到的知识过一遍
+    
+    </summary>
+    
+    
+      <category term="Vue" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/Vue/"/>
     
     
   </entry>

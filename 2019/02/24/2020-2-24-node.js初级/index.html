@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="node.js基础复习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js基础整理">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="node.js基础复习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-24T08:12:33.000Z">
+<meta property="article:modified_time" content="2020-04-27T15:46:47.043Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>node.js基础整理 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/02/24/2020-2-24-node.js%E5%88%9D%E7%BA%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          node.js基础整理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-24 16:12:33" itemprop="dateCreated datePublished" datetime="2019-02-24T16:12:33+08:00">2019-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-27 23:46:47" itemprop="dateModified" datetime="2020-04-27T23:46:47+08:00">2020-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">node.js基础复习笔记</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、什么是node-js"><a href="#一、什么是node-js" class="headerlink" title="一、什么是node.js"></a>一、什么是node.js</h2><p>　有了node后就能用JS语法做更多的事，比如操作数据库，安装拓展，写接口，读写文件等等；<br>　js在引入html页面后，就可以在浏览器运行，但不能单独运行；当我们安装node.js环境后，我们的电脑也有了’js解析器’，在终端就能直接运行js代码。<br>　注意，node使用ECMA语法，不可使用DOM，BOM</p>
+<p><strong>node的优点：</strong></p>
+<ul>
+<li>标准的异步编程</li>
+<li>合理分配资源</li>
+<li>高并发 I/O模型</li>
+</ul>
+<h2 id="二、安装node-js"><a href="#二、安装node-js" class="headerlink" title="二、安装node.js"></a>二、安装node.js</h2><ul>
+<li>node官网下载：<a href="https://nodejs.org/en/" target="_blank">nodejs.org/en/</a></li>
+<li>下载LTS(稳定版)即可，安装完成后没有图标显示，因为node是系统的一个环境；</li>
+<li>检测：win+r 打开命令行，输入<code>node --version</code>，出现版本号表示安装完成；</li>
+<li>卸载：控制面板-&gt;鼠标右键卸载</li>
+</ul>
+<h2 id="三、node环境下运行js代码"><a href="#三、node环境下运行js代码" class="headerlink" title="三、node环境下运行js代码"></a>三、node环境下运行js代码</h2><p><strong>方式一：</strong></p>
+<ul>
+<li>打开命令行(终端)，输入 node+回车 进入代码编辑模式</li>
+<li>输入js代码就可以运行了，相当于在浏览器打开</li>
+<li>按 ctrl+c 两次退出模式</li>
+</ul>
+<p><strong>方式二：</strong></p>
+<ul>
+<li>打开命令行(终端)，进入到包含.js文件的文件夹， node xxx.js 就能运行</li>
+</ul>
+<h2 id="四、前端常用的Linux指令"><a href="#四、前端常用的Linux指令" class="headerlink" title="四、前端常用的Linux指令"></a>四、前端常用的Linux指令</h2><p>因为node环境下，我们需要在命令行操作，所以得了解下linux指令；</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盘符:</td>
+<td>切换到某个盘</td>
+<td>f:</td>
+</tr>
+<tr>
+<td>cd 文件夹名称</td>
+<td>进入子级文件夹</td>
+<td>cd test</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>返回上一级目录</td>
+<td>cs ..</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>查看当前目录所有内容</td>
+<td>dir</td>
+</tr>
+<tr>
+<td>md 要创建的文件夹名称</td>
+<td>创建文件夹</td>
+<td>md test</td>
+</tr>
+<tr>
+<td>rd /s/q 要删除的文件夹名称</td>
+<td>删除文件夹</td>
+<td>rd /s/q test</td>
+</tr>
+<tr>
+<td>xcopy 要复制的文件夹 复制后的文件夹名称</td>
+<td>复制</td>
+<td>xcopy test test2</td>
+</tr>
+<tr>
+<td>type nul&gt;要创建的文件名</td>
+<td>创建文件</td>
+<td>type nul&gt;test.txt</td>
+</tr>
+<tr>
+<td>echo 要写入的内容&gt;指定的文件</td>
+<td>写入内容，完全覆盖</td>
+<td>echo hello&gt;test.txt</td>
+</tr>
+<tr>
+<td>echo 要写入的内容&gt;&gt;指定的文件</td>
+<td>追加内容</td>
+<td>echo world&gt;&gt;test.txt</td>
+</tr>
+<tr>
+<td>type 要查看的文件</td>
+<td>查看文件内容</td>
+<td>type test.txt</td>
+</tr>
+<tr>
+<td>ren 要修改的文件 新名称</td>
+<td>修改文件名称</td>
+<td>ren test.txt test2.txt</td>
+</tr>
+<tr>
+<td>del 要删除的文件</td>
+<td>删除文件</td>
+<td>f:</td>
+</tr>
+<tr>
+<td>copy 要复制的文件 复制后的文件名</td>
+<td>复制文件</td>
+<td>copy test.txt test2.txt</td>
+</tr>
+<tr>
+<td>move 要移动的文件 移动到哪一个目录</td>
+<td>移动文件</td>
+<td>move test.txt e:/study</td>
+</tr>
+<tr>
+<td>cls</td>
+<td>清除当前命令行所有内容</td>
+<td>cls</td>
+</tr>
+<tr>
+<td>ipconfig</td>
+<td>查看电脑IP信息</td>
+<td>ipconfig</td>
+</tr>
+<tr>
+<td>ping 网址</td>
+<td>测试网速</td>
+<td>ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></td>
+</tr>
+<tr>
+<td>systeminfo</td>
+<td>查看电脑配置信息</td>
+<td>systeminfo</td>
+</tr>
+</tbody></table>
+<h2 id="五、node的模块化"><a href="#五、node的模块化" class="headerlink" title="五、node的模块化"></a>五、node的模块化</h2><h3 id="1-内置模块"><a href="#1-内置模块" class="headerlink" title="1.内置模块"></a>1.内置模块</h3><p><a href="https://juejin.im/post/5e0006c251882512795675f9#1" target="_blank">掘金上这篇讲的很详细</a><br>node自带几十个模块，这里就记录几个常见的；</p>
+<h4 id="fs模块"><a href="#fs模块" class="headerlink" title="fs模块"></a>fs模块</h4><p>操作系统文件：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>) <span class="comment">//引入文件系统模块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 文件读取</span></span><br><span class="line">fs.readFile(<span class="string">"./html/index.html"</span>, <span class="string">"utf-8"</span>, (err, data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"err"</span>, err); <span class="comment">//第一个err是字符串，第二个是错误信息，如果没有则为空</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"data"</span>, data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.rename(<span class="string">"./html/index1.html"</span>, <span class="string">"./html/index2.html"</span>, (err) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'命名完成'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.rmdir(<span class="string">"./html/index3"</span>, (err) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"删除文件夹完成"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h4><p>操作url地址</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">"http://www.baidu.com:80/app/html/index.html?a=1&amp;b=2#title"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一、手动取得参数</span></span><br><span class="line"><span class="keyword">let</span> obj = url.parse(str) <span class="comment">//解析url字符串</span></span><br><span class="line"><span class="keyword">let</span> query = obj.query <span class="comment">//取得query值，a=1&amp;b=2</span></span><br><span class="line"><span class="keyword">let</span> queryArr = query.split(<span class="string">'&amp;'</span>) <span class="comment">//切割&amp;，queryArr=[a=1、b=2]</span></span><br><span class="line"><span class="keyword">let</span> json = &#123;&#125; <span class="comment">//空对象</span></span><br><span class="line">queryArr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item, index</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = item.split(<span class="string">'='</span>) <span class="comment">//a、1</span></span><br><span class="line">    json[arr[<span class="number">0</span>]] = arr[<span class="number">1</span>] <span class="comment">//存入对象</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(json);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二、自动解析</span></span><br><span class="line">url.parse(str,<span class="literal">true</span>).query <span class="comment">//自动解析url.query字符串，返回对象</span></span><br><span class="line"><span class="built_in">console</span>.log(url.parse(str, <span class="literal">true</span>).query.a); <span class="comment">//取得1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到字符串 http://www.baidu.com:80/app/html/index.html?a=1&amp;b=2#title</span></span><br><span class="line">url.format(obj)</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="querystring模块"><a href="#querystring模块" class="headerlink" title="querystring模块"></a>querystring模块</h4><p>转换成字符串格式，比如获取非地址栏参数时：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.引入相应的原生模块、依赖</span></span><br><span class="line"><span class="keyword">let</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>)</span><br><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>)</span><br><span class="line"><span class="keyword">let</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>)</span><br><span class="line"><span class="keyword">let</span> querystring = <span class="built_in">require</span>(<span class="string">"querystring"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.实例化http对象（服务器对象）</span></span><br><span class="line"><span class="keyword">let</span> app = http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//排除 /favicon.ico的请求</span></span><br><span class="line">    <span class="keyword">if</span> (req.url.indexOf(<span class="string">"/favicon.ico"</span>) === <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="comment">//需要判断要读取的是动态资源（接口api）还是静态资源</span></span><br><span class="line">        <span class="keyword">if</span> (req.url.indexOf(<span class="string">"/api"</span>) !== <span class="number">-1</span>) &#123; <span class="comment">//处理接口</span></span><br><span class="line">            <span class="comment">//处理地址栏的数据</span></span><br><span class="line">            <span class="keyword">let</span> urlObj = url.parse(req.url, <span class="literal">true</span>)</span><br><span class="line">            <span class="comment">// 输入http://localhost:3000/api/user?name=1&amp;age=2，得到&#123; name: '1', age: '2' &#125;</span></span><br><span class="line">            <span class="built_in">console</span>.log(urlObj.query)</span><br><span class="line"></span><br><span class="line">            <span class="comment">//非地址栏的数据</span></span><br><span class="line">            <span class="comment">// 从 localhost:3000/noaddress.html 跳到 localhost:3000/api/user</span></span><br><span class="line">            <span class="comment">// 解析出form表格中的input，例如&#123;username: '15073183433',password: 'haohua'&#125;</span></span><br><span class="line">            <span class="keyword">let</span> noAddressData = <span class="string">""</span> <span class="comment">//存放非地址栏的数据</span></span><br><span class="line">            req.on(<span class="string">"data"</span>, chunk =&gt; &#123; <span class="comment">//chunk代表抓取的一片数据，data事件内部会频繁的触发</span></span><br><span class="line">                noAddressData += chunk</span><br><span class="line">            &#125;)</span><br><span class="line">            req.on(<span class="string">"end"</span>, () =&gt; &#123; <span class="comment">//数据已经全部接受完毕</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"非地址栏的数据："</span>, querystring.parse(noAddressData))</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//处理静态资源 /index.html</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> path = req.url === <span class="string">"/"</span> ? <span class="string">"/index.html"</span> : req.url;</span><br><span class="line">                <span class="keyword">let</span> html = fs.readFileSync(<span class="string">"./www"</span> + path)</span><br><span class="line">                <span class="comment">//直接将html结果返回给浏览器</span></span><br><span class="line">                res.write(html)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="keyword">let</span> html = fs.readFileSync(<span class="string">"./www/nopage.html"</span>)</span><br><span class="line">                res.write(html)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    res.end()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听服务器</span></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-自定义模块"><a href="#2-自定义模块" class="headerlink" title="2.自定义模块"></a>2.自定义模块</h3><p>其实就是把一些方法和逻辑单独拿出来，放在一个文件里，需要的时候就引入并调用</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js中</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"123"</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"这是构造函数"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    show() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"这是构造函数的方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分开写</span></span><br><span class="line">exports.a = a</span><br><span class="line">exports.b = b</span><br><span class="line">exports.c = c</span><br><span class="line">exports.Person = Person</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并写</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    a,</span><br><span class="line">    b,</span><br><span class="line">    c,</span><br><span class="line">    Person</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// test.js中调用</span></span><br><span class="line"><span class="keyword">let</span> mod = <span class="built_in">require</span>(<span class="string">"./mod/a"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = mod.a <span class="comment">//a=10</span></span><br><span class="line"><span class="keyword">let</span> b = mod.b <span class="comment">//b=123</span></span><br><span class="line"><span class="keyword">let</span> c = mod.c(<span class="number">123</span>) <span class="comment">//直接调用c函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Person1 = <span class="keyword">new</span> mod.Person <span class="comment">//打印了constructor里的内容</span></span><br><span class="line">Person1.show()</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-第三方模块"><a href="#3-第三方模块" class="headerlink" title="3.第三方模块"></a>3.第三方模块</h3><p><a href="https://www.npmjs.com/" target="_blank">npm</a>上都是第三方模块；<br>关于npm的总结在<a href="" target="_blank">这篇文章</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/01/11/%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/" rel="prev" title="使用JavaScript循序渐进地写出轮播图">
+      <i class="fa fa-chevron-left"></i> 使用JavaScript循序渐进地写出轮播图
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/02/27/2020-2-27-npm/" rel="next" title="npm的使用">
+      npm的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是node-js"><span class="nav-number">1.</span> <span class="nav-text">一、什么是node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装node-js"><span class="nav-number">2.</span> <span class="nav-text">二、安装node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、node环境下运行js代码"><span class="nav-number">3.</span> <span class="nav-text">三、node环境下运行js代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、前端常用的Linux指令"><span class="nav-number">4.</span> <span class="nav-text">四、前端常用的Linux指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、node的模块化"><span class="nav-number">5.</span> <span class="nav-text">五、node的模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-内置模块"><span class="nav-number">5.1.</span> <span class="nav-text">1.内置模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fs模块"><span class="nav-number">5.1.1.</span> <span class="nav-text">fs模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#url模块"><span class="nav-number">5.1.2.</span> <span class="nav-text">url模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#querystring模块"><span class="nav-number">5.1.3.</span> <span class="nav-text">querystring模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自定义模块"><span class="nav-number">5.2.</span> <span class="nav-text">2.自定义模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-第三方模块"><span class="nav-number">5.3.</span> <span class="nav-text">3.第三方模块</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">123k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:43</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

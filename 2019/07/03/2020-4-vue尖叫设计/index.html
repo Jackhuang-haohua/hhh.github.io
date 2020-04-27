@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="基本上页面都做了，地址 http:&#x2F;&#x2F;47.104.70.82&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VUE项目-商城类WebApp">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/03/2020-4-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="基本上页面都做了，地址 http:&#x2F;&#x2F;47.104.70.82&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/26/J2xWsH.jpg">
+<meta property="article:published_time" content="2019-07-03T14:30:54.000Z">
+<meta property="article:modified_time" content="2020-04-26T16:15:43.332Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/26/J2xWsH.jpg">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/03/2020-4-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>VUE项目-商城类WebApp | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/03/2020-4-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VUE项目-商城类WebApp
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-03 22:30:54" itemprop="dateCreated datePublished" datetime="2019-07-03T22:30:54+08:00">2019-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-27 00:15:43" itemprop="dateModified" datetime="2020-04-27T00:15:43+08:00">2020-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">基本上页面都做了，地址 http://47.104.70.82/</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><p>一个商城类移动端Web，地址 <a href="http://47.104.70.82/" target="_blank" rel="noopener">http://47.104.70.82/</a><br><img src="https://s1.ax1x.com/2020/04/26/J2xWsH.jpg" alt="J2xWsH.jpg"><br>这篇文章主要是想把用到的技术、大概步骤总结一下，<br>主要用到：</p>
+<ul>
+<li>vue-cli及相关配置</li>
+<li>vue-router</li>
+<li>自定义组件</li>
+<li>自定义指令</li>
+<li>vuex</li>
+<li>node接口</li>
+<li>element-ui</li>
+</ul>
+<p>目前发现的bug：</p>
+<ul>
+<li>在快速滑动页面时，底部导航栏出现抖动：这个应该要优化滑动，better-scroll，以及导航栏禁止滑动</li>
+<li>加入购物车发现商品不对：其实是接口的问题…尖叫设计同一个商品不同规格，就算作是两个商品，但是这个不同规格的接口实在没找到，于是就没按规格分开商品</li>
+</ul>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h2><p>跟上一篇的步骤一样</p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>yarn add 系列，<br>本项目用到的有：<code>axios</code>,<code>element-ui</code>,<code>swiper</code>,<code>nprogress</code>,<code>vue-router</code>,<code>vuex</code>,<code>vuex-persistedstate</code>,<code>bable</code>,<code>eslint</code>,<code>sass</code></p>
+<h2 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h2><p>一个是尖叫设计的接口，一个是自己写的接口(已经部署到阿里云服务器)，<br>vue.config.js里：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">  open: true, &#x2F;&#x2F; 默认开启浏览器</span><br><span class="line">  port: 8000, &#x2F;&#x2F; 更改默认端口号为8000</span><br><span class="line">  &#x2F;&#x2F; 代理配置</span><br><span class="line">  proxy: &#123;</span><br><span class="line">    &#39;&#x2F;design&#39;: &#123;</span><br><span class="line">      target: &#39;https:&#x2F;&#x2F;m.wowdsgn.com&#39;,</span><br><span class="line">      changeOrigin: true,</span><br><span class="line">      pathRewrite: &#123;</span><br><span class="line">        &#39;^&#x2F;design&#39;: &#39;https:&#x2F;&#x2F;m.wowdsgn.com&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#39;&#x2F;node&#39;: &#123;</span><br><span class="line">      target: &#39;http:&#x2F;&#x2F;localhost:3000&#39;,</span><br><span class="line">      changeOrigin: true,</span><br><span class="line">      pathRewrite: &#123;</span><br><span class="line">        &#39;^&#x2F;node&#39;: &#39;http:&#x2F;&#x2F;localhost:3000&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>src/router/index.js里，<br>配置路由：重定向、默认路由、404页面、webpackChunkName打包<br>进度条动画：noprogress<br>路由守卫：点击购物车、消息、个人中心需要验证token</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="built_in">Error</span> <span class="keyword">from</span> <span class="string">'./../views/404/Error.vue'</span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [&#123;</span><br><span class="line">    path: <span class="string">'/home'</span>,</span><br><span class="line">    name: <span class="string">'home'</span>,</span><br><span class="line">    component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(</span><br><span class="line">      <span class="comment">/* webpackChunkName:'home' */</span></span><br><span class="line">      <span class="string">'@/views/Home'</span>),</span><br><span class="line">    children:</span><br><span class="line">    ......</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载动画</span></span><br><span class="line"><span class="keyword">import</span> NProgress <span class="keyword">from</span> <span class="string">'nprogress'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'nprogress/nprogress.css'</span></span><br><span class="line">NProgress.configure(&#123;     </span><br><span class="line">  easing: <span class="string">'ease'</span>,  <span class="comment">// 动画方式    </span></span><br><span class="line">  speed: <span class="number">300</span>,  <span class="comment">// 递增进度条的速度    </span></span><br><span class="line">  showSpinner: <span class="literal">false</span>, <span class="comment">// 是否显示加载ico    </span></span><br><span class="line">  trickleSpeed: <span class="number">200</span>, <span class="comment">// 自动递增间隔    </span></span><br><span class="line">  minimum: <span class="number">0.3</span>, <span class="comment">// 初始化时的最小百分比</span></span><br><span class="line">  <span class="comment">// template: "&lt;div class='123'&gt;123&lt;/div&gt;",</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断每次进入/mine、/message的时候，是否有token令牌</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  NProgress.start();</span><br><span class="line">  <span class="keyword">if</span> (to.path === <span class="string">"/mine"</span> || to.path === <span class="string">"/message"</span>|| to.path === <span class="string">"/shop"</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (localStorage.getItem(<span class="string">"token"</span>)) &#123; <span class="comment">//说明用户已经登录了</span></span><br><span class="line">      next()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      next(<span class="string">"/login"</span>) <span class="comment">//如果用户没有登录直接跳转到登录界面进行用户登录</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回到顶部</span></span><br><span class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  NProgress.done()</span><br><span class="line">  <span class="keyword">let</span> bodySrcollTop = <span class="built_in">document</span>.body.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (bodySrcollTop !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.scrollTop = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> docSrcollTop = <span class="built_in">document</span>.documentElement.scrollTop</span><br><span class="line">  <span class="keyword">if</span> (docSrcollTop !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">document</span>.documentElement.scrollTop = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h1><p>封装了三个指令：<br>src/utils/directives.js:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Swiper <span class="keyword">from</span> <span class="string">'swiper'</span></span><br><span class="line">Vue.directive(<span class="string">'swiper'</span>, &#123;</span><br><span class="line">  inserted(el, binding, vnode) &#123;</span><br><span class="line">    <span class="comment">// 代表最后一个元素插入完毕了，再进进行一次实例化操作就可以了</span></span><br><span class="line">    <span class="keyword">const</span> free = binding.value.free ? binding.value.free : <span class="string">''</span></span><br><span class="line">    <span class="keyword">const</span> autoplay = binding.value.autoplay ? binding.value.autoplay : <span class="string">''</span></span><br><span class="line">    <span class="keyword">if</span> (binding.value.current === binding.value.length - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">new</span> Swiper(<span class="string">'.'</span> + binding.value.swipe, &#123;</span><br><span class="line">        ...free,</span><br><span class="line">        autoplay,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 封装的自定义指令v-title，下拉到一定位置元素消失</span></span><br><span class="line">Vue.directive(<span class="string">'title'</span>, &#123;</span><br><span class="line">  <span class="comment">// 插入到dom之后的钩子函数</span></span><br><span class="line">  inserted(el, binding) &#123;</span><br><span class="line">    el.style.display = <span class="string">'none'</span></span><br><span class="line">    <span class="built_in">window</span>.onscroll = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ((<span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop) &gt; binding.value) &#123;</span><br><span class="line">        el.style.display = <span class="string">'block'</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        el.style.display = <span class="string">'none'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 指令的解绑的钩子函数</span></span><br><span class="line">  unbind() &#123;</span><br><span class="line">    <span class="built_in">window</span>.onscroll = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回到首页的指令</span></span><br><span class="line">Vue.directive(<span class="string">'home'</span>, &#123;</span><br><span class="line">  inserted(el, binding, vnode) &#123;</span><br><span class="line">    el.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      binding.value.this._self.$router.push(<span class="string">"/home/tabone"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h1><p>公共组件：顶部/底部导航栏，swiper轮播图<br>局部组件：列表页，标题等等<br>公共的放在src/components，局部的放在相关文件夹(其实两个没什么区别)<br>使用的时候需要：引入组件=&gt;注册组件=&gt;调用组件；<br>传参用的props，调用时v-bind传参，自定义组件内部<code>props:[&quot;xxx&quot;]</code>接收；<br>代码太多就不贴了。</p>
+<h1 id="详情页"><a href="#详情页" class="headerlink" title="详情页"></a>详情页</h1><h2 id="渲染页面"><a href="#渲染页面" class="headerlink" title="渲染页面"></a>渲染页面</h2><p>通过列表页router-link进去详情页，在params里把商品信息都传过去；<br>详情页通过params的信息，请求数据并渲染；<br>有一个问题是，商品数据都是params带过来的，在详情页直接刷新这些数据是没有的，所以要把params里的数据存起来，这里是存在vuex里，<br>具体逻辑为：拿到列表页传过来数据=&gt;发起请求，得到数据后存到vuex=&gt;取出vuex的数据=&gt;渲染；</p>
+<h2 id="详情页中的列表页"><a href="#详情页中的列表页" class="headerlink" title="详情页中的列表页"></a>详情页中的列表页</h2><p>详情页里也是有列表页的，所以有一个逻辑是详情页跳到详情页，路由不变，页面内容改变；</p>
+<ul>
+<li>详情页中的列表页=&gt;详情页</li>
+<li>其他组件的列表页=&gt;详情页<br>在调用列表页时，上面两种情况传不同的参数，列表页组件里props接收时要判断一下是哪种参数，处理成相同类型，然后要用<code>router.afterEach</code>回到顶部</li>
+</ul>
+<h2 id="跳转购物车"><a href="#跳转购物车" class="headerlink" title="跳转购物车"></a>跳转购物车</h2><p>详情页的购物车是一个弹出框和表单，主要用element-ui完成；<br>在选号商品参数，点击确认购买，即等于提交表单，需要把商品ID存到vuex</p>
+<h1 id="购物车"><a href="#购物车" class="headerlink" title="购物车"></a>购物车</h1><p>主要通过element-ui的多选框完成，这个ui框架的多选框提供一个checkouted参数，即已选中的项目，通过这个参数来计算总价</p>
+<h1 id="消息和我的"><a href="#消息和我的" class="headerlink" title="消息和我的"></a>消息和我的</h1><p>做成了静态的，因为木有接口</p>
+<h1 id="登录页面"><a href="#登录页面" class="headerlink" title="登录页面"></a>登录页面</h1><p>这里接口是自己写的，接口放在了同一个服务器；<br>一个验证码接口：返回验证码图片，检验是否正确；<br>一个注册接口：注册完成后数据存到线上mongo里；<br>一个登录接口：返回token和一些用户信息(用户信息暂时只有一个名字)；<br>后面在总结一个node接口文章吧。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/05/30/2020-3-vue%E5%8D%96%E5%BA%A7/" rel="prev" title="VUE项目-电影类WebApp">
+      <i class="fa fa-chevron-left"></i> VUE项目-电影类WebApp
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/22/2020-4-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/" rel="next" title="项目部署到阿里云">
+      项目部署到阿里云 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目介绍"><span class="nav-number">1.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-cli"><span class="nav-number">2.1.</span> <span class="nav-text">vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">2.2.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置代理"><span class="nav-number">2.3.</span> <span class="nav-text">配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由"><span class="nav-number">2.4.</span> <span class="nav-text">路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义指令"><span class="nav-number">3.</span> <span class="nav-text">自定义指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义组件"><span class="nav-number">4.</span> <span class="nav-text">自定义组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详情页"><span class="nav-number">5.</span> <span class="nav-text">详情页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染页面"><span class="nav-number">5.1.</span> <span class="nav-text">渲染页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详情页中的列表页"><span class="nav-number">5.2.</span> <span class="nav-text">详情页中的列表页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳转购物车"><span class="nav-number">5.3.</span> <span class="nav-text">跳转购物车</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#购物车"><span class="nav-number">6.</span> <span class="nav-text">购物车</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息和我的"><span class="nav-number">7.</span> <span class="nav-text">消息和我的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录页面"><span class="nav-number">8.</span> <span class="nav-text">登录页面</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">123k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:43</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

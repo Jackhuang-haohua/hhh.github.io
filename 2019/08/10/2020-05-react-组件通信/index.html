@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="react组件间的通信：context、props、事件、ref、redux。没想到还是vue那几位……">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react组件通信">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="react组件间的通信：context、props、事件、ref、redux。没想到还是vue那几位……">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-10T11:40:45.000Z">
+<meta property="article:modified_time" content="2020-05-04T15:48:31.168Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>react组件通信 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react组件通信
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-10 19:40:45" itemprop="dateCreated datePublished" datetime="2019-08-10T19:40:45+08:00">2019-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-04 23:48:31" itemprop="dateModified" datetime="2020-05-04T23:48:31+08:00">2020-05-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">react组件间的通信：context、props、事件、ref、redux。没想到还是vue那几位……</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>　　<strong>上次总结vue的通信方法，看了好几篇文章，自己也敲了几晚案例，是挺全的，然鹅项目中就没用到过全部……所以这次就总结常用的几个。</strong></p>
+<h2 id="一、props父传子-事件子传父"><a href="#一、props父传子-事件子传父" class="headerlink" title="一、props父传子/事件子传父"></a>一、props父传子/事件子传父</h2><p>　敲了个计数框的小案例。<br>　在下面的案例中，父组件的数据由父组件自身的方法来管理，并且在父组件中展示，调用子组件时把数据和方法传过去；<br>　子组件调用父组件的方法，在返回过去参数；<br><strong>index.js中：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">'./counter'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.state=&#123;</span><br><span class="line">            list:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">            sum:<span class="number">0</span></span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    componentDidMount()&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            sum:<span class="keyword">this</span>.state.list.reduce(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a+b)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    add=<span class="function">(<span class="params">num,e</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            sum:<span class="keyword">this</span>.state.sum+num</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;list,sum&#125;=<span class="keyword">this</span>.state</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    list.map(<span class="function">(<span class="params">item,index</span>)=&gt;</span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Counter</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> <span class="attr">n</span>=<span class="string">&#123;item&#125;</span> <span class="attr">add</span>=<span class="string">&#123;this.add&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">                    &#125;)</span></span><br><span class="line"><span class="xml">                &#125;</span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;sum&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>counter.js中：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">counter</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">        <span class="keyword">this</span>.state=&#123;</span><br><span class="line">            n:props.n,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// num是+1或-1</span></span><br><span class="line">    handle=<span class="function">(<span class="params">num,e</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.state.n&gt;<span class="number">0</span>||num&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                n:<span class="keyword">this</span>.state.n*<span class="number">1</span>+num</span><br><span class="line">            &#125;,()=&gt;&#123;</span><br><span class="line">                <span class="keyword">this</span>.props.add(num)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    handleChange = <span class="function">(<span class="params">e</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            n:e.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// e.target.value是input更新后数据，this.state.n是更新前数据</span></span><br><span class="line">        <span class="keyword">this</span>.props.add(e.target.value*<span class="number">1</span>-<span class="keyword">this</span>.state.n)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    &lt;li&gt;</span><br><span class="line">                        &lt;button onClick=&#123;<span class="keyword">this</span>.handle.bind(<span class="keyword">this</span>,<span class="number">-1</span>)&#125;&gt;+<span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">                        &lt;input type=<span class="string">"num"</span> value=&#123;<span class="keyword">this</span>.state.n&#125; onChange=&#123;<span class="keyword">this</span>.handleChange&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span></span><br><span class="line">                        &lt;button onClick=&#123;<span class="keyword">this</span>.handle.bind(<span class="keyword">this</span>,<span class="number">1</span>)&#125;&gt;+<span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">                    &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">                &#125;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="二、ref"><a href="#二、ref" class="headerlink" title="二、ref"></a>二、ref</h2><p>可以理解为兄弟间通信；<br>如下代码，通过ref标记List -&gt; 取得List里的add方法 -&gt; 把方法传给Input</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    add=<span class="function">(<span class="params">name,age</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.list.add(name,age)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;Input add=&#123;<span class="keyword">this</span>.add&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">Input</span>&gt;</span></span>              </span><br><span class="line">                &lt;List ref=&#123;el=&gt;<span class="keyword">this</span>.list=el&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">List</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>实际开发中，一般会用<code>createRef</code>：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createRef &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">InputContext</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.input=createRef()</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input ref=&#123;<span class="keyword">this</span>.input&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="三、context"><a href="#三、context" class="headerlink" title="三、context"></a>三、context</h2><p>通过上下文传值，其实redux的传参就是这个原理。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.引入createContext</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.通过createContext函数，AContext变成了一个小仓库，拥有两个属性</span></span><br><span class="line"><span class="keyword">let</span> AContext=createContext()</span><br><span class="line"><span class="keyword">const</span>&#123;</span><br><span class="line">    Provider,</span><br><span class="line">    Consumer</span><br><span class="line">&#125;=AContext</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AProvider</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="comment">// 3.父组件定义数据</span></span><br><span class="line">        <span class="keyword">this</span>.state=&#123;</span><br><span class="line">            num:<span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    add=<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            num:<span class="keyword">this</span>.state.num+<span class="number">1</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    del=<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            num:<span class="keyword">this</span>.state.num<span class="number">-1</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// 4.父组件使用Provider，就变成了提供者，通过value往仓库里输送数组</span></span><br><span class="line">            &lt;Provider value=&#123;&#123;</span><br><span class="line">                num:<span class="keyword">this</span>.state.num,</span><br><span class="line">                add:<span class="keyword">this</span>.add,</span><br><span class="line">                del:<span class="keyword">this</span>.del</span><br><span class="line">            &#125;&#125;&gt;</span><br><span class="line">                &#123;<span class="comment">/* 5.父组件的所有子组件，都可以拿到仓库AContext的东西 */</span>&#125;</span><br><span class="line">                &#123;<span class="keyword">this</span>.props.children&#125;</span><br><span class="line">            &lt;<span class="regexp">/Provider&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 6.Acustom是其中一个子组件</span></span><br><span class="line"><span class="regexp">class Acustom extends Component&#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 7.拿到仓库AContext</span></span><br><span class="line"><span class="regexp">    static contextType=AContext</span></span><br><span class="line"><span class="regexp">    render()&#123;</span></span><br><span class="line"><span class="regexp">        return(</span></span><br><span class="line"><span class="regexp">            &lt;div&gt;</span></span><br><span class="line"><span class="regexp">                &#123;/</span>* <span class="number">8.</span>使用仓库 *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">                &#123;this.context.num&#125;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Btn</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="comment">// 9.通过Consumer拿到仓库AContext</span></span><br><span class="line">      &lt;Consumer&gt;</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="comment">// 10.Consumer里面必须是一个函数，函数的参数就可以获取到Provider的值了</span></span><br><span class="line">          (&#123;add,del&#125;)=&gt;&#123;</span><br><span class="line">            <span class="keyword">const</span> handle = props.type === <span class="string">"add"</span> ? add : del</span><br><span class="line">            <span class="comment">// props.children是调用组件时里面内容&lt;Btn&gt;内容&lt;/Btn&gt;</span></span><br><span class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handle&#125;</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &lt;<span class="regexp">/Consumer&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">class App extends Component&#123;</span></span><br><span class="line"><span class="regexp">    render()&#123;</span></span><br><span class="line"><span class="regexp">        return(</span></span><br><span class="line"><span class="regexp">            /</span><span class="regexp">/ 9.父组件包着子组件</span></span><br><span class="line"><span class="regexp">            &lt;AProvider&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Btn type="del"&gt;-&lt;/</span>Btn&gt;</span><br><span class="line">                &lt;Acustom&gt;<span class="xml"><span class="tag">&lt;/<span class="name">Acustom</span>&gt;</span></span></span><br><span class="line">                &lt;Btn type=<span class="string">"add"</span>&gt;+<span class="xml"><span class="tag">&lt;/<span class="name">Btn</span>&gt;</span></span></span><br><span class="line">            &lt;<span class="regexp">/AProvider&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/" rel="prev" title="react基础梳理">
+      <i class="fa fa-chevron-left"></i> react基础梳理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/08/20/2020-05-react-Router/" rel="next" title="react生命周期">
+      react生命周期 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、props父传子-事件子传父"><span class="nav-number">1.</span> <span class="nav-text">一、props父传子&#x2F;事件子传父</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、ref"><span class="nav-number">2.</span> <span class="nav-text">二、ref</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、context"><span class="nav-number">3.</span> <span class="nav-text">三、context</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">164k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

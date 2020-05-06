@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="阿里云 nginx mongo node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目部署到阿里云">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="阿里云 nginx mongo node">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/27/JRGAjU.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/27/JRYeYR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/27/JfujFP.png">
+<meta property="article:published_time" content="2019-07-22T06:55:23.000Z">
+<meta property="article:modified_time" content="2020-04-27T13:41:52.227Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/27/JRGAjU.png">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>项目部署到阿里云 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          项目部署到阿里云
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-22 14:55:23" itemprop="dateCreated datePublished" datetime="2019-07-22T14:55:23+08:00">2019-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-27 21:41:52" itemprop="dateModified" datetime="2020-04-27T21:41:52+08:00">2020-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">阿里云 nginx mongo node</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、配置阿里云服务器"><a href="#一、配置阿里云服务器" class="headerlink" title="一、配置阿里云服务器"></a>一、配置阿里云服务器</h2><h3 id="1、买服务器"><a href="#1、买服务器" class="headerlink" title="1、买服务器"></a>1、买服务器</h3><p>参数：Centos(linux系统) 64位 7.6</p>
+<h3 id="2、更改实例密码"><a href="#2、更改实例密码" class="headerlink" title="2、更改实例密码"></a>2、更改实例密码</h3><ul>
+<li>①登录<a href="https://www.aliyun.com/?spm=5176.12901015.0.i12901015.7b7b525cFZq6b9" target="_blank">阿里云</a></li>
+<li>②进入控制台=&gt;云服务器ESC=&gt;点击下面的实例ID=&gt;更多=&gt;重置实例密码=&gt;重启实例</li>
+</ul>
+<h3 id="3、配置安全组"><a href="#3、配置安全组" class="headerlink" title="3、配置安全组"></a>3、配置安全组</h3><ul>
+<li>①控制台=&gt;云服务器ESC=&gt;点击下面的实例ID=&gt;本实例安全组=&gt;配置规则=&gt;添加安全组规则</li>
+<li>②端口范围 1/60000 ；表示允许创建的端口范围，比如mongo的27017</li>
+<li>③授权对象 0.0.0.0/0 ；表示允许所有IP访问</li>
+</ul>
+<h3 id="4、连接服务器"><a href="#4、连接服务器" class="headerlink" title="4、连接服务器"></a>4、连接服务器</h3><p>方法一：进入控制台=&gt;云服务ESC=&gt;点击下面的实例ID=&gt;远程连接<br>方法二：</p>
+<ul>
+<li>①cmd 或者 git</li>
+<li>②<code>ssh root@47.104.70.xx</code></li>
+<li>③输入密码，回车；提示Welcome表示成功</li>
+</ul>
+<h2 id="二、安装node"><a href="#二、安装node" class="headerlink" title="二、安装node"></a>二、安装node</h2><ul>
+<li>①连接</li>
+<li>②cd /</li>
+<li>③<code>sudo yum install nodejs</code> =&gt; <code>node -v</code> 查看版本</li>
+<li>④安装稳定版：<code>npm install -g n</code> =&gt; <code>n stable</code></li>
+<li>⑤重新打开git</li>
+</ul>
+<h2 id="三、安装nginx"><a href="#三、安装nginx" class="headerlink" title="三、安装nginx"></a>三、安装nginx</h2><h3 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h3><p>参考<a href="https://www.linuxidc.com/Linux/2016-09/134907.htm" target="_blank">这篇博客</a></p>
+<ul>
+<li>①<code>yum install gcc-c++</code></li>
+<li>②<code>yum install -y pcre pcre-devel</code></li>
+<li>③<code>yum install -y zlib zlib-devel</code></li>
+<li>④<code>yum install -y openssl openssl-devel</code></li>
+</ul>
+<h3 id="安装到服务器"><a href="#安装到服务器" class="headerlink" title="安装到服务器"></a>安装到服务器</h3><ul>
+<li>①<a href="https://nginx.org/en/download.html" target="_blank">下载nginx</a>，我下载的是“nginx-1.10.3.tar.gz”</li>
+<li>②windows需要FlashFXP连接服务器 =&gt; 打开FlashFXP.exe =&gt; 快速连接<br><img src="https://s1.ax1x.com/2020/04/27/JRGAjU.png" alt="JRGAjU.png"></li>
+<li>③右边窗口 =&gt; 进入根目录 =&gt; 新建文件夹software =&gt; 传输“nginx-1.10.3.tar.gz” (左边窗口是本地目录，右边窗口是服务器目录)</li>
+<li>④黑窗口 =&gt; cd software =&gt; <code>cd software tar -zxvf nginx-1.10.3.tar.gz</code>，此时software里多了个nginx-1.10.3文件夹，表示解压成功</li>
+<li>⑤<code>cd nginx-1.10.3</code></li>
+<li>⑥<code>./ configure</code> 执行默认配置</li>
+<li>⑦<code>make</code> =&gt; <code>make install</code></li>
+<li>⑧<code>whereis nginx</code>，显示“nginx：/usr/local/nginx”，表示安装成功</li>
+</ul>
+<h3 id="启动-停止-重启"><a href="#启动-停止-重启" class="headerlink" title="启动/停止/重启"></a>启动/停止/重启</h3><ul>
+<li>①<code>cd /usr/local/nginx/sbin</code></li>
+<li>②<code>./nginx</code>启动</li>
+<li>③<code>./nginx -s stop</code>停止</li>
+<li>④<code>./nginx -s reload</code>重启 (每次nginx配置文件更改后都需要重启)</li>
+<li>⑤此时浏览器访问”47.104.70.xx”，就是/usr/local/nginx/html 下的内容</li>
+<li>注意，每次发现服务器连不上了，第一步都要试试重启nginx</li>
+</ul>
+<h3 id="自动启动nginx"><a href="#自动启动nginx" class="headerlink" title="自动启动nginx"></a>自动启动nginx</h3><ul>
+<li>①<code>cd /usr/local/nginx/sbin</code></li>
+<li>②<code>vi /etc/rc.local</code>(进入文件)</li>
+<li>③编辑这个文件：i(insert插入) =&gt; 键盘下键 =&gt; 最后一行增加”/usr/local/nginx/sbin/nginx” =&gt; Esc =&gt; :wq!(保存并退出) =&gt; <code>cat /etc/rc.local</code>(查看文件)</li>
+</ul>
+<h2 id="三、安装MongoDB"><a href="#三、安装MongoDB" class="headerlink" title="三、安装MongoDB"></a>三、安装MongoDB</h2><p><a href="https://www.cnblogs.com/web424/p/6928992.html" target="_blank">参考这篇博客</a> </p>
+<h3 id="添加源文件"><a href="#添加源文件" class="headerlink" title="添加源文件"></a>添加源文件</h3><ul>
+<li>①<code>cd /</code> =&gt; <code>vim /etc/yum.repos.d/mongodb-org-3.4.repo</code>(创建源文件)</li>
+<li>②源文件中添加<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-3.4]  </span><br><span class="line">name&#x3D;MongoDB Repository  </span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;repo.mongodb.org&#x2F;yum&#x2F;redhat&#x2F;$releasever&#x2F;mongodb-org&#x2F;3.4&#x2F;x86_64&#x2F;  </span><br><span class="line">gpgcheck&#x3D;1  </span><br><span class="line">enabled&#x3D;1  </span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;www.mongodb.org&#x2F;static&#x2F;pgp&#x2F;server-3.4.asc&quot;</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h3 id="安装mongo"><a href="#安装mongo" class="headerlink" title="安装mongo"></a>安装mongo</h3><ul>
+<li>①<code>yum -y install mongodb-org</code></li>
+<li>②<code>whereis mongod</code>查看是否安装</li>
+<li>启动mongodb ：<code>systemctl start mongod.service</code></li>
+<li>停止mongodb ：<code>systemctl stop mongod.service</code></li>
+<li>查看mongodb的状态：<code>systemctl status mongod.service</code></li>
+</ul>
+<h3 id="防火墙与开机自启动"><a href="#防火墙与开机自启动" class="headerlink" title="防火墙与开机自启动"></a>防火墙与开机自启动</h3><ul>
+<li>停止firewall：<code>systemctl stop firewalld.service</code> </li>
+<li>禁止firewall开机启动：<code>systemctl disable firewalld.service</code> </li>
+<li>设置开机启动mongo：<code>systemctl enable mongod.service</code></li>
+</ul>
+<h3 id="设置mongodb可访问地址："><a href="#设置mongodb可访问地址：" class="headerlink" title="设置mongodb可访问地址："></a>设置mongodb可访问地址：</h3><p>编辑mongod.conf注释bindIp,并重启mongodb；</p>
+<ul>
+<li><code>vim /etc/mongod.conf</code> =&gt; i =&gt; 上下键找到bindIp，在前面添加”#”表示注释 =&gt; esc退出 =&gt; <code>:wq!</code>保存并退出 =&gt; <code>cat /etc/mongod.conf</code>查看文件</li>
+<li>重启mongodb：<code>systemctl restart mongod.service</code></li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/04/27/JRYeYR.png" alt="JRYeYR.png"></p>
+<h3 id="访问远程mongo"><a href="#访问远程mongo" class="headerlink" title="访问远程mongo"></a>访问远程mongo</h3><p>黑窗口<code>mongo 47.104.70.xx:27017</code></p>
+<h2 id="四、将node接口部署到线上"><a href="#四、将node接口部署到线上" class="headerlink" title="四、将node接口部署到线上"></a>四、将node接口部署到线上</h2><h3 id="测试接口"><a href="#测试接口" class="headerlink" title="测试接口"></a>测试接口</h3><p>之前用node+express写过一个接口，现在先启动<code>npm start</code>，连接mongo<code>mongo</code>，postman测试一下能不能用；</p>
+<h3 id="安装到线上"><a href="#安装到线上" class="headerlink" title="安装到线上"></a>安装到线上</h3><ul>
+<li>FlashFXP.exe =&gt; 快速连接(之前连接过的话有历史记录)</li>
+<li>③右边窗口 =&gt; 进入根目录 =&gt; 新建文件夹node-pro =&gt; 把下面的文件传输到node-pro(注意node_modules不用传输)<br><img src="https://s1.ax1x.com/2020/04/27/JfujFP.png" alt="JfujFP.png"></li>
+<li>安装node_modules:进入node-pro文件夹，<code>npm i</code></li>
+<li>安装nodemon，<code>npm i nodemon -g</code></li>
+<li>启动：<code>npm start</code><br>此时”http:// 47.104.70.xx:3000”就能访问到接口了，但是黑窗口一关闭就无法访问，所有要让接口自动挂起</li>
+</ul>
+<h3 id="自动挂起服务"><a href="#自动挂起服务" class="headerlink" title="自动挂起服务"></a>自动挂起服务</h3><p>使用pm2挂起,</p>
+<ul>
+<li>进入node-pro文件夹</li>
+<li>安装，<code>npm i pm2 -g</code></li>
+<li>查看pm2列表，<code>pm2 list</code></li>
+<li>启动服务ID，`pm2 start ./bin/www –name “接口名称”</li>
+<li>停止服务ID，<code>pm2 stop 0</code></li>
+<li>删除服务ID，<code>pm2 delete 0</code> </li>
+<li>重启服务ID，<code>pm2 restart</code></li>
+</ul>
+<h3 id="测试线上接口"><a href="#测试线上接口" class="headerlink" title="测试线上接口"></a>测试线上接口</h3><p>现在随时可以访问node-pro里面的接口了；我们还可以直接把数据放到线上数据库里：</p>
+<ul>
+<li><code>mongo 47.104.70.xx:27017</code>连接线上数据库</li>
+<li>newsapp库下的user表，包含用户信息：<code>show dbs</code> =&gt; <code>use newsapp</code> =&gt; <code>db.getCollectionNames</code> =&gt; <code>db.user.find()</code> =&gt; 注册之后user里面就有用户信息了</li>
+<li>现在我们创建home表，导入文章信息：<code>db.createCollection(&quot;home&quot;)</code> =&gt; <code>db.home.insert([数据])</code> =&gt; 提示“BulkWriteResult({插入信息})” =&gt; <code>db.home.find()</code>查看home表</li>
+</ul>
+<h2 id="五、项目上线"><a href="#五、项目上线" class="headerlink" title="五、项目上线"></a>五、项目上线</h2><ul>
+<li>FlashFXP.exe =&gt; 把打包好的项目文件传到”/usr/local/nginx/html”</li>
+</ul>
+<h3 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h3><p>①vue项目中是在vue.config.js里配置代理，但是上线后下面的配置就没用了：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    open: <span class="literal">true</span>, <span class="comment">// 默认开启浏览器</span></span><br><span class="line">    port: <span class="number">8000</span>, <span class="comment">// 更改默认端口号为8000</span></span><br><span class="line">    <span class="comment">// 代理配置</span></span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">'/design'</span>: &#123;</span><br><span class="line">        target: <span class="string">'https://m.wowdsgn.com'</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          <span class="string">'^/design'</span>: <span class="string">'https://m.wowdsgn.com'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">'/node'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://47.104.70.xx:3000'</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          <span class="string">'^/node'</span>: <span class="string">'http://47.104.70.xx:3000'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>②现在我们要在线上配置代理</p>
+<ul>
+<li>FlashFXP.exe =&gt; /usr/local/nginx/conf/nginx.conf =&gt; 传输到本地</li>
+<li>nginx.conf =&gt; server =&gt; <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    ………………</span><br><span class="line">    location &#x2F;design&#x2F;v2 &#123;</span><br><span class="line">        proxy_pass https:&#x2F;&#x2F;m.wowdsgn.com&#x2F;v2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location &#x2F;design&#x2F;pages &#123;</span><br><span class="line">        proxy_pass https:&#x2F;&#x2F;m.wowdsgn.com&#x2F;pages;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+=&gt; 重启- FlashFXP =&gt; <code>cd /usr/local/nginx/sbin</code> =&gt; <code>./nginx -s reload</code></li>
+<li>/design/v2 就会变成 https:// m.wowdsgn.com/v2，注意一定要留一个标识符(后面的v2)<br>项目里这么请求：<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">axios</span><br><span class="line">    .get(&quot;&#x2F;design&#x2F;v2&#x2F;page?pageId&#x3D;1&amp;tabId&#x3D;10006&amp;currentPage&#x3D;1&amp;pageSize&#x3D;8&quot;)</span><br><span class="line">    .then(res &#x3D;&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/" rel="prev" title="react小案例1">
+      <i class="fa fa-chevron-left"></i> react小案例1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/" rel="next" title="react基础梳理">
+      react基础梳理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、配置阿里云服务器"><span class="nav-number">1.</span> <span class="nav-text">一、配置阿里云服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、买服务器"><span class="nav-number">1.1.</span> <span class="nav-text">1、买服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、更改实例密码"><span class="nav-number">1.2.</span> <span class="nav-text">2、更改实例密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、配置安全组"><span class="nav-number">1.3.</span> <span class="nav-text">3、配置安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、连接服务器"><span class="nav-number">1.4.</span> <span class="nav-text">4、连接服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装node"><span class="nav-number">2.</span> <span class="nav-text">二、安装node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装nginx"><span class="nav-number">3.</span> <span class="nav-text">三、安装nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">3.1.</span> <span class="nav-text">安装依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装到服务器"><span class="nav-number">3.2.</span> <span class="nav-text">安装到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-停止-重启"><span class="nav-number">3.3.</span> <span class="nav-text">启动&#x2F;停止&#x2F;重启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动启动nginx"><span class="nav-number">3.4.</span> <span class="nav-text">自动启动nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装MongoDB"><span class="nav-number">4.</span> <span class="nav-text">三、安装MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加源文件"><span class="nav-number">4.1.</span> <span class="nav-text">添加源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装mongo"><span class="nav-number">4.2.</span> <span class="nav-text">安装mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防火墙与开机自启动"><span class="nav-number">4.3.</span> <span class="nav-text">防火墙与开机自启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置mongodb可访问地址："><span class="nav-number">4.4.</span> <span class="nav-text">设置mongodb可访问地址：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问远程mongo"><span class="nav-number">4.5.</span> <span class="nav-text">访问远程mongo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、将node接口部署到线上"><span class="nav-number">5.</span> <span class="nav-text">四、将node接口部署到线上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试接口"><span class="nav-number">5.1.</span> <span class="nav-text">测试接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装到线上"><span class="nav-number">5.2.</span> <span class="nav-text">安装到线上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动挂起服务"><span class="nav-number">5.3.</span> <span class="nav-text">自动挂起服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试线上接口"><span class="nav-number">5.4.</span> <span class="nav-text">测试线上接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、项目上线"><span class="nav-number">6.</span> <span class="nav-text">五、项目上线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置代理"><span class="nav-number">6.1.</span> <span class="nav-text">配置代理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">164k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

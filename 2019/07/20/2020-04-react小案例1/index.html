@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="react+mock数据完成一个todolist：react基础知识，请求类型，指定文字变色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react小案例1">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="react+mock数据完成一个todolist：react基础知识，请求类型，指定文字变色">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/29/JIj0de.png">
+<meta property="article:published_time" content="2019-07-20T04:10:25.000Z">
+<meta property="article:modified_time" content="2020-04-28T17:10:20.718Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/29/JIj0de.png">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>react小案例1 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react小案例1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-20 12:10:25" itemprop="dateCreated datePublished" datetime="2019-07-20T12:10:25+08:00">2019-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-29 01:10:20" itemprop="dateModified" datetime="2020-04-29T01:10:20+08:00">2020-04-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">react+mock数据完成一个todolist：react基础知识，请求类型，指定文字变色</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="每学一个新技术必做的todolist"><a href="#每学一个新技术必做的todolist" class="headerlink" title="每学一个新技术必做的todolist"></a>每学一个新技术必做的todolist</h2><p><img src="https://s1.ax1x.com/2020/04/29/JIj0de.png" alt="JIj0de.png"><br>有以下知识点：</p>
+<ul>
+<li>react受控组件、事件传参、html内容、改变this为react实例</li>
+<li>不同的请求方式：get/post/delete/put/patch</li>
+<li>文本内某个字变色</li>
+</ul>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><p>下面是todolist完整代码</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            list:[], <span class="comment">//初始数据</span></span><br><span class="line">            name:<span class="string">""</span>, <span class="comment">//添加框的name</span></span><br><span class="line">            age:<span class="string">""</span>,  <span class="comment">//添加框的age</span></span><br><span class="line"></span><br><span class="line">            checklist:[], <span class="comment">//查询出来的数据</span></span><br><span class="line">            checkname:<span class="string">""</span>, <span class="comment">//查询框的name</span></span><br><span class="line">            checkage:<span class="string">""</span>, <span class="comment">//查询框的age</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//改变事件函数内部的this (undefined) ==&gt; 当前react组件实例</span></span><br><span class="line">        <span class="keyword">this</span>.handle = <span class="keyword">this</span>.handle.bind(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount()&#123; <span class="comment">//钩子函数内部的this是指向组件</span></span><br><span class="line">        <span class="keyword">this</span>.getData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取初始数据</span></span><br><span class="line">    getData()&#123;</span><br><span class="line">        axios.get(<span class="string">"http://localhost:5000/list"</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.status === <span class="number">200</span>)&#123;</span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;<span class="attr">list</span>:res.data&#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 按下回车时添加数据</span></span><br><span class="line">    handle(e)&#123;</span><br><span class="line">        <span class="keyword">if</span>(e.keyCode === <span class="number">13</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.add()</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加数据</span></span><br><span class="line">    add = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;name,age&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        axios.post(<span class="string">"http://localhost:5000/list"</span>,&#123;</span><br><span class="line">            name,</span><br><span class="line">            age</span><br><span class="line">        &#125;,&#123;</span><br><span class="line">            headers:&#123;</span><br><span class="line">                <span class="string">"content-type"</span>:<span class="string">"application/json"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="comment">//清空状态目的就是让输入框内部的值为空</span></span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;<span class="attr">name</span>:<span class="string">""</span>,<span class="attr">age</span>:<span class="string">""</span>&#125;)</span><br><span class="line">            <span class="comment">// 请求请求mock数据</span></span><br><span class="line">            <span class="keyword">this</span>.getData()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除数据</span></span><br><span class="line">    del=<span class="function">(<span class="params">id,e</span>)=&gt;</span>&#123;</span><br><span class="line">        axios.delete(<span class="string">"http://localhost:5000/list/"</span>+id,&#123;   </span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.getData()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改数据</span></span><br><span class="line">    rewrite=<span class="function">(<span class="params">id,e</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;name,age&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        axios.put(<span class="string">"http://localhost:5000/list/"</span>+id,&#123;</span><br><span class="line">            name,</span><br><span class="line">            age</span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;<span class="attr">name</span>:<span class="string">""</span>,<span class="attr">age</span>:<span class="string">""</span>&#125;)</span><br><span class="line">            <span class="keyword">this</span>.getData()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使input框变为受控组件</span></span><br><span class="line">    input = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            [e.target.id]:e.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询数组</span></span><br><span class="line">    checkhandle=<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;checkname,checkage&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        axios.get(<span class="string">"http://localhost:5000/list?"</span>+<span class="string">"name_like="</span>+checkname+<span class="string">"&amp;age_like="</span>+checkage).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.status === <span class="number">200</span>)&#123;</span><br><span class="line">                <span class="comment">// 指定文本变色</span></span><br><span class="line">                <span class="keyword">var</span> reg1 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span> + checkname + <span class="string">")"</span>, <span class="string">"g"</span>);</span><br><span class="line">                <span class="keyword">var</span> reg2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span> + checkage + <span class="string">")"</span>, <span class="string">"g"</span>);</span><br><span class="line">                res.data.forEach(<span class="function"><span class="params">item</span>=&gt;</span>&#123;</span><br><span class="line">                    item.name = item.name.replace(reg1, <span class="string">"&lt;font color=red&gt;$1&lt;/font&gt;"</span>)</span><br><span class="line">                    item.age = item.age.replace(reg2, <span class="string">"&lt;font color=red&gt;$1&lt;/font&gt;"</span>)</span><br><span class="line">                &#125;)        </span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;<span class="attr">checklist</span>:res.data&#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;list,name,age,checkname,checkage,checklist&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input  placeholder=<span class="string">"名字"</span> id=<span class="string">"name"</span> value=&#123;name&#125; onChange=&#123;<span class="keyword">this</span>.input&#125; onKeyUp=&#123;<span class="keyword">this</span>.handle&#125; type=<span class="string">"text"</span>/&gt;</span><br><span class="line">                &lt;input  placeholder=<span class="string">"年龄"</span> id=<span class="string">"age"</span> value=&#123;age&#125; onChange=&#123;<span class="keyword">this</span>.input&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">                &lt;button onClick=&#123;<span class="keyword">this</span>.add&#125;&gt;添加数据&lt;<span class="regexp">/button&gt;    </span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">                &lt;div&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;input placeholder="名字" id="checkname" value=&#123;checkname&#125; onChange=&#123;this.input&#125; type="text"/</span>&gt;</span><br><span class="line">                    &lt;input placeholder=<span class="string">"年龄"</span> id=<span class="string">"checkage"</span> value=&#123;checkage&#125; onChange=&#123;<span class="keyword">this</span>.input&#125; type=<span class="string">"text"</span>/&gt;</span><br><span class="line">                    &lt;button onClick=&#123;<span class="keyword">this</span>.checkhandle&#125;&gt;点击查询&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">                    &lt;p&gt;在第一行输入信息，点击修改，即可修改对应行&lt;/</span>p&gt;</span><br><span class="line">                    &lt;ul&gt;</span><br><span class="line">                    &#123;</span><br><span class="line">                        checklist.map(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">                            <span class="keyword">return</span> (</span><br><span class="line">                                &lt;li key=&#123;item.id&#125; &gt;</span><br><span class="line">                                    &lt;span  dangerouslySetInnerHTML=&#123;&#123; <span class="attr">__html</span>: item.name &#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span> </span><br><span class="line">                                    : </span><br><span class="line">                                    &lt;span  dangerouslySetInnerHTML=&#123;&#123; <span class="attr">__html</span>: item.age &#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">                                &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">                            )</span></span><br><span class="line"><span class="regexp">                        &#125;)</span></span><br><span class="line"><span class="regexp">                    &#125;</span></span><br><span class="line"><span class="regexp">                    &lt;/u</span>l&gt;</span><br><span class="line">                &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">                </span></span><br><span class="line"><span class="regexp">                &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">                    &#123;</span></span><br><span class="line"><span class="regexp">                        list.map((item)=&gt;&#123;</span></span><br><span class="line"><span class="regexp">                            return (</span></span><br><span class="line"><span class="regexp">                                &lt;li key=&#123;item.id&#125;&gt;</span></span><br><span class="line"><span class="regexp">                                    &#123;item.name&#125; : &#123;item.age&#125; 岁</span></span><br><span class="line"><span class="regexp">                                    &lt;button onClick=&#123;this.del.bind(this,item.id)&#125;&gt;删除&lt;/</span>button&gt;</span><br><span class="line">                                    &lt;button onClick=&#123;<span class="keyword">this</span>.rewrite.bind(<span class="keyword">this</span>,item.id)&#125;&gt;修改&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">                                    &lt;button onClick=&#123;(e) =&gt; this.del(item.id, e)&#125;&gt;删除&lt;/</span>button&gt;</span><br><span class="line">                                    &lt;button onClick=&#123;<span class="keyword">this</span>.del.bind(<span class="keyword">this</span>, item.id)&#125;&gt;删除&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                                &lt;/</span>li&gt;</span><br><span class="line">                            )</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                &lt;<span class="regexp">/ul&gt;     </span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="一些知识点"><a href="#一些知识点" class="headerlink" title="一些知识点"></a>一些知识点</h3><h4 id="1、受控组件"><a href="#1、受控组件" class="headerlink" title="1、受控组件"></a>1、受控组件</h4><p>　受控与非受控组件：表单元素的值来自于state，并且是唯一来源，那么这个组件就是<strong>受控组件</strong>，否则就是<strong>非受控组件</strong>。<br>　如下代码所示，input的value绑定了state里面的属性；<br>　往input框输入值时，触发onChange，将输入的值设为state对应的值；<br>　就像vue的双向数据绑定，state数据改变，视图的值改变；视图的值改变，state的数据也会改变；<br>　实现”双向绑定”在react中有两个条件，”value”和”onChange”</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            list:[], <span class="comment">//初始数据</span></span><br><span class="line">            name:<span class="string">""</span>, <span class="comment">//添加框的name</span></span><br><span class="line">            age:<span class="string">""</span>,  <span class="comment">//添加框的age</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使input框变为受控组件</span></span><br><span class="line">    input = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            [e.target.id]:e.target.value</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;list,name,age,checkname,checkage,checklist&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input  placeholder=<span class="string">"名字"</span> id=<span class="string">"name"</span> value=&#123;name&#125; onChange=&#123;<span class="keyword">this</span>.input&#125; onKeyUp=&#123;<span class="keyword">this</span>.handle&#125; type=<span class="string">"text"</span>/&gt;</span><br><span class="line">                &lt;input  placeholder=<span class="string">"年龄"</span> id=<span class="string">"age"</span> value=&#123;age&#125; onChange=&#123;<span class="keyword">this</span>.input&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">                &lt;button onClick=&#123;<span class="keyword">this</span>.add&#125;&gt;添加数据&lt;<span class="regexp">/button&gt;       </span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2、事件的this与传参"><a href="#2、事件的this与传参" class="headerlink" title="2、事件的this与传参"></a>2、事件的this与传参</h4><p><strong>改变this</strong><br>我们在react中定义事件如果用<code>del(){}</code>的写法，del内部的this为undefined，无法得到state或者调用其他事件，有两种办法改变this：</p>
+<ul>
+<li>constructor中绑定this，<code>this.del = this.del.bind(this)</code></li>
+<li>使用箭头函数，<code>del=e=&gt;{}</code></li>
+</ul>
+<p><strong>传参</strong><br>调用事件事件时，想传参数，也有两种办法：</p>
+<ul>
+<li>调用时bind绑定参数<code>onClick={this.del.bind(this, item.id)}</code></li>
+<li>调用时<code>onClick={(e) =&gt; this.del(item.id, e)}</code></li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            list:[], <span class="comment">//初始数据</span></span><br><span class="line">            name:<span class="string">""</span>, <span class="comment">//添加框的name</span></span><br><span class="line">            age:<span class="string">""</span>,  <span class="comment">//添加框的age</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//改变事件函数内部的this (undefined) ==&gt; 当前react组件实例</span></span><br><span class="line">        <span class="keyword">this</span>.del = <span class="keyword">this</span>.del.bind(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    del=<span class="function">(<span class="params">id,e</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>); ==&gt; <span class="keyword">this</span> 为本实例</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.list); ==&gt; 即上面的list</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    del()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>); ==&gt; <span class="keyword">this</span> 为 <span class="literal">undefined</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;list&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;ul&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    list.map(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> (</span><br><span class="line">                            &lt;li key=&#123;item.id&#125;&gt;</span><br><span class="line">                                &lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.del(item.id, e)&#125;&gt;删除&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                                &lt;button onClick=&#123;this.del.bind(this, item.id)&#125;&gt;删除&lt;/</span>button&gt;</span><br><span class="line">                            &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">                        )</span></span><br><span class="line"><span class="regexp">                    &#125;)</span></span><br><span class="line"><span class="regexp">                &#125;</span></span><br><span class="line"><span class="regexp">            &lt;/u</span>l&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="3、指定文字变色"><a href="#3、指定文字变色" class="headerlink" title="3、指定文字变色"></a>3、指定文字变色</h4><p>下面代码，最后的会渲染出liat里3个数据，并且”红”字是红色的;<br><code>dangerouslySetInnerHTML</code>是设置html内容的方式，但是其他情况<strong>不建议使用</strong>，毕竟前缀都写着dangerou</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">list=[<span class="string">"鲜艳红"</span>,<span class="string">"天空蓝"</span>,<span class="string">"苹果红"</span>]</span><br><span class="line"><span class="keyword">var</span> reg1 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span> + <span class="string">"红"</span> + <span class="string">")"</span>, <span class="string">"g"</span>);</span><br><span class="line">list.forEach(<span class="function"><span class="params">item</span>=&gt;</span>&#123;</span><br><span class="line">    item = item.replace(reg1, <span class="string">"&lt;font color=red&gt;$1&lt;/font&gt;"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染</span></span><br><span class="line">list.map(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;li&gt;</span><br><span class="line">            &lt;span  dangerouslySetInnerHTML=&#123;&#123; <span class="attr">__html</span>: item &#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span> </span><br><span class="line">        &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="4、请求类型"><a href="#4、请求类型" class="headerlink" title="4、请求类型"></a>4、请求类型</h4><p>这个接口是用json-server模拟的，<a href="https://www.cnblogs.com/fly_dragon/p/9150732.html" target="_blank">具体介绍看这里</a><br>简单使用：</p>
+<ul>
+<li>npm i json-server -S</li>
+<li>如果显示”json-server 不是外部命令或请求”，则需要配置npm的path</li>
+<li>创建 mock/data.json，<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JSON"><figure class="iseeu highlight /json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"list"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"广东彭于晏"</span>,</span><br><span class="line">      <span class="attr">"age"</span>: <span class="string">"20"</span>,</span><br><span class="line">      <span class="attr">"id"</span>: <span class="number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"东北彭于晏"</span>,</span><br><span class="line">      <span class="attr">"age"</span>: <span class="string">"30"</span>,</span><br><span class="line">      <span class="attr">"id"</span>: <span class="number">4</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>在mock目录下 <code>json-server data.json --port 5000 -w</code></li>
+<li><code>http://localhost:5000/list</code>既能访问到这些数据</li>
+</ul>
+<p>　上面的完整代码中，用到了四种请求类型 get/post/delete/put，可以窥见不同的请求类型也应该要语义化；<br>　请求类型共有以下8种：</p>
+<ul>
+<li><strong>GET：</strong>向特定的资源发出请求。 </li>
+<li><strong>POST：</strong>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的创建和/或已有资源的修改。 </li>
+<li><strong>PUT：</strong>向指定资源位置上传其最新内容。 </li>
+<li><strong>DELETE：</strong>请求服务器删除Request-URI所标识的资源。 </li>
+<li><strong>TRACE：</strong>回显服务器收到的请求，主要用于测试或诊断。 </li>
+<li><strong>OPTIONS：</strong>返回服务器针对特定资源所支持的HTTP请求方法。也可以利用向Web服务器发送’*’的请求来测试服务器的功能性。 </li>
+<li><strong>HEAD：</strong>向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以在不必传输整个响应内容的情况下，就可以获取包含在响应消息头中的元信息。 </li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/03/2020-04-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/" rel="prev" title="VUE项目-商城类WebApp">
+      <i class="fa fa-chevron-left"></i> VUE项目-商城类WebApp
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/" rel="next" title="项目部署到阿里云">
+      项目部署到阿里云 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#每学一个新技术必做的todolist"><span class="nav-number">1.</span> <span class="nav-text">每学一个新技术必做的todolist</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完整代码"><span class="nav-number">1.1.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些知识点"><span class="nav-number">1.2.</span> <span class="nav-text">一些知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、受控组件"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、受控组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、事件的this与传参"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、事件的this与传参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、指定文字变色"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、指定文字变色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、请求类型"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、请求类型</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">164k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="移动端上一些注意事项：viewport，自适应布局，布局单位rem，1px边框，12px字体，响应式图片，移动端事件，测试等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端开发注意事项">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/12/2020-05-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="移动端上一些注意事项：viewport，自适应布局，布局单位rem，1px边框，12px字体，响应式图片，移动端事件，测试等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/Ym6UfA.png">
+<meta property="article:published_time" content="2019-11-11T16:10:30.000Z">
+<meta property="article:modified_time" content="2020-05-07T15:50:53.155Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/07/Ym6UfA.png">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/12/2020-05-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>移动端开发注意事项 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/12/2020-05-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          移动端开发注意事项
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-12 00:10:30" itemprop="dateCreated datePublished" datetime="2019-11-12T00:10:30+08:00">2019-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-07 23:50:53" itemprop="dateModified" datetime="2020-05-07T23:50:53+08:00">2020-05-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/App/" itemprop="url" rel="index">
+                    <span itemprop="name">App</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+            <div class="post-description">移动端上一些注意事项：viewport，自适应布局，布局单位rem，1px边框，12px字体，响应式图片，移动端事件，测试等</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、web移动端是什么"><a href="#一、web移动端是什么" class="headerlink" title="一、web移动端是什么"></a>一、web移动端是什么</h2><p>　我们现在关注的点还在移动M站上，或者我们可以叫做webapp，其实就是运行在移动端浏览器中的web网站。<br>　相对于PC端，主要有以下新知识：</p>
+<ol>
+<li>移动端布局适配</li>
+<li>移动端事件</li>
+<li>移动端交互效果</li>
+<li>移动端前端框架</li>
+<li>移动端调试</li>
+</ol>
+<h2 id="二、响应式布局"><a href="#二、响应式布局" class="headerlink" title="二、响应式布局"></a>二、响应式布局</h2><h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h3><p>做移动端时，加入下面一行代码，就可以做到自适应：<br><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;&gt;</code></p>
+<p><strong>什么是viewport</strong></p>
+<ul>
+<li>网页不是直接放入浏览器中的，而是先放入到viewport中，然后viewport在等比缩放到浏览器的宽度，放入浏览器，viewport在缩放的过程中，网页内容也被缩小了</li>
+<li>document.documentElement.clientWidth 就是viewport的宽度</li>
+<li>当移动端宽度小于980的时候，viewport宽度就是980，当浏览器尺寸宽度大于980的时候，宽度和浏览器宽度一致</li>
+<li>加入那一行代码后，移动端的 viewport 宽度会从默认的 980px 变成各个设备的 device-width</li>
+</ul>
+<p><strong>通过mata设置viewport</strong><br>　<code>&lt;meta&gt;</code>标签提供关于 HTML 文档的元数据。它不会显示在页面上，但是对于机器是可读的。可用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他 web 服务。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>width</td>
+<td>设置layout viewport 的宽度，为一个正整数，或字符串”width-device”</td>
+</tr>
+<tr>
+<td>initial-scale</td>
+<td>设置页面的初始缩放值，为一个数字，可以带小数</td>
+</tr>
+<tr>
+<td>minimum-scale</td>
+<td>设置页面的最小缩放值，为一个数字，可以带小数</td>
+</tr>
+<tr>
+<td>maximum-scale</td>
+<td>允许用户的最大缩放值，为一个数字，可以带小数</td>
+</tr>
+<tr>
+<td>height</td>
+<td>设置layout viewport 的高度，这个属性并不重要，很少使用</td>
+</tr>
+<tr>
+<td>user-scalable</td>
+<td>是否允许用户进行缩放，值为”no”或”yes”, no 代表不允许，yes代表允许</td>
+</tr>
+</tbody></table>
+<h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><p>针对不同的屏幕尺寸调整为不同的样式，</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="CSS"><figure class="iseeu highlight /css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width:</span><span class="number">800px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">body</span>&#123;</span><br><span class="line">        <span class="attribute">background</span>: orange;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width:</span><span class="number">400px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">body</span>&#123;</span><br><span class="line">        <span class="attribute">background</span>: red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="利用UI框架布局"><a href="#利用UI框架布局" class="headerlink" title="利用UI框架布局"></a>利用UI框架布局</h3><p>各种UI框架的布局都有做移动端的自适应，比如bootstrap的栅格系统：<br><img src="https://s1.ax1x.com/2020/05/07/Ym6UfA.png" alt="Ym6UfA.png"></p>
+<h3 id="vw-rem-推荐"><a href="#vw-rem-推荐" class="headerlink" title="vw/rem (推荐)"></a>vw/rem (推荐)</h3><p>首先来了解一下dpr；<br><strong>dpr</strong></p>
+<ul>
+<li>dpr（设备像素缩放比） = 物理像素/逻辑像素<ul>
+<li>物理像素：手机屏幕的分辨率</li>
+<li>逻辑像素：css / js 中的像素</li>
+</ul>
+</li>
+<li>很久以前dpr都是1:1，后来苹果的屏幕越来越好，分辨率也就越来越高，即物理像素变高了，dpr就更大了</li>
+<li>现在有一张 ihpne6 为标准的设计图，大小为 1334 x 750，在PS里量出300px，则css中对应150px</li>
+</ul>
+<h3 id="布局单位"><a href="#布局单位" class="headerlink" title="布局单位"></a>布局单位</h3><ol>
+<li>%：百分比布局<ul>
+<li>优点：简单，无需设置，兼容性好</li>
+<li>缺点：基于父元素的属性来设置，如果父元素没有宽高，设置无效</li>
+</ul>
+</li>
+<li>vwvh：一个vw等于viewport宽度的百分之一，一个vh等于viewport高度的百分之一<ul>
+<li>优点：简单，无需设置</li>
+<li>缺点：兼容性不好</li>
+</ul>
+</li>
+<li>rem：一个rem等于根元素（html）的字体大小，兼容性很好 (em是相对于父元素)<ul>
+<li>优点：兼容好，使用简单</li>
+<li>缺点：需要设置</li>
+</ul>
+</li>
+</ol>
+<p><strong>rem的计算</strong></p>
+<ol>
+<li>假设设计稿为1334 x 750，设置 html 的 font-size 为100px ，则1rem = 100px，原本逻辑单位为300px，css中就要就要改成3rem ；</li>
+<li>但并不是所有手机都是iphone6，所以需要以下js代码，一般会把这段JS直接引入全局：<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.documentElement.style.fontSize =</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">3.75</span> + <span class="string">"px"</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onresize = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.documentElement.style.fontSize =</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">3.75</span> + <span class="string">"px"</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+此时，设计稿为1334 x 750，量出300px，则逻辑像素为150px，css中就是1.5rem</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.documentElement.style.fontSize =</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">7.5</span> + <span class="string">"px"</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onresize = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.documentElement.style.fontSize =</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">7.5</span> + <span class="string">"px"</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>此时，设计稿为1334 x 750，量出300px，css中就是3rem</p>
+<ol start="3">
+<li>rem其他使用方法：<br>　我们可以将1rem设置成屏幕的某一个比例，比如将1rem设置成屏幕的十分之一；<br>　假设我们的设计图是640宽的，我们拿到之后量了一下a的宽度为480px，得到比例a所占屏幕3/4，根据rem与屏幕的关系，最后设置成7.5rem；<br>　就是说在设置元素的宽度是时候，会根据设定好的比例关系去进行换算：<br>　<code>&lt;script&gt; document.documentElement.style.fontSize = document.documentElement.clientWidth/10 + &#39;px&#39; &lt;/script&gt;</code></li>
+</ol>
+<h2 id="三、移动端常见问题"><a href="#三、移动端常见问题" class="headerlink" title="三、移动端常见问题"></a>三、移动端常见问题</h2><h3 id="1px边框"><a href="#1px边框" class="headerlink" title="1px边框"></a>1px边框</h3><p>由于dpr的影响，移动端里最少是2px，可以为伪类元素+transform；<br>以下转至<a href="https://www.jianshu.com/p/5ff121936666" target="_blank">简书-luichooy</a><br><strong>第一步：媒体查询</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="CSS"><figure class="iseeu highlight /css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">1.5</span>),(<span class="attribute">min-device-aspect-ratio:</span> <span class="number">1.5</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-1px</span>&#123;</span><br><span class="line">        &amp;::after&#123;</span><br><span class="line">            transform:scaleY(0.7);    //1.5 * 0.7接近1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">2</span>),(<span class="attribute">min-device-aspect-ratio:</span> <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-1px</span>&#123;</span><br><span class="line">        &amp;::after&#123;</span><br><span class="line">            transform:scaleY(0.5);    //2 * 0.5 = 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">2.5</span>),(<span class="attribute">min-device-aspect-ratio:</span> <span class="number">2.5</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-1px</span>&#123;</span><br><span class="line">        &amp;::after&#123;</span><br><span class="line">            transform:scaleY(0.4);    //2.5 * 0.4 = 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">3</span>),(<span class="attribute">min-device-aspect-ratio:</span> <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-1px</span>&#123;</span><br><span class="line">        &amp;::after&#123;</span><br><span class="line">            transform:scaleY(0.333);    //3 * 0.333 接近 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">3.5</span>),(<span class="attribute">min-device-aspect-ratio:</span> <span class="number">3.5</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-1px</span>&#123;</span><br><span class="line">        &amp;::after&#123;</span><br><span class="line">            transform:scaleY(0.2857);    //3.5 * 0.2857 接近 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>定义mixin border-bottom</strong><br>利用sass的混入，自定义伪类：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SCSS"><figure class="iseeu highlight /scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@mixin</span> border-bottom(<span class="variable">$height</span>,<span class="variable">$color</span>) &#123;</span><br><span class="line">  <span class="attribute">position</span>:relative;</span><br><span class="line"></span><br><span class="line">  &amp;<span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="variable">$height</span> solid <span class="variable">$color</span>;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@mixin</span> border-top(<span class="variable">$height</span>,<span class="variable">$color</span>) &#123;</span><br><span class="line">    <span class="attribute">position</span>:relative;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">      <span class="attribute">position</span>: absolute;</span><br><span class="line">      <span class="attribute">display</span>: block;</span><br><span class="line">      <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">      <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">      <span class="attribute">border-top</span>: <span class="variable">$height</span> solid <span class="variable">$color</span>;</span><br><span class="line">      <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>使用</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"navbar"</span> <span class="attr">class</span>=<span class="string">"border-1px"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 样式 --&gt;</span></span><br><span class="line">#navbar&#123;</span><br><span class="line">    @include border-bottom(1px, #ccc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="12px字体"><a href="#12px字体" class="headerlink" title="12px字体"></a>12px字体</h3><p>谷歌浏览器支持的最小字体为12px，如果需要设置小于12px的字体，也是用到transform；移动端浏览器内核基本上都是webkit，同样也是这么缩小；</p>
+<ul>
+<li>transform: scale(0.7);</li>
+</ul>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>　在移动端中，图片的处理应该是很谨慎的，假设有一张图片本身的尺寸是X宽，设置和包裹它的div一样宽，如果是div宽度小于图片宽度没有问题，但是如果div宽度大于图片的宽度，图片会被拉伸失真；<br>　解决方法：让图片最大只能是自己的宽度；</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="CSS"><figure class="iseeu highlight /css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span>&#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>或者用UI框架的图片组件，一般都做了适配；</p>
+<h2 id="四、移动端事件"><a href="#四、移动端事件" class="headerlink" title="四、移动端事件"></a>四、移动端事件</h2><h3 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h3><ol>
+<li>基础事件：<ul>
+<li>touchstart 手指按下事件，类似mousedown</li>
+<li>touchmove 手指移动事件，类似mousemove</li>
+<li>touchend 手指抬起事件，类似mouseup</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>事件细节：</p>
+<ul>
+<li>touchstart是只要手指触碰到元素，就会触发</li>
+<li>touchmove 按下时，必须在被添加该事件的元素上，但是按下后，即使不在该元素上，也能触发。</li>
+<li>touchend 即使不在被添加该事件的元素上，抬起时，也能触发。</li>
+<li>触发顺序：touchstart -&gt; touchend -&gt; mousedown -&gt; click -&gt; mouseup</li>
+<li>注意：移动端事件最好还是使用addEventListener来添加。</li>
+</ul>
+</li>
+<li><p>事件对象：</p>
+<ul>
+<li>touch事件对象里面的属性和mouse的略有不同，例如在mouse事件里可以直接从事件对象里取出pageX,clientX，screenX</li>
+<li>touch事件对象里有touches,changedTouches,targetTouches三个属性，上面保存着关键的位置信息。它们里面保存的是触发事件的手指的信息，要注意，虽然三个里面保存的信息看似都一样，但是在touchend事件里，只能使用changedTouches</li>
+</ul>
+</li>
+</ol>
+<h3 id="其他事件"><a href="#其他事件" class="headerlink" title="其他事件"></a>其他事件</h3><ol>
+<li>横竖屏：</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'orientationchange'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.orientation==<span class="number">90</span> || <span class="built_in">window</span>.orientation==<span class="number">-90</span>)&#123;</span><br><span class="line">        alert(<span class="string">'横屏'</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">window</span>.orientation==<span class="number">0</span> || <span class="built_in">window</span>.orientation==<span class="number">180</span>)&#123;</span><br><span class="line">        alert(<span class="string">'竖屏'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+<ol>
+<li>②devicemotion重力加速度事件</li>
+<li>③deviceorientation方向变化事件</li>
+</ol>
+<h3 id="两个事件bug"><a href="#两个事件bug" class="headerlink" title="两个事件bug"></a>两个事件bug</h3><p><strong>click 300s延迟</strong><br>移动端为了区分单击和双击，给点击事件设置了300s延迟，要解决这个问题，往往需要引入外部库；<br>例如：</p>
+<ul>
+<li>zepto类库，Touch模块</li>
+<li>百度的touch.js</li>
+<li>hammer.js，一个手势事件库文档</li>
+</ul>
+<p>下面代码演示了fastclick的使用，在使用fastclick之后，两次点击的时间差减少了；</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- handleClick会延迟300ms --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">ontouchstart</span>=<span class="string">"handleStart()"</span> <span class="attr">onclick</span>=<span class="string">"handleClick()"</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--引入fastCLick库--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (<span class="string">'addEventListener'</span> <span class="keyword">in</span> <span class="built_in">document</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                FastClick.attach(<span class="built_in">document</span>.body); <span class="comment">//内部做了事件代理</span></span></span><br><span class="line"><span class="actionscript">            &#125;, <span class="literal">false</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">handleStart</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">"handleStart"</span>, <span class="built_in">Date</span>.now())</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">handleClick</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">"handleClick"</span>, <span class="built_in">Date</span>.now())</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>点透bug</strong><br>点透bug有一个特定的产生情况：<br>当上层元素是touch事件，且上层元素点击后display:none，下层元素是click事件。这个时候，touch上层元素的时候就会触发下层元素的click事件<br>解决方式：</p>
+<ol>
+<li>上下层都是touch事件，缺点：a标签等元素本身就是自带的click事件，更改为touch比较困难</li>
+<li>缓动动画，让上层元素消失的时候不要瞬间消失，而是以动画的形式消失，事件超过300ms就可以了</li>
+<li>使用中间层,添加一个透明的中间元素，给它添加click事件并消失，这个时候接收点透的是透明的中间层</li>
+<li>使用fastclick</li>
+<li>在上层元素的事件中通过 event.preventDefault() 取消事件的默认动作</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>移动端测试：</strong></p>
+<ol>
+<li>使用chrome浏览器有移动设备模拟功能，在这里可以做一些模拟测试，但毕竟不是真机，会有一些测试不到的问题</li>
+<li>手机连接上电脑的无线，总之使其在同一个网络里，然后就可以通过ip访问</li>
+</ol>
+<p><strong>需要测试的浏览器：</strong><br>chrome，firefox，UC,百度，QQ，微信，Android，safari</p>
+<p><strong>移动端交互：</strong><br>动画效果全部使用css3</p>
+<p><strong>JQ生成二维码</strong><br>可以使用jquery.qrcode.js插件，可以快速的生成基于canvas绘制的二维码兼容查阅网站</p>
+<p><strong><a href="https://caniuse.com/" target="_blank">can i use </a></strong><br>在这里可以查看很多属性、api的兼容性</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/10/12/2020-05-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/" rel="prev" title="混合开发">
+      <i class="fa fa-chevron-left"></i> 混合开发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/11/14/2020-05-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" rel="next" title="了解微信小程序">
+      了解微信小程序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、web移动端是什么"><span class="nav-number">1.</span> <span class="nav-text">一、web移动端是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、响应式布局"><span class="nav-number">2.</span> <span class="nav-text">二、响应式布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#viewport"><span class="nav-number">2.1.</span> <span class="nav-text">viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#媒体查询"><span class="nav-number">2.2.</span> <span class="nav-text">媒体查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用UI框架布局"><span class="nav-number">2.3.</span> <span class="nav-text">利用UI框架布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vw-rem-推荐"><span class="nav-number">2.4.</span> <span class="nav-text">vw&#x2F;rem (推荐)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局单位"><span class="nav-number">2.5.</span> <span class="nav-text">布局单位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、移动端常见问题"><span class="nav-number">3.</span> <span class="nav-text">三、移动端常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1px边框"><span class="nav-number">3.1.</span> <span class="nav-text">1px边框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12px字体"><span class="nav-number">3.2.</span> <span class="nav-text">12px字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">3.3.</span> <span class="nav-text">图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、移动端事件"><span class="nav-number">4.</span> <span class="nav-text">四、移动端事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点击事件"><span class="nav-number">4.1.</span> <span class="nav-text">点击事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他事件"><span class="nav-number">4.2.</span> <span class="nav-text">其他事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个事件bug"><span class="nav-number">4.3.</span> <span class="nav-text">两个事件bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">251k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:37</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

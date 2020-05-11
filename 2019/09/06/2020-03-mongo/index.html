@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="mongodb的介绍与使用，在node中操作mongodb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="mongodb的介绍与使用，在node中操作mongodb">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-06T14:29:15.000Z">
+<meta property="article:modified_time" content="2020-05-10T16:28:02.502Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>mongodb | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mongodb
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-06 22:29:15" itemprop="dateCreated datePublished" datetime="2019-09-06T22:29:15+08:00">2019-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-11 00:28:02" itemprop="dateModified" datetime="2020-05-11T00:28:02+08:00">2020-05-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">mongodb的介绍与使用，在node中操作mongodb</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>非关系、缓存型型数据库，又叫nosql，常用于大规模数据集合，多重数据种类的使用场景</p>
+<ol>
+<li><p><a href="https://www.mongodb.com/download-center" target="_blank">下载</a>，<a href="https://www.cnblogs.com/keyi/p/10984514.html" target="_blank">安装帮助</a></p>
+</li>
+<li><p>配置数据文件存储位置：<br>找到安装目录 D:\web-software\mongo\data\db</p>
+<blockquote>
+<p>data和db目录要手动创建</p>
+</blockquote>
+</li>
+<li><p>服务端启动:<br>找到安装目录 &gt; <code>mongod --dbpath</code>路径，比如<code>mongod --dbpath E:\study\database\mongodb\data\db</code></p>
+</li>
+<li><p>客户端启动:<br>找到安装目录&gt; mongo 回车</p>
+</li>
+<li><p>配置环境变量<br>为了在任意盘符下去都可以启动  mongod服务端|mongo客户端，把安装目录添加到环境变量</p>
+</li>
+</ol>
+<h2 id="对比mysql"><a href="#对比mysql" class="headerlink" title="对比mysql"></a>对比mysql</h2><p><strong>mysql vs mongodb</strong></p>
+<table>
+<thead>
+<tr>
+<th>mysql</th>
+<th>mongoDb</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>database(库)</td>
+<td>database(库)</td>
+<td></td>
+</tr>
+<tr>
+<td>table(表)</td>
+<td>collection(集合)</td>
+<td></td>
+</tr>
+<tr>
+<td>row(一条数据)</td>
+<td>document(文档)</td>
+<td></td>
+</tr>
+<tr>
+<td>column(字段)</td>
+<td>field(区域)</td>
+<td></td>
+</tr>
+<tr>
+<td>二维表，每次存到磁盘</td>
+<td>json，存在缓存，关闭时存到磁盘</td>
+<td><strong>存储方式</strong></td>
+</tr>
+</tbody></table>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><h3 id="①mongodb数据库的相关命令："><a href="#①mongodb数据库的相关命令：" class="headerlink" title="①mongodb数据库的相关命令："></a>①mongodb数据库的相关命令：</h3><ul>
+<li>常看所有的数据库：show dbs</li>
+<li>切换/创建数据库：use student</li>
+<li>删除数据库： db.dropDatabase()</li>
+<li>创建集合：db.createCollection(‘表名’,{配置})   ===&gt; db.bbb.isCapped()</li>
+<li>查看集合：db.getCollectionNames()  /  show collections</li>
+<li>插入数据：db.user.insert({}) </li>
+<li>更新数据：db.user.update({条件},{$set:{age:25}},false,true)</li>
+<li>查询数据：<ul>
+<li>db.user.find({})  </li>
+<li>db.user.find({},{age:1,_id:0})</li>
+<li>db.user.find({}).skip(3).limit(3)</li>
+</ul>
+</li>
+<li>排序：db.user.find().sort({age:1})</li>
+</ul>
+<h3 id="②库操作"><a href="#②库操作" class="headerlink" title="②库操作"></a>②库操作</h3><ul>
+<li>查: show dbs</li>
+<li>增:    use 库名</li>
+<li>删: db.dropDatabase()</li>
+</ul>
+<h3 id="③集合-表-操作"><a href="#③集合-表-操作" class="headerlink" title="③集合(表)操作"></a>③集合(表)操作</h3><ul>
+<li>建：db.createCollection(‘表名’,{配置})<ul>
+<li>配置：{size:文件大小,capped:true,max:条数|文档数} capped定量</li>
+<li>db.表(集合).isCapped() 返回 true/false 是否是定量</li>
+</ul>
+</li>
+<li>查：show collections / db.getCollectionNames()</li>
+<li>删：db.表|集合.drop()</li>
+</ul>
+<h3 id="④文档-row-操作"><a href="#④文档-row-操作" class="headerlink" title="④文档(row)操作"></a>④文档(row)操作</h3><p><strong>增</strong></p>
+<ul>
+<li>db.集合.save({}) //添加一条，相同ID字段会进行插入更改</li>
+<li>db.集合.insert({})  //添加一条，相同ID字段不会进行插入更改</li>
+<li>db.insertOne({}) //添加一条</li>
+<li>db.集合.save([{},{}]) //多条</li>
+<li>db.集合.insert([{},{}]) //多条</li>
+</ul>
+<p><strong>删</strong></p>
+<ul>
+<li>db.集合.deleteOne({要删数据条件描述}) //一条</li>
+<li>db.集合.remove({},true)  //一条</li>
+<li>db.集合.remove({要删数据条件描述}) //多条</li>
+<li>db.集合.remove({}) //清空表</li>
+</ul>
+<p><strong>改</strong></p>
+<ul>
+<li>db.集合.udpate({查询条件},{替换条件},插入boolean,全替换boolean)<ul>
+<li>下面一行，将所有的用户名为李四的年龄全都设置为20岁</li>
+<li>db.user.update({username:”李四”},{$set:{age:20}},false,true)</li>
+</ul>
+</li>
+<li>第三个参数：如果更新的数据没有的话则插入，默认不插入</li>
+<li>第四个参数：默认只更新一条数据，如果要批量更新设置true</li>
+</ul>
+<p><strong>查</strong></p>
+<ul>
+<li>所有：db.集合.find(条件)</li>
+<li>条数: db.集合.find().count()</li>
+<li>去重：db.集合.distinct(key).length</li>
+<li>db.集合.find({条件},{指定要显示列区域})</li>
+</ul>
+<p><strong>查询条件</strong></p>
+<blockquote>
+<p>​     {age:22}                 age == 22<br>​        {age:{   $gt:22 }}    age &gt; 22<br>​        {age:{  $lt:22}}      age &lt; 22<br>​        {age:{$gte: 22}}    age&gt;=22<br>​        {age:{$lte:22}}      age&lt;=22<br>​        {age:{ $lte:122,$gte:22}}    age&lt;=122 &amp;&amp; age&gt;=22<br>​        {$or:[{age:22},{age:122}]}    22 or 122<br>​        {key:value,key2:value2}  value &amp;&amp; value2<br>​        {name:/正则/}</p>
+</blockquote>
+<p><strong>替换条件</strong></p>
+<blockquote>
+<p>{$set:{数据}}<br>{inc:{age:5}}    //在原来的基础上年龄递增5<br>指定要显示列区域<br>username:1 显示这个区域<br>username:0 不显示这个区域<br>_id 是默认显示</p>
+</blockquote>
+<p><strong>排序</strong></p>
+<ul>
+<li>db.集合.find().sort({key:1,key2:-1}) //升</li>
+<li>db.集合.find().sort({key:-1})    //降</li>
+</ul>
+<p><strong>限定</strong></p>
+<ul>
+<li>db.集合.find().limit(number)  //限定</li>
+<li>db.集合.find().skip(number)    //跳过</li>
+<li>db.集合.findOne()//找第一个</li>
+<li>db.集合.find().limit(1)  //查询第一条</li>
+</ul>
+<h2 id="node-mongodb客户端"><a href="#node-mongodb客户端" class="headerlink" title="node + mongodb客户端"></a>node + mongodb客户端</h2><h3 id="①安装-引入"><a href="#①安装-引入" class="headerlink" title="①安装+引入"></a>①安装+引入</h3><p><code>npm install mongodb -S</code><br><code>var mysql = require(&#39;mongodb&#39;)</code></p>
+<h3 id="②实例化并连接"><a href="#②实例化并连接" class="headerlink" title="②实例化并连接"></a>②实例化并连接</h3><p><code>let mongoCt = mongodb.MongoClient</code><br><code>mongoCt.connect(&#39;协议://地址:端口&#39;,回调(err,client))</code></p>
+<h3 id="③链接库和集合"><a href="#③链接库和集合" class="headerlink" title="③链接库和集合"></a>③链接库和集合</h3><p><code>let db = client.db(&#39;库名&#39;)</code><br><code>let user = db.collection(&#39;集合名&#39;)</code></p>
+<h3 id="④集合操作"><a href="#④集合操作" class="headerlink" title="④集合操作"></a>④集合操作</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//user.API()  集合操作 	返回 对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//增</span></span><br><span class="line">	insertOne(对象数据,(err,res)=&gt;&#123;&#125;)  <span class="comment">//res = 对象  </span></span><br><span class="line">	insertMany(arr数据,(err,res)=&gt;&#123;&#125;) <span class="comment">//res = 对象  </span></span><br><span class="line">    <span class="comment">//res.result.n 结果  ok 状态</span></span><br><span class="line">    <span class="comment">//res.ops内容  数组</span></span><br><span class="line">    <span class="comment">//result.insertedId 插入后的id</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//删:</span></span><br><span class="line">  deleteOne(&#123;条件&#125;,(err,result)=&gt;&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//改:</span></span><br><span class="line">  updateOne(&#123;条件&#125;,&#123;更新后&#125;,(err,res)=&gt;&#123;&#125;)</span><br><span class="line">  updateMany(&#123;条件&#125;,&#123;更新后&#125;,(err,res)=&gt;&#123;&#125;)</span><br><span class="line">  updateMany(&#123;条件&#125;,&#123;更新后&#125;,&#123;配置&#125;,(err,res)=&gt;&#123;&#125;)</span><br><span class="line">    <span class="comment">//配置: upsert:true 插入	projection:true 全局替换</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//查:</span></span><br><span class="line">  user.find(&#123;条件&#125;,&#123;<span class="attr">skip</span>:<span class="number">1</span>,<span class="attr">limit</span>:<span class="number">1</span>,<span class="attr">projection</span>:&#123;<span class="attr">key</span>:<span class="number">1</span>&#125;&#125;,(err,result)=&gt;&#123;result=对象&#125;)</span><br><span class="line">  user.find(&#123;条件&#125;,&#123;<span class="attr">projection</span>:&#123;<span class="attr">key</span>:<span class="number">0</span>&#125;&#125;).toArray(<span class="function">(<span class="params">err,result</span>)=&gt;</span>&#123;reulst==arr&#125;)</span><br><span class="line">  user.countDocuments(<span class="function">(<span class="params">err,num</span>)=&gt;</span>&#123;num返回数量&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//排</span></span><br><span class="line">  user.find(..).sort(&#123;<span class="attr">key</span>:<span class="number">-1</span>&#125;).toArray..</span><br><span class="line">  user.find(&#123;&#125;,&#123;<span class="attr">projection</span>:&#123;&#125;,<span class="attr">sort</span>:&#123;<span class="attr">key</span>:<span class="number">-1</span>&#125;&#125;).toArray..</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="⑤关闭库"><a href="#⑤关闭库" class="headerlink" title="⑤关闭库"></a>⑤关闭库</h3><p><code>client.close()</code></p>
+<h3 id="⑥node-mongoose"><a href="#⑥node-mongoose" class="headerlink" title="⑥node  +  mongoose"></a>⑥node  +  mongoose</h3><p>一款mongodb客户端：<a href="https://mongoosejs.com/" target="_blank">官网</a>，<a href="http://www.mongoosejs.net/" target="_blank">中文官网</a></p>
+<h3 id="⑦可视化客户端"><a href="#⑦可视化客户端" class="headerlink" title="⑦可视化客户端"></a>⑦可视化客户端</h3><ul>
+<li><a href="https://robomongo.org/" target="_blank">Robo 3T</a></li>
+<li><a href="https://studio3t.com/download-thank-you/?OS=win64" target="_blank">Studio3t</a></li>
+</ul>
+<h3 id="⑧mongo封装"><a href="#⑧mongo封装" class="headerlink" title="⑧mongo封装"></a>⑧mongo封装</h3><p>一般会将node中对mongo的操作封装起来，这个网上太多了，随便搜一下复制就有了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/09/04/2020-04-%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/" rel="prev" title="数组的方法">
+      <i class="fa fa-chevron-left"></i> 数组的方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/09/06/2020-03-node%E6%8E%A5%E5%8F%A3/" rel="next" title="使用node+express完成一组接口">
+      使用node+express完成一组接口 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比mysql"><span class="nav-number">2.</span> <span class="nav-text">对比mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用指令"><span class="nav-number">3.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①mongodb数据库的相关命令："><span class="nav-number">3.1.</span> <span class="nav-text">①mongodb数据库的相关命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②库操作"><span class="nav-number">3.2.</span> <span class="nav-text">②库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#③集合-表-操作"><span class="nav-number">3.3.</span> <span class="nav-text">③集合(表)操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#④文档-row-操作"><span class="nav-number">3.4.</span> <span class="nav-text">④文档(row)操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-mongodb客户端"><span class="nav-number">4.</span> <span class="nav-text">node + mongodb客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①安装-引入"><span class="nav-number">4.1.</span> <span class="nav-text">①安装+引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②实例化并连接"><span class="nav-number">4.2.</span> <span class="nav-text">②实例化并连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#③链接库和集合"><span class="nav-number">4.3.</span> <span class="nav-text">③链接库和集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#④集合操作"><span class="nav-number">4.4.</span> <span class="nav-text">④集合操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#⑤关闭库"><span class="nav-number">4.5.</span> <span class="nav-text">⑤关闭库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#⑥node-mongoose"><span class="nav-number">4.6.</span> <span class="nav-text">⑥node  +  mongoose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#⑦可视化客户端"><span class="nav-number">4.7.</span> <span class="nav-text">⑦可视化客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#⑧mongo封装"><span class="nav-number">4.8.</span> <span class="nav-text">⑧mongo封装</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">251k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:37</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

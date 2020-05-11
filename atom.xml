@@ -6,7 +6,7 @@
   <link href="/jackhuang-haohua.github.io/atom.xml" rel="self"/>
   
   <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/"/>
-  <updated>2020-04-08T05:19:52.477Z</updated>
+  <updated>2020-05-10T15:00:33.394Z</updated>
   <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/08/2020-04-nuxt/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/08/2020-04-nuxt/</id>
     <published>2020-04-08T04:47:33.000Z</published>
-    <updated>2020-04-08T05:19:52.477Z</updated>
+    <updated>2020-05-10T15:00:33.394Z</updated>
     
     <summary type="html">
     
-      简单的服务端渲染
+      简单了解服务端渲染
     
     </summary>
     
@@ -36,15 +36,129 @@
   </entry>
   
   <entry>
+    <title>微信小程云开发-应用在项目中</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/23/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91%20%E5%BA%94%E7%94%A8/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/23/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91%20%E5%BA%94%E7%94%A8/</id>
+    <published>2019-11-23T12:15:22.000Z</published>
+    <updated>2020-05-10T11:51:28.097Z</updated>
+    
+    <summary type="html">
+    
+      创建云开发项目后，怎么在项目中用上数据库、云函数等接口
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微信小程云开发-数据库的操作</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/21/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/21/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91%20%E6%95%B0%E6%8D%AE%E5%BA%93/</id>
+    <published>2019-11-21T13:12:20.000Z</published>
+    <updated>2020-05-10T12:12:28.513Z</updated>
+    
+    <summary type="html">
+    
+      微信小程序云开发模块，mongodb的增删改查
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微信小程云开发</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/20/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/20/2020-05-%E5%BE%AE%E4%BF%A1%E4%BA%91%E5%BC%80%E5%8F%91/</id>
+    <published>2019-11-20T12:10:20.000Z</published>
+    <updated>2020-05-10T11:53:09.593Z</updated>
+    
+    <summary type="html">
+    
+      微信小程序云开发模块
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微信小程序知识点</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/16/2020-05-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/16/2020-05-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A1%B9%E7%9B%AE/</id>
+    <published>2019-11-16T12:13:20.000Z</published>
+    <updated>2020-05-11T05:21:11.714Z</updated>
+    
+    <summary type="html">
+    
+      项目中用到的知识点：底部导航栏，发送请求，小程序UI框架，自定义组件，事件，路由等
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>了解微信小程序</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/14/2020-05-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/14/2020-05-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</id>
+    <published>2019-11-14T14:30:00.000Z</published>
+    <updated>2020-05-10T08:16:33.828Z</updated>
+    
+    <summary type="html">
+    
+      这篇主要是了解微信小程序的由来、开发者工具、常用设置和快捷键
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>移动端开发注意事项</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/12/2020-05-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/11/12/2020-05-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F/</id>
+    <published>2019-11-11T16:10:30.000Z</published>
+    <updated>2020-05-07T15:50:53.155Z</updated>
+    
+    <summary type="html">
+    
+      移动端上一些注意事项：viewport，自适应布局，布局单位rem，1px边框，12px字体，响应式图片，移动端事件，测试等
+    
+    </summary>
+    
+    
+      <category term="App" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/App/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>混合开发</title>
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/10/12/2020-05-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/10/12/2020-05-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</id>
     <published>2019-10-12T15:03:40.000Z</published>
-    <updated>2020-05-05T16:13:17.209Z</updated>
+    <updated>2020-05-07T17:56:34.725Z</updated>
     
     <summary type="html">
     
-      因为涉及到原生App，所以只是初步了解一下
+      在原生Android上，嵌入html页面；环境都是同事帮忙配置的，sdk搞了半天都没搞定TOT
     
     </summary>
     
@@ -78,11 +192,30 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-node%E6%8E%A5%E5%8F%A3/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-node%E6%8E%A5%E5%8F%A3/</id>
     <published>2019-09-06T14:29:15.000Z</published>
-    <updated>2020-04-28T13:56:11.012Z</updated>
+    <updated>2020-05-10T17:14:46.857Z</updated>
     
     <summary type="html">
     
-      边问边做的node接口
+      之前写的一套接口；记录一下大概的实现
+    
+    </summary>
+    
+    
+      <category term="node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/node/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mongodb</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/</id>
+    <published>2019-09-06T14:29:15.000Z</published>
+    <updated>2020-05-10T16:28:02.502Z</updated>
+    
+    <summary type="html">
+    
+      mongodb的介绍与使用，在node中操作mongodb
     
     </summary>
     
@@ -112,11 +245,30 @@
   </entry>
   
   <entry>
+    <title>react做一个小demo</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/03/2020-05-react-%E5%90%8E%E5%8F%B0%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/03/2020-05-react-%E5%90%8E%E5%8F%B0%E9%A1%B9%E7%9B%AE/</id>
+    <published>2019-09-03T15:30:22.000Z</published>
+    <updated>2020-05-06T16:15:50.570Z</updated>
+    
+    <summary type="html">
+    
+      之前做过类似的react项目，现在想把项目中一些知识点整理一下，做一个后台demo；只做了几个页面，并不是完整的项目，只是为了总结之前的项目经验。
+    
+    </summary>
+    
+    
+      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>redux应用</title>
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/01/2020-05-react-redux3/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/01/2020-05-react-redux3/</id>
     <published>2019-09-01T14:29:20.000Z</published>
-    <updated>2020-05-05T17:54:45.988Z</updated>
+    <updated>2020-05-06T10:59:29.281Z</updated>
     
     <summary type="html">
     
@@ -125,7 +277,7 @@
     </summary>
     
     
-      <category term="App" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/App/"/>
+      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
     
     
   </entry>
@@ -135,7 +287,7 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/30/2020-05-react-redux2/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/30/2020-05-react-redux2/</id>
     <published>2019-08-30T15:30:22.000Z</published>
-    <updated>2020-05-05T17:28:45.054Z</updated>
+    <updated>2020-05-06T10:59:26.170Z</updated>
     
     <summary type="html">
     
@@ -144,7 +296,7 @@
     </summary>
     
     
-      <category term="App" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/App/"/>
+      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
     
     
   </entry>
@@ -154,7 +306,7 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/</id>
     <published>2019-08-28T15:30:22.000Z</published>
-    <updated>2020-05-05T17:19:23.389Z</updated>
+    <updated>2020-05-06T10:59:31.313Z</updated>
     
     <summary type="html">
     
@@ -163,7 +315,26 @@
     </summary>
     
     
-      <category term="App" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/App/"/>
+      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>身份验证-session与token</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/27/2020-03-node%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/27/2020-03-node%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81/</id>
+    <published>2019-08-27T14:30:45.000Z</published>
+    <updated>2020-05-10T12:15:32.183Z</updated>
+    
+    <summary type="html">
+    
+      身份验证的两种形式
+    
+    </summary>
+    
+    
+      <category term="node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/node/"/>
     
     
   </entry>
@@ -211,182 +382,11 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/24/2020-02-node.js%E5%88%9D%E7%BA%A7/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/24/2020-02-node.js%E5%88%9D%E7%BA%A7/</id>
     <published>2019-08-24T08:12:33.000Z</published>
-    <updated>2020-04-28T13:36:02.331Z</updated>
+    <updated>2020-05-10T15:20:09.660Z</updated>
     
     <summary type="html">
     
       node.js基础复习笔记
-    
-    </summary>
-    
-    
-      <category term="node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/node/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>react生命周期</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/20/2020-05-react-Router/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/20/2020-05-react-Router/</id>
-    <published>2019-08-20T14:40:21.000Z</published>
-    <updated>2020-05-05T12:14:54.971Z</updated>
-    
-    <summary type="html">
-    
-      react的生命周期为啥这么多呢...
-    
-    </summary>
-    
-    
-      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>react组件通信</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</id>
-    <published>2019-08-10T11:40:45.000Z</published>
-    <updated>2020-05-04T15:48:31.168Z</updated>
-    
-    <summary type="html">
-    
-      react组件间的通信：context、props、事件、ref、redux。没想到还是vue那几位……
-    
-    </summary>
-    
-    
-      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>react基础梳理</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/</id>
-    <published>2019-07-29T09:45:49.000Z</published>
-    <updated>2020-05-04T14:49:47.550Z</updated>
-    
-    <summary type="html">
-    
-      把项目中用到的react知识整理一下，没有特定顺序，学到什么就记下来
-    
-    </summary>
-    
-    
-      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>项目部署到阿里云</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/</id>
-    <published>2019-07-22T06:55:23.000Z</published>
-    <updated>2020-04-27T13:41:52.227Z</updated>
-    
-    <summary type="html">
-    
-      阿里云 nginx mongo node
-    
-    </summary>
-    
-    
-      <category term="node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/node/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>react小案例1</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/</id>
-    <published>2019-07-20T04:10:25.000Z</published>
-    <updated>2020-04-28T17:10:20.718Z</updated>
-    
-    <summary type="html">
-    
-      react+mock数据完成一个todolist：react基础知识，请求类型，指定文字变色
-    
-    </summary>
-    
-    
-      <category term="react" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/react/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>VUE项目-商城类WebApp</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/03/2020-04-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/03/2020-04-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/</id>
-    <published>2019-07-03T14:30:54.000Z</published>
-    <updated>2020-04-26T16:15:43.332Z</updated>
-    
-    <summary type="html">
-    
-      基本上页面都做了，地址 http://47.104.70.82/
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/vue/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>登录注册与验证码</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/06/06/2020-03-vue+node%E6%B3%A8%E5%86%8C%E4%B8%8E%E9%AA%8C%E8%AF%81/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/06/06/2020-03-vue+node%E6%B3%A8%E5%86%8C%E4%B8%8E%E9%AA%8C%E8%AF%81/</id>
-    <published>2019-06-06T14:01:43.000Z</published>
-    <updated>2020-05-05T14:19:28.033Z</updated>
-    
-    <summary type="html">
-    
-      vue+node完成一个登录页面，包含验证码
-    
-    </summary>
-    
-    
-      <category term="node" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/node/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>VUE项目-电影类WebApp</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/30/2020-03-vue%E5%8D%96%E5%BA%A7/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/30/2020-03-vue%E5%8D%96%E5%BA%A7/</id>
-    <published>2019-05-30T11:56:11.000Z</published>
-    <updated>2020-04-28T13:45:27.106Z</updated>
-    
-    <summary type="html">
-    
-      只写了几个页面，把vue的知识综合用一遍
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/vue/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>前端模拟接口</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/11/2020-04-%E5%89%8D%E7%AB%AF%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/11/2020-04-%E5%89%8D%E7%AB%AF%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE/</id>
-    <published>2019-05-11T14:55:40.000Z</published>
-    <updated>2020-04-28T13:45:01.898Z</updated>
-    
-    <summary type="html">
-    
-      json-server mock.js模拟请求接口
     
     </summary>
     

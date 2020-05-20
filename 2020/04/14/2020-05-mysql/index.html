@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="php一些基础知识。因为只记录了一些自己学到过的，比较乱哈哈。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql基本操作">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/14/2020-05-mysql/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="php一些基础知识。因为只记录了一些自己学到过的，比较乱哈哈。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-14T13:18:53.000Z">
+<meta property="article:modified_time" content="2020-05-18T16:02:28.965Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/14/2020-05-mysql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>mysql基本操作 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/14/2020-05-mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql基本操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-14 21:18:53" itemprop="dateCreated datePublished" datetime="2020-04-14T21:18:53+08:00">2020-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 00:02:28" itemprop="dateModified" datetime="2020-05-19T00:02:28+08:00">2020-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">php一些基础知识。因为只记录了一些自己学到过的，比较乱哈哈。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="了解数据库"><a href="#了解数据库" class="headerlink" title="了解数据库"></a>了解数据库</h2><ul>
+<li><p>是什么</p>
+<ul>
+<li>整个数据库就是一个存储数据的 “大仓库”</li>
+<li>在整个数据库里面包含有一个一个的 “小仓库”, 我们叫做 database</li>
+<li>每一个 “小仓库” 里面还有若干的 “表格”，”表” 里面会有字段, 就是 “表头”，每一个 “表” 里面还会有行, 就是 “表体”，整个 “表” 结构就类似于 excel 表格</li>
+</ul>
+</li>
+<li><p>例子：当你在一个服务器商运行两个网站的时候，所有的数据都存储在这一个电脑上，但是不能把两个网站的数据混合存储；当你存储数据的时候，商品信息和商品信息存储在一起，用户信息和用户信息存储在一起；</p>
+</li>
+</ul>
+<p><strong>sql 语句的语法规范</strong></p>
+<ol>
+<li>sql 语句里面的关键字大写</li>
+<li>表名和字段名尽可能使用反引号(键盘 tab 键上面那个按钮 ``)包裹<ul>
+<li>注意: 这个不是 es6 的模板字符串, 是 sql 语法规范的一部分</li>
+</ul>
+</li>
+<li>当你写一些文本内容的时候, 需要使用 引号 包裹, 表示是一个 字符串</li>
+</ol>
+<h2 id="常用sql语句"><a href="#常用sql语句" class="headerlink" title="常用sql语句"></a>常用sql语句</h2><ul>
+<li>什么是 sql 语句，专门用来操作数据库的语句、，mysql 数据库只能依靠 sql 语句来操作</li>
+<li>增删改 不需要解析结果, 因为结果就是 true 或者 false</li>
+<li>查询 需要解析结果的, 因为查询到数据以后我们看不懂</li>
+</ul>
+<h2 id="phpstudy的数据库操作"><a href="#phpstudy的数据库操作" class="headerlink" title="phpstudy的数据库操作"></a>phpstudy的数据库操作</h2><ul>
+<li>来到 phpstudy 可视窗口：点击 MySql 管理器，点击 mysql-front，来到整个数据库空间</li>
+<li>创建一个小仓库：，在 localhost 上点击右键 -&gt; 新建 -&gt; 数据库 -&gt; 注意: 名称尽量不要使用中文</li>
+<li>创建一个表格：在你想创建表的仓库上点击右键 -&gt; 新建 -&gt; 表 -&gt; 注意: 名称尽量不要使用中文</li>
+<li>添加字段：选中你要添加字段的表 -&gt; 点击对象浏览器 -&gt; 空白地方右键单击 -&gt; 新建 -&gt; 字段(注意: 名称不要使用中文)</li>
+<li>添加数据：在你想添加数据的表中, 点击数据浏览器,直接在表里面书写就可以了</li>
+</ul>
+<h2 id="php操作数据库"><a href="#php操作数据库" class="headerlink" title="php操作数据库"></a>php操作数据库</h2><h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PHP"><figure class="iseeu highlight /php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    header(<span class="string">'content-type: text/html;charset=utf-8;'</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 连接</span></span><br><span class="line">    $link=mysqli_connect(<span class="string">'localhost'</span>,<span class="string">'root'</span>,<span class="string">'root'</span>,<span class="string">'test1'</span>);</span><br><span class="line"><span class="comment">// 操作（增删改查等）</span></span><br><span class="line">    $res = mysqli_query($link, <span class="string">'SELECT * FROM `users`'</span>);</span><br><span class="line"><span class="comment">// 解析</span></span><br><span class="line">    $res = mysqli_fetch_all($res,MYSQL_ASSOC);</span><br><span class="line"><span class="comment">// 打印解析结果</span></span><br><span class="line">    print_r($res);</span><br><span class="line"><span class="comment">// 断开连接</span></span><br><span class="line">    mysqli_close($link);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="①插入"><a href="#①插入" class="headerlink" title="①插入"></a>①插入</h3><p>使用 INSERT 关键字，有两种语法：</p>
+<ol>
+<li>INSERT INTO <code>表名</code> VALUES(数据1, 数据2, 数据3, …);</li>
+<li>INSERT INTO <code>表名</code> (字段1, 字段2, …) VALUES(数据1, 数据2, …);</li>
+</ol>
+<p>输出结果：</p>
+<ul>
+<li>$res 为 false 的时候，表示的是 sql 语句有错误<ul>
+<li>第一中方式的时候, 必须要完全按照数据库里面的字段数量添加</li>
+<li>第二种方式的时候, 字段和数据库里面不匹配的时候就会报错</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PHP"><figure class="iseeu highlight /php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  header(<span class="string">'content-type: text/html;charset=utf-8;'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 连接</span></span><br><span class="line">  $link = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>, <span class="string">'test1'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行一条插入的语句</span></span><br><span class="line">  <span class="comment">// $res = mysqli_query($link, 'INSERT INTO `users` VALUES(null, "管理员2", 20, "男", "1906")');</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行第二种插入的 sql 语句</span></span><br><span class="line">  $res = mysqli_query($link, <span class="string">'INSERT INTO `users` (`name`, `age`) VALUES("管理员2", 22)'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 输出结果，true表示插入成功</span></span><br><span class="line">  var_dump($res);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="②删除"><a href="#②删除" class="headerlink" title="②删除"></a>②删除</h3><p>使用 DELETE 关键字:</p>
+<ol>
+<li>DELETE FROM <code>表名</code> WHERE 条件</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PHP"><figure class="iseeu highlight /php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="comment">// 从 users 这个表里面删除 username 为 admin 的一条数据</span></span><br><span class="line">  $res = mysqli_query($link, <span class="string">'DELETE FROM `users` WHERE `username`="admin"'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 从 users 这个表里面删除 age 为 18 的数据</span></span><br><span class="line">  $res = mysqli_query($link, <span class="string">'DELETE FROM `users` WHERE `age`=18'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 输出结果，true 表示成功</span></span><br><span class="line">  var_dump($res);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="③修改"><a href="#③修改" class="headerlink" title="③修改"></a>③修改</h3><p>使用 UPDATE 关键字：</p>
+<ol>
+<li>UPDATE <code>表</code> SET 字段=新值 WHERE 条件</li>
+<li>UPDATE <code>表</code> SET 字段=新值, 字段2=新值 WHERE 条件</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PHP"><figure class="iseeu highlight /php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  $res = mysqli_query($link, <span class="string">'UPDATE `users` SET `age`=25 WHERE `Id`=4'</span>);</span><br><span class="line"></span><br><span class="line">  $res = mysqli_query($link, <span class="string">'UPDATE `users` SET `gender`="女", `class`="1906" WHERE `Id`=4'</span>);</span><br><span class="line"></span><br><span class="line">  var_dump($res);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="④查询"><a href="#④查询" class="headerlink" title="④查询"></a>④查询</h3><p>使用 SELECT 关键字:</p>
+<ol>
+<li>SELECT * FROM <code>表</code>：查询这个表里面的所有数据</li>
+<li>SELECT * FROM <code>表</code> WHERE 条件：根据我们的条件查询数据库里面的数据</li>
+<li>SELECT * FROM <code>表</code> WHERE 条件1 AND 条件2：根据两个条件来查询, 两个条件必须都满足</li>
+<li>SELECT * FROM <code>表</code> WHERE 条件1 OR 条件2：根据两个条件来查询, 两个条件满足一个就可以了</li>
+<li>SELECT * FROM <code>表</code> WHERE 字段 LIKE ‘%关键字%’：查询数据里面指定字段包含某一个关键字的数据</li>
+</ol>
+<p><strong>关于单双引号：</strong></p>
+<ul>
+<li>在 php 里面 字符串分成两种<ul>
+<li>单引号, 不能直接解析变量</li>
+<li>双引号, 可以直接解析变量</li>
+</ul>
+</li>
+<li>当你需要再字符串里面解析变量的时候, 就是用双引号</li>
+<li>当你不需要再字符串里面解析变量的时候, 使用哪一个无所谓</li>
+<li>字符串的嵌套, 外面使用双引号, 里面就要用单引号；外面使用单引号, 里面就要使用双引号</li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PHP"><figure class="iseeu highlight /php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="comment">// 处理中文乱码</span></span><br><span class="line">  header(<span class="string">'content-type: text/html;charset=utf-8;'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 连接数据库</span></span><br><span class="line">  $link = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>, <span class="string">'test2'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询 student 表里面所有年龄为 20 的数据</span></span><br><span class="line">  $sql = <span class="string">'SELECT * FROM `student` WHERE `age`=20'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询 student 表里面所有 年龄为 20 并且 性别为 男 的所有数据</span></span><br><span class="line">  $sql = <span class="string">'SELECT * FROM `student` WHERE `age`=20 AND `gender`="男"'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询 student 表里面所有 年龄小于 22 或者 年龄大于 28 的所有数据</span></span><br><span class="line">  $sql = <span class="string">'SELECT * FROM `student` WHERE `age`&lt;22 OR `age`&gt;28'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询 student 表里面所有 name 里面带有 三 字的数据</span></span><br><span class="line">  $sql = <span class="string">'SELECT * FROM `student` WHERE `name` LIKE "%三%"'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义变量</span></span><br><span class="line">  $n = <span class="string">'六'</span>;</span><br><span class="line">  $sql = <span class="string">"SELECT * FROM `student` WHERE `name` LIKE '%$n%'"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行 sql 语句</span></span><br><span class="line">  $res = mysqli_query($link, $sql);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 因为是查询，结果需要解析</span></span><br><span class="line">  $data = mysqli_fetch_all($res, MYSQL_ASSOC); <span class="comment">// 若sql语句错误，$res为false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 把数据转换成 json 格式输出</span></span><br><span class="line">  print_r(json_encode($data));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2020/04/12/2020-05-PHP/" rel="prev" title="简单了解php">
+      <i class="fa fa-chevron-left"></i> 简单了解php
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2020/04/20/2020-05-%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="各种题目">
+      各种题目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解数据库"><span class="nav-number">1.</span> <span class="nav-text">了解数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用sql语句"><span class="nav-number">2.</span> <span class="nav-text">常用sql语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phpstudy的数据库操作"><span class="nav-number">3.</span> <span class="nav-text">phpstudy的数据库操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php操作数据库"><span class="nav-number">4.</span> <span class="nav-text">php操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接数据库"><span class="nav-number">4.1.</span> <span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#①插入"><span class="nav-number">4.2.</span> <span class="nav-text">①插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②删除"><span class="nav-number">4.3.</span> <span class="nav-text">②删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#③修改"><span class="nav-number">4.4.</span> <span class="nav-text">③修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#④查询"><span class="nav-number">4.5.</span> <span class="nav-text">④查询</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

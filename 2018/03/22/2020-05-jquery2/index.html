@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="jq剩下的一些知识点整理。包括发送请求，ajax钩子函数，多库并存，添加拓展，拷贝对象，表单验证等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery知识点-第二部分">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/03/22/2020-05-jquery2/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="jq剩下的一些知识点整理。包括发送请求，ajax钩子函数，多库并存，添加拓展，拷贝对象，表单验证等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-22T15:17:28.000Z">
+<meta property="article:modified_time" content="2020-05-19T16:37:56.036Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/03/22/2020-05-jquery2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>jQuery知识点-第二部分 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/03/22/2020-05-jquery2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jQuery知识点-第二部分
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-22 23:17:28" itemprop="dateCreated datePublished" datetime="2018-03-22T23:17:28+08:00">2018-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-20 00:37:56" itemprop="dateModified" datetime="2020-05-20T00:37:56+08:00">2020-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/jQuery/" itemprop="url" rel="index">
+                    <span itemprop="name">jQuery</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
+            <div class="post-description">jq剩下的一些知识点整理。包括发送请求，ajax钩子函数，多库并存，添加拓展，拷贝对象，表单验证等。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="jq发送请求"><a href="#jq发送请求" class="headerlink" title="jq发送请求"></a>jq发送请求</h2><p>jq已经有get/post/ajax的方法了。</p>
+<h3 id="ajax请求"><a href="#ajax请求" class="headerlink" title="ajax请求"></a>ajax请求</h3><h4 id="一些知识点："><a href="#一些知识点：" class="headerlink" title="一些知识点："></a>一些知识点：</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 发送一个 ajax 请求</span><br><span class="line">    <span class="number">1.</span> $.<span class="keyword">get</span>() -&gt; 专门用来发送 <span class="keyword">get</span> 请求的</span><br><span class="line">    2. $.post() -&gt; 专门用来发送 post 请求的</span><br><span class="line">    3. $.ajax() -&gt; 发送什么请求都可以(<span class="keyword">get</span>, post, put, delete)</span><br><span class="line">      =&gt; 并且还可以发送一个 jsonp 请求</span><br><span class="line"></span><br><span class="line">  jQuery 发送一个 GET 请求</span><br><span class="line">    + 语法: $.<span class="keyword">get</span>(请求地址, 需要携带到后端的参数, 成功的回调函数, 期望后端返回的数据类型)</span><br><span class="line">      =&gt; 请求地址: 你要请求的后端接口地址(必填)</span><br><span class="line">      =&gt; 携带参数: 你需要给后端传递的参数</span><br><span class="line">        -&gt; 可以是一个固定格式的字符串 'key=value&amp;key=value'</span><br><span class="line">        -&gt; 也可以是一个对象 &#123; a: <span class="number">100</span>, <span class="attr">b</span>: <span class="number">200</span> &#125;</span><br><span class="line">      =&gt; 成功回调: 当请求成功的时候会执行的函数</span><br><span class="line">      =&gt; 期望数据类型: 就是你是不是需要 jQuery 帮你解析响应体</span><br><span class="line">        -&gt; 默认是不解析</span><br><span class="line">        -&gt; 当你传递一个 <span class="string">'json'</span> 的时候, 会自动帮你执行 <span class="built_in">JSON</span>.parse()</span><br><span class="line"></span><br><span class="line">  jQuery 发送一个 POST 请求</span><br><span class="line">    + 语法: $.post(请求地址, 需要携带到后端的参数, 成功的回调函数, 期望后端返回的数据类型)</span><br><span class="line">      =&gt; 四个参数和 $.<span class="keyword">get</span> 是一摸一样的</span><br><span class="line"></span><br><span class="line">  jQuery 的 $.ajax 方法</span><br><span class="line">    + 用来发送综合 ajax 请求的(GET, POST, PUT, ...)</span><br><span class="line">    + 语法: $.ajax(对象)</span><br><span class="line">      =&gt; 对象是对本次请求的所有配置</span><br><span class="line">      =&gt; $.ajax(&#123;</span><br><span class="line">        url: <span class="string">''</span>, <span class="comment">// =&gt; 请求地址(必填)</span></span><br><span class="line">        type: <span class="string">''</span>, <span class="comment">// =&gt; 请求方式(GET, POST, ...) 默认是 GET</span></span><br><span class="line">        data: <span class="string">''</span>, <span class="comment">// =&gt; 携带到后端的参数</span></span><br><span class="line">        dataType: <span class="string">''</span>, <span class="comment">// =&gt; 期望后端返回的数据类型, 默认不解析</span></span><br><span class="line">        <span class="keyword">async</span>: <span class="literal">true</span>, <span class="comment">// =&gt; 是否异步, 默认是 true</span></span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;, <span class="comment">// =&gt; 成功的回调</span></span><br><span class="line">        error: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;, <span class="comment">// =&gt; 失败的回调</span></span><br><span class="line">        timeout: 数字, <span class="comment">// 单位是 ms, 超时时间(超过你写的时间没有响应, 那么就算失败)</span></span><br><span class="line">        cache: <span class="literal">true</span>, <span class="comment">// 是否缓存, 默认是 true</span></span><br><span class="line">        context: 上下文, <span class="comment">// 改变回调函数里面的 this 指向</span></span><br><span class="line">        ...</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">  $.ajax 里面失败的回调</span><br><span class="line">    =&gt; 不光是请求失败的时候会触发</span><br><span class="line">    =&gt; jQuery 认定失败就是失败</span><br><span class="line">      -&gt; 当 dataType 写成 json 的时候, jQuery 会帮我们执行 <span class="built_in">JSON</span>.parse()</span><br><span class="line">      -&gt; 当后端返回一个不是 json 格式的字符串的时候</span><br><span class="line">      -&gt; 执行 <span class="built_in">JSON</span>.parse() 就会报错</span><br><span class="line">      -&gt; 也会执行失败的回调, 请求虽然成功, 但是解析失败了, 也是失败</span><br><span class="line">    =&gt; <span class="built_in">JSON</span>.parse(<span class="string">'你好 世界'</span>) -&gt; 就会报错了</span><br><span class="line"></span><br><span class="line">  $.ajax 里面是否缓存的问题</span><br><span class="line">    =&gt; 当两次请求地址一样的时候, 就会缓存</span><br><span class="line">    =&gt; 如果你写成 <span class="literal">false</span>, 表示不要缓存</span><br><span class="line">    =&gt; jQuery 就会自动再你的请求后面加一个参数 _=时间戳</span><br><span class="line">      -&gt; 第一次请求 ./server/<span class="keyword">get</span>.php?_=11:10:01.325的时间戳</span><br><span class="line">      -&gt; 第二次请求 ./server/<span class="keyword">get</span>.php?_=11:10:02.326的时间戳</span><br><span class="line"></span><br><span class="line">  $.ajax 里面的回调 this 指向问题</span><br><span class="line">    =&gt; ajax 的回调里面默认 this 指向被 jQuery 加工过的 ajax 对象</span><br><span class="line">    =&gt; context 的值你写的是谁, 回调函数里面的 this 就时谁</span><br><span class="line"></span><br><span class="line">  $.ajax 里面的请求方式的问题</span><br><span class="line">    =&gt; $.ajax 这个方法里面, type 表示请求方式</span><br><span class="line">    =&gt; jQuery 还给了我们一个参数叫做 method</span><br><span class="line">    =&gt; 也表示请求方式</span><br><span class="line">      -&gt; 当你写请求方式的时候</span><br><span class="line">      -&gt; 可以写成 type: 'POST'</span><br><span class="line">      -&gt; 也可以写成 method: 'POST'</span><br><span class="line"></span><br><span class="line">  $.ajax 里面的接收响应的问题(2015年以后的版本才有 promise 的形式)</span><br><span class="line">    =&gt; jQuery 默认把 ajax 封装成了 promsie 的形式</span><br><span class="line">    =&gt; 你可以用 success 选项接收成功的回调</span><br><span class="line">    =&gt; 也可以用 .then() 的方式接收响应</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="实际例子："><a href="#实际例子：" class="headerlink" title="实际例子："></a>实际例子：</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 $.ajax() 方法发送一个请求</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url: <span class="string">'./server/get.php'</span>,</span><br><span class="line">  type: <span class="string">'GET'</span>, <span class="comment">// 大小写无所谓, GET 请求可以不写</span></span><br><span class="line">  data: <span class="string">'a=100&amp;b=200'</span>, <span class="comment">// &#123; a: 100, b: 200 &#125;,</span></span><br><span class="line">  dataType: <span class="string">'json'</span>, <span class="comment">// jQuery 帮我们执行 JSON.parse()</span></span><br><span class="line">  <span class="keyword">async</span>: <span class="literal">true</span>, <span class="comment">// 是否异步</span></span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123; <span class="comment">// 成功的回调</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'请求成功了'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  error: <span class="function"><span class="keyword">function</span> (<span class="params">xhr, err, info</span>) </span>&#123; <span class="comment">// 失败的回调</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'请求失败'</span>)</span><br><span class="line">    <span class="comment">// xhr =&gt; ajax 对象</span></span><br><span class="line">    <span class="comment">// err =&gt; 错误信息, 一个简单描述</span></span><br><span class="line">    <span class="comment">// info =&gt; 详细的错误信息</span></span><br><span class="line">    <span class="built_in">console</span>.log(xhr)</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">    <span class="built_in">console</span>.log(info)</span><br><span class="line">  &#125;,</span><br><span class="line">  timeout: <span class="number">1000</span>, <span class="comment">// 超时时间, 1000ms 后没有响应回来就失败了</span></span><br><span class="line">  cache: <span class="literal">false</span>, <span class="comment">// 不缓存, 就会自动添加一个参数叫做 _=时间戳</span></span><br><span class="line">  context: obj, <span class="comment">// 让回调函数里面的 this 指向 obj 这个对象</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="ajax钩子函数"><a href="#ajax钩子函数" class="headerlink" title="ajax钩子函数"></a>ajax钩子函数</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 的 ajax 全局钩子函数</span><br><span class="line">    + 钩子: 挂在你的身上, 你的所有动作都和它有关系</span><br><span class="line">    + 这些全局函数都是挂在 ajax 身上的, 这个 ajax 的每一个动作都和全局函数有关系</span><br><span class="line">    + 全局的钩子函数</span><br><span class="line">      <span class="number">1.</span> ajaxStart()</span><br><span class="line">        =&gt; 会在同一个作用域下多个 ajax 的时候, 第一个 ajax 之前开始的时候触发</span><br><span class="line">        =&gt; 如果有多个 ajax 他只触发一次</span><br><span class="line">      <span class="number">2.</span> ajaxSend()</span><br><span class="line">        =&gt; 每一个 ajax 再发送出去之前, 都会触发一下</span><br><span class="line">        =&gt; xhr.send() 之前触发</span><br><span class="line">      <span class="number">3.</span> ajaxSuccess()</span><br><span class="line">        =&gt; 每一个 ajax 再成功的时候触发</span><br><span class="line">        =&gt; 只要有一个 ajax 成功了就会触发</span><br><span class="line">      <span class="number">4.</span> ajaxError()</span><br><span class="line">        =&gt; 每一个 ajax 再失败的时候触发</span><br><span class="line">        =&gt; 只要有一个 ajax 失败了就会触发</span><br><span class="line">      <span class="number">5.</span> ajaxComplete()</span><br><span class="line">        =&gt; 每一个 ajax 完成的时候触发</span><br><span class="line">        =&gt; 只要有一个 ajax 完成了, 不管成功还是失败, 都会触发</span><br><span class="line">      <span class="number">6.</span> ajaxStop()</span><br><span class="line">        =&gt; 会在同一个作用域内多个 ajax 的时候, 最后一个 ajax 完成以后触发</span><br><span class="line">        =&gt; 如果有多个 ajax 它只触发一次</span><br><span class="line">    + 作用: 通常用来做 loading 效果</span><br><span class="line">*<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 提前准备 钩子函数</span></span><br><span class="line"><span class="regexp">$(window).ajaxStart(function () &#123;</span></span><br><span class="line"><span class="regexp">  console.log('第一个请求要开始了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$(window).ajaxSend(function () &#123;</span></span><br><span class="line"><span class="regexp">  console.log('有一个请求要发送出去了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$(window).ajaxSuccess(function () &#123;</span></span><br><span class="line"><span class="regexp">  console.log('有一个请求成功了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$(window).ajaxError(function () &#123;</span></span><br><span class="line"><span class="regexp">  console.log('有一个请求失败了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$(window).ajaxComplete(function () &#123;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/ 不管成功还是失败, 只要完成了就触发</span></span><br><span class="line"><span class="regexp">  console.log('有一个请求完成了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$(window).ajaxStop(function () &#123;</span></span><br><span class="line"><span class="regexp">  console.log('最后一个请求结束了')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="loading"><a href="#loading" class="headerlink" title="loading"></a>loading</h4><p>利用钩子函数制作loading：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">/*</span><br><span class="line">  loading 效果</span><br><span class="line">    + 请求发送的时候的加载效果</span><br><span class="line">      =&gt; 当请求发送出去以后</span><br><span class="line">      =&gt; 页面上有一个小东西再转圈(从页面最左边到最右边有一个进度条)</span><br><span class="line">      =&gt; 当请求完成的时候</span><br><span class="line">      =&gt; 这个效果就消失了</span><br><span class="line">    + 利用 钩子函数 制作</span><br><span class="line"></span><br><span class="line">  业务逻辑</span><br><span class="line">    + 当点击 button 按钮的时候就会发送一个请求</span><br><span class="line">    + 每一个请求发送出去的时候就会触发 loading 效果, 图片显示出来</span><br><span class="line">    + 当请求完成对的时候, loading 效果消失, 图片再次隐藏起来</span><br><span class="line">      =&gt; 一定是 ajaxComplete(), 不管成功失败, 完成就触发</span><br><span class="line">      =&gt; 不能是 ajaxSuccess(), 只有成功会触发</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"><span class="actionscript"><span class="comment">// 提前利用钩子函数准备 loading 效果</span></span></span><br><span class="line"><span class="actionscript"><span class="comment">// 每一次发送出去的时候都要显示图片</span></span></span><br><span class="line"><span class="javascript">$(<span class="built_in">window</span>).ajaxSend(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">  $(<span class="string">'img'</span>).show()</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="actionscript"><span class="comment">// 每一次完成的时候都要图片再隐藏起来</span></span></span><br><span class="line"><span class="javascript">$(<span class="built_in">window</span>).ajaxComplete(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">  $(<span class="string">'img'</span>).hide()</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="actionscript"><span class="comment">// 每次点击按钮的时候都会发送一个 ajax 请求</span></span></span><br><span class="line"><span class="javascript">$(<span class="string">'button'</span>).click(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">  <span class="comment">// 发送一个 ajax 请求</span></span></span><br><span class="line"><span class="javascript">  $.ajax(&#123;</span></span><br><span class="line"><span class="actionscript">    url: <span class="string">'./server/get.php'</span>,</span></span><br><span class="line">    data: &#123;</span><br><span class="line">      a: 100,</span><br><span class="line">      b: 200</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="actionscript">    dataType: <span class="string">'json'</span>,</span></span><br><span class="line"><span class="actionscript">    success: <span class="function"><span class="keyword">function</span> <span class="params">(res)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'请求成功了'</span>)</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(res)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">  $a = $_GET[<span class="string">'a'</span>];</span></span><br><span class="line"><span class="php">  $b = $_GET[<span class="string">'b'</span>];</span></span><br><span class="line"></span><br><span class="line"><span class="php">  $arr = <span class="keyword">array</span>(</span></span><br><span class="line"><span class="php">    <span class="string">"message"</span> =&gt; <span class="string">"参数已经接收到, 给你带回去"</span>,</span></span><br><span class="line"><span class="php">    <span class="string">"a"</span> =&gt; $a,</span></span><br><span class="line"><span class="php">    <span class="string">"b"</span> =&gt; $b</span></span><br><span class="line"><span class="php">  );</span></span><br><span class="line"></span><br><span class="line"><span class="php">  <span class="keyword">echo</span> json_encode($arr);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="GET-POST请求"><a href="#GET-POST请求" class="headerlink" title="GET/POST请求"></a>GET/POST请求</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打开页面就发送 POST 请求了</span></span><br><span class="line">$.post(<span class="string">'./server/post.php'</span>, <span class="string">'c=hello&amp;d=world'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;, <span class="string">'json'</span>)</span><br><span class="line"></span><br><span class="line">$.post(<span class="string">'./server/post.php'</span>, &#123;</span><br><span class="line">  c: <span class="string">'你好'</span>,</span><br><span class="line">  d: <span class="string">'世界'</span></span><br><span class="line">&#125;, res =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;, <span class="string">'json'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打开页面就发送 GET 请求了</span></span><br><span class="line">$.<span class="keyword">get</span>('./server/<span class="keyword">get</span>.php', 'a=100&amp;b=200', function (res) &#123;</span><br><span class="line">  <span class="comment">// res 就是后端返回的数据, 也就是响应体</span></span><br><span class="line">  <span class="comment">// console.log(JSON.parse(res))</span></span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;, <span class="string">'json'</span>)</span><br><span class="line"></span><br><span class="line">$.<span class="keyword">get</span>('./server/<span class="keyword">get</span>.php', &#123;</span><br><span class="line">  a: <span class="number">300</span>,</span><br><span class="line">  b: <span class="number">400</span></span><br><span class="line">&#125;, res =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;, <span class="string">'json'</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 发送一个 jsonp 请求</span><br><span class="line">    + jQuery 也提供给我们发送 jsonp 请求的方式</span><br><span class="line">      =&gt; jsonp: 利用 script 标签的 src 属性来请求</span><br><span class="line">      =&gt; 返回值: 是一个字符串, 字符串里面写了一个 函数名(后端传递给前端的参数)</span><br><span class="line">    + 使用 $.ajax() 这个方法</span><br><span class="line">      =&gt; 必须写的: dataType: <span class="string">'jsonp'</span></span><br><span class="line">    + 发送 jsonp 请求</span><br><span class="line">      =&gt; jQuery 帮我们准备好了一个函数名, 并且以参数的形式带到了后端</span><br><span class="line">      =&gt; jQuery 帮我们带过去的 callback 参数, 就是它准备好的函数名</span><br><span class="line">      =&gt; 后端就应该返回一个 jQuery 准备好的函数名()</span><br><span class="line">    + 其他参数</span><br><span class="line">      =&gt; jsonp: <span class="string">''</span>, <span class="comment">// =&gt; 你带到后端表示你函数名的那个 key, 默认值是 callback</span></span><br><span class="line">      =&gt; cache: <span class="literal">false</span>, <span class="comment">// =&gt; 当 dataType === 'jsonp' 的时候, 默认 cache 就是 false</span></span><br><span class="line"></span><br><span class="line">  jQuery 准备好的函数名</span><br><span class="line">    + jQuery34108160883644340862_1582255906750</span><br><span class="line">    + 变量名包含 数字 字母 下划线 $</span><br><span class="line">    + <span class="function"><span class="keyword">function</span> <span class="title">jQuery34108160883644340862_1582255906750</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">*<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 发送一个 jsonp 请求</span></span><br><span class="line"><span class="regexp">$.ajax(&#123;</span></span><br><span class="line"><span class="regexp">  url: 'http:/</span><span class="regexp">/127.0.0.1/</span>server/jsonp.php<span class="string">',</span></span><br><span class="line"><span class="string">  dataType: '</span>jsonp<span class="string">', // 表示我要发送一个 jsonp 请求</span></span><br><span class="line"><span class="string">  jsonp: '</span>cb<span class="string">', // 表示参数里面的 cb 属性时我准备好的函数名</span></span><br><span class="line"><span class="string">  cache: true, // 表示缓存本次请求</span></span><br><span class="line"><span class="string">  success: function (res) &#123;</span></span><br><span class="line"><span class="string">    console.log(res)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="多库并存"><a href="#多库并存" class="headerlink" title="多库并存"></a>多库并存</h3><p>jq可以和其他类库并存，<code>$</code>是jq的标志，其实jq还可以交出<code>$</code>的控制权：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 的多库并存机制</span><br><span class="line">    + 因为 jQuery 引入页面以后, 向全局添加了两个名字</span><br><span class="line">      -&gt; 一个叫做 $</span><br><span class="line">      -&gt; 一个叫做 jQuery</span><br><span class="line">      -&gt; 万一有别的类库也起名叫做 jQuery 或者 $ 怎么办</span><br><span class="line">    + 当我两个库都需要使用的时候</span><br><span class="line">      -&gt; 因为向全局暴露的名字一样, 就会发生冲突了</span><br><span class="line">      -&gt; 谁的文件引再后面, 谁的名字就占主要位置了</span><br><span class="line">      -&gt; 两个只能选择一个使用</span><br><span class="line">    + jQuery 提供了一个方法</span><br><span class="line">      -&gt; 我可以不占用 $ 或者 jQuery 这个名字</span><br><span class="line">      -&gt; noConflict()</span><br><span class="line">      -&gt; 语法: $.noConflict() 或者 jQuery.noConflict()</span><br><span class="line">        =&gt; 当你执行了 noConflict() 以后, jQuery 就交出了 $ 的控制权</span><br><span class="line">        =&gt; jQuery 向全局暴露的不在有 $ 这个名字了</span><br><span class="line">        =&gt; 当你执行了 noConflict(<span class="literal">true</span>) 以后, jQuery 就交出了 $ 和 jQuery 的控制权</span><br><span class="line">        =&gt; 交出去以后, 我的 jQuery 就用不了</span><br><span class="line">      -&gt; noConflict() 的返回值: 就是一个新的控制权</span><br><span class="line">        =&gt; 你只要接收一个返回值, 你定好的变量是什么</span><br><span class="line">        =&gt; jQuery 的控制权就是什么</span><br><span class="line">*<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 交出 $ 的控制权</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ $.noConflict()</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 交出 $ 和 jQuery 的控制权</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ $.noConflict(true)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 改变 jQuery 的控制权</span></span><br><span class="line"><span class="regexp">var $$ = $.noConflict(true)</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="添加拓展插件"><a href="#添加拓展插件" class="headerlink" title="添加拓展插件"></a>添加拓展插件</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 的插件扩展机制</span><br><span class="line">    + jQuery 提供了很多的方法, 假如有 <span class="number">200</span> 个</span><br><span class="line">    + 基本上常用的就够用了</span><br><span class="line">    + 并不能保证对每一个项目的开发都全部够用</span><br><span class="line">    + jQuery 还提供给我们了一个机制, 就是你可以向 jQuery 里面扩展一些方法</span><br><span class="line"></span><br><span class="line">  两个方法</span><br><span class="line">    <span class="number">1.</span> $.extend()</span><br><span class="line">      =&gt; 扩展给 jQuery 本身使用的</span><br><span class="line">      =&gt; 语法: $.extend(&#123;</span><br><span class="line">        你要扩展的方法名: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        你要扩展的方法名: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        ...</span><br><span class="line">      &#125;)</span><br><span class="line">      =&gt; 使用的时候就是 $.你扩展的方法名()</span><br><span class="line">      =&gt; $.ajax()</span><br><span class="line">    <span class="number">2.</span> $.fn.extend() =&gt; $.extend($.fn, &#123; 你扩展的方面名 &#125;)</span><br><span class="line">      =&gt; 扩展给 jQuery 元素集合使用的</span><br><span class="line">      =&gt; $.fn.extend(&#123;</span><br><span class="line">        你要扩展的方法名: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        你要扩展的方法名: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">        ...</span><br><span class="line">      &#125;)</span><br><span class="line">      =&gt; 使用的时候就是 $(选择器).你扩展的方法名()</span><br><span class="line">      =&gt; $(<span class="string">'div'</span>).html()</span><br><span class="line">*<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 2. 扩展给元素集合</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/    扩展一个全选的方法</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/    方法一执行, 就能让 input checkbox 变成选中状态或者不选中状态</span></span><br><span class="line"><span class="regexp">$.fn.extend(&#123;</span></span><br><span class="line"><span class="regexp">  selectAll: function (type = true) &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ type 就是你传递进来的选中或者不选中一个标志</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/   你不传递的时候, 我默认是 true, 你传递了就用你传递的</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ console.log(this) /</span><span class="regexp">/ 就是你调用的时候前面的哪个元素集合</span></span><br><span class="line"><span class="regexp">    this.each(function (index, item) &#123;</span></span><br><span class="line"><span class="regexp">      /</span><span class="regexp">/ 让元素集合中的每一个 input 的 checked 属性为 true</span></span><br><span class="line"><span class="regexp">      item.checked = type</span></span><br><span class="line"><span class="regexp">    &#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ return 这个元素集合, 达到一个链式编程的效果</span></span><br><span class="line"><span class="regexp">    return this</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">$('button').click(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/ 让所有 input 框变成选中状态</span></span><br><span class="line"><span class="regexp">  console.log($('input').selectAll().attr('hello', 'world'))</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 1. 扩展给 jQuery 本身</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/    jQuery 本身没有操作 cookie 的方法</span></span><br><span class="line"><span class="regexp">$.extend(&#123;</span></span><br><span class="line"><span class="regexp">  setCookie: function (key, value, expires) &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 写上设置 cookie 的方法</span></span><br><span class="line"><span class="regexp">    if (expires) &#123;</span></span><br><span class="line"><span class="regexp">      var time = new Date()</span></span><br><span class="line"><span class="regexp">      time.setTime(time.getTime() - 1000 * 60 * 60 * 8 + 1000 * expires)</span></span><br><span class="line"><span class="regexp">      document.cookie = `$&#123;key&#125;=$&#123;value&#125;;expires=$&#123;time&#125;`</span></span><br><span class="line"><span class="regexp">    &#125; else &#123;</span></span><br><span class="line"><span class="regexp">      document.cookie = `$&#123;key&#125;=$&#123;value&#125;`</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  getCookie: function (key) &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ ...</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 使用我们扩展的方法去设置 cookie</span></span><br><span class="line"><span class="regexp">$.setCookie('a', 100)</span></span><br><span class="line"><span class="regexp">$.setCookie('b', 200, 10)</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="拷贝对象"><a href="#拷贝对象" class="headerlink" title="拷贝对象"></a>拷贝对象</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">  jQuery 的拷贝对象问题</span><br><span class="line">    =&gt; 我们的 深浅拷贝</span><br><span class="line">    =&gt; $.extend()</span><br><span class="line">      -&gt; 传递一个对象的时候, 可以做到插件扩展机制</span><br><span class="line">      -&gt; 传递多个对象的时候, 可以将后面几个对象的内容复制到第一个对象里面</span><br><span class="line">    =&gt; 语法:</span><br><span class="line">      -&gt; $.extend(是否深拷贝, 对象<span class="number">1</span>, 对象<span class="number">2</span>, 对象<span class="number">3</span>, ...)</span><br><span class="line">        =&gt; 是否深拷贝: 默认是 <span class="literal">false</span>, 可以不写</span><br><span class="line">        =&gt; 从 对象<span class="number">2</span> 开始, 后面所有对象的内容都会被拷贝到 对象<span class="number">1</span> 里面</span><br><span class="line">        =&gt; 再拷贝的时候, 如果有重复的 key, 那么以写在后面的为准(后来者居上)</span><br><span class="line">*<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o1 = &#123;</span></span><br><span class="line"><span class="regexp">  name: '我是 o1 对象',</span></span><br><span class="line"><span class="regexp">  a: 100,</span></span><br><span class="line"><span class="regexp">  b: 200</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o2 = &#123;</span></span><br><span class="line"><span class="regexp">  name: '我是 o2 对象',</span></span><br><span class="line"><span class="regexp">  c: 300,</span></span><br><span class="line"><span class="regexp">  d: 400,</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    hello: 'world'</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o3 = &#123;</span></span><br><span class="line"><span class="regexp">  name: '我是 o3 对象',</span></span><br><span class="line"><span class="regexp">  e: 500,</span></span><br><span class="line"><span class="regexp">  f: 600</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 进行浅拷贝</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/   吧 o2 和 o3 的成员复制到 o1 里面</span></span><br><span class="line"><span class="regexp">$.extend(o1, o2, o3)</span></span><br><span class="line"><span class="regexp">o1.data.hello = '世界'</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 进行深拷贝</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/   把 o2 和 o3 深拷贝进入到 o1 里面</span></span><br><span class="line"><span class="regexp">$.extend(true, o1, o2, o3)</span></span><br><span class="line"><span class="regexp">o1.data.hello = '世界'</span></span><br><span class="line"><span class="regexp">o1.e = 191919119</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o1 = &#123;</span></span><br><span class="line"><span class="regexp">  a: 10,</span></span><br><span class="line"><span class="regexp">  b: 20,</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    c: 30</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o2 = &#123;</span></span><br><span class="line"><span class="regexp">  a: o1.a,</span></span><br><span class="line"><span class="regexp">  b: o1.b,</span></span><br><span class="line"><span class="regexp">  data: o1.data</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ o2.data 和 o1.data 使用的是一个空间地址</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var o2 = &#123;</span></span><br><span class="line"><span class="regexp">  a: o1.a,</span></span><br><span class="line"><span class="regexp">  b: o1.b,</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    c: o1.data.c</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ o2.data 和 o1.data 使用的是两个空间地址</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">o2.data.c = 500</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="jq表单验证插件"><a href="#jq表单验证插件" class="headerlink" title="jq表单验证插件"></a>jq表单验证插件</h3><p>展示一下jq插件的用法：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 准备一个表单 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"login"</span>&gt;</span></span><br><span class="line">  用户名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">id</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  密码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 引入文件 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 注意: 先引入 jQuery, 后引入 jquery-validate --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./jquery/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- jquery-validate 这个文件依赖的 jquery --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./jquery-validate/jquery.validate.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入中文信息提示包, 必须在 jquery-validate 的后面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./jquery-validate/localization/messages_zh.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">  /</span><br><span class="line">    jQuery 的插件</span><br><span class="line">      + 基于 jQuery 使用的, 别人封装好的插件</span><br><span class="line">      + 我们拿来使用就可以了, 前提就是要有 jQuery</span><br><span class="line"></span><br><span class="line">      + 讲一个叫做 jquery-validate 的插件</span><br><span class="line">        + 专门用来做表单验证的</span><br><span class="line">        + 你输入的内容是不是符合规则</span><br><span class="line">      1. 下载</span><br><span class="line">      2. 引入文件</span><br><span class="line">      3. 去复制粘贴</span><br><span class="line">  */</span><br><span class="line"></span><br><span class="line"><span class="actionscript">  <span class="comment">// 选择到你要验证的表单的 form 标签</span></span></span><br><span class="line"><span class="actionscript">  <span class="comment">//   执行 validate 方法</span></span></span><br><span class="line"><span class="actionscript">  <span class="comment">//   &#123;&#125; 里面就写我们的验证规则</span></span></span><br><span class="line"><span class="javascript">  $(<span class="string">'#login'</span>).validate(&#123;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 你需要的验证规则</span></span></span><br><span class="line">    rules: &#123;</span><br><span class="line"><span class="actionscript">      <span class="comment">// key 就是你要验证的哪个 input 框的 name 属性</span></span></span><br><span class="line"><span class="actionscript">      username: <span class="string">'required'</span>, <span class="comment">// 用户名必填</span></span></span><br><span class="line"><span class="actionscript">      password: &#123; <span class="comment">// 一个字段可以写多个验证方式</span></span></span><br><span class="line"><span class="actionscript">        required: <span class="literal">true</span>,</span></span><br><span class="line"><span class="actionscript">        minlength: <span class="number">6</span>, <span class="comment">// 最少是六个</span></span></span><br><span class="line"><span class="actionscript">        maxlength: <span class="number">12</span>, <span class="comment">// 最多十二个</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="actionscript">    <span class="comment">// 你自定义提示的文本内容</span></span></span><br><span class="line">    messages: &#123;</span><br><span class="line"><span class="actionscript">      <span class="comment">// key 就是你验证的哪个 input 框的 name 属性</span></span></span><br><span class="line"><span class="actionscript">      username: <span class="string">'请输入用户名! ^_^'</span>,</span></span><br><span class="line">      password: &#123;</span><br><span class="line"><span class="actionscript">        required: <span class="string">'请输入密码!'</span>,</span></span><br><span class="line"><span class="actionscript">        minlength: <span class="string">'最少要输入 6 个字符噢!'</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="actionscript">    <span class="comment">// 表单的提交事件</span></span></span><br><span class="line"><span class="actionscript">    <span class="comment">//    这个函数会在表单验证通过以后执行</span></span></span><br><span class="line"><span class="actionscript">    submitHandler: <span class="function"><span class="keyword">function</span> <span class="params">(form)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// form 接收的就是你的 form 标签</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// console.log(form)</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// console.log('表单验证通过了, 我需要使用 ajax 去提交数据了')</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 有一个 jQuery 的方法</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// serialize() 快速获取表单输入的数据</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">//  $(form).serialize() 就能拿到这个 form 标签里面的表单数据</span></span></span><br><span class="line"><span class="actionscript">      <span class="comment">// console.log($(form).serialize())  // username=admin&amp;password=123456</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      <span class="comment">// 发送请求到后端</span></span></span><br><span class="line"><span class="javascript">      $.post(<span class="string">'./server/login.php'</span>, $(form).serialize(), res =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(res)</span></span><br><span class="line"><span class="actionscript">      &#125;, <span class="string">'json'</span>)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/03/20/2020-05-jquery1/" rel="prev" title="jQuery知识点-第一部分">
+      <i class="fa fa-chevron-left"></i> jQuery知识点-第一部分
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/06/17/2020-05-%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE/" rel="next" title="传输协议相关">
+      传输协议相关 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jq发送请求"><span class="nav-number">1.</span> <span class="nav-text">jq发送请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax请求"><span class="nav-number">1.1.</span> <span class="nav-text">ajax请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些知识点："><span class="nav-number">1.1.1.</span> <span class="nav-text">一些知识点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实际例子："><span class="nav-number">1.1.2.</span> <span class="nav-text">实际例子：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ajax钩子函数"><span class="nav-number">1.1.3.</span> <span class="nav-text">ajax钩子函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loading"><span class="nav-number">1.1.4.</span> <span class="nav-text">loading</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET-POST请求"><span class="nav-number">1.2.</span> <span class="nav-text">GET&#x2F;POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jsonp"><span class="nav-number">1.3.</span> <span class="nav-text">jsonp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多库并存"><span class="nav-number">1.4.</span> <span class="nav-text">多库并存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加拓展插件"><span class="nav-number">1.5.</span> <span class="nav-text">添加拓展插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝对象"><span class="nav-number">1.6.</span> <span class="nav-text">拷贝对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jq表单验证插件"><span class="nav-number">1.7.</span> <span class="nav-text">jq表单验证插件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

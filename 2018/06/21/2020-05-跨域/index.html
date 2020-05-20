@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="什么是跨域？怎么解决？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决跨域">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/21/2020-05-%E8%B7%A8%E5%9F%9F/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="什么是跨域？怎么解决？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-21T15:20:55.000Z">
+<meta property="article:modified_time" content="2020-05-19T07:53:41.377Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/21/2020-05-%E8%B7%A8%E5%9F%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>解决跨域 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/21/2020-05-%E8%B7%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解决跨域
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-21 23:20:55" itemprop="dateCreated datePublished" datetime="2018-06-21T23:20:55+08:00">2018-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 15:53:41" itemprop="dateModified" datetime="2020-05-19T15:53:41+08:00">2020-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">什么是跨域？怎么解决？</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="跨域是什么"><a href="#跨域是什么" class="headerlink" title="跨域是什么"></a>跨域是什么</h2><blockquote>
+<p>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域<br>跨域是由同源策略引起的，<strong>同源策略：</strong></p>
+</blockquote>
+<ul>
+<li><strong>浏览器</strong> 给发送请求的限制。为了安全起见，你只能向自己家的 <strong>服务器</strong> 发送请求，不能向”别人家”的服务器发送请求</li>
+<li>怎样才算”别人家”的服务器<br>=&gt; 当“传输协议”或者“域名”或者“端口号”，有任意一个不一样的时候，浏览器就会认为你在请求别人家的服务器，然后不让你请求，告诉你触发了 <strong>同源策略</strong></li>
+</ul>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>跨域的解决方案主要有3种：</p>
+<ol>
+<li>jsonp<br>-&gt; 十年前火爆前端的跨域解决方案，至今用的越来越少，<strong>和 ajax 没有关系</strong></li>
+<li>cors<br>-&gt; 五年前火爆前端的跨域解决方案，目前占市场份额大概 45%，<strong>和 前端 没有关系, 是后端来操作的</strong></li>
+<li>代理(服务器代理)<br>-&gt; 三年前火爆前端的跨域解决方案，目前占市场份额大概 50%，使用 nginx 服务器来代理发送请求</li>
+</ol>
+<h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><p>　利用script标签的src属性；script的src属性不受浏览器同源策略的影响，我们可以使用 script 标签的 src 属性去请求服务器，只要返回一个正确的js语法的代码，那么就可以执行</p>
+<p><strong>src:</strong><br>　script标签默认有一个 type 属性，值是 text/javascript，不管 src 请求什么文件，都是把文件里面的所有内容都当作字符串读取出来，把读取出来的字符串当作 js 代码来执行；<br>　但是但你引用其他类型的文件，也不会报错，比如请求一个php文件：<br>　<code>&lt;script src=&quot;http://127.0.0.1/server/jsonp.php&quot;&gt;&lt;/script&gt;</code><br>　<code>&lt;script src=&quot;./abc/a.js&quot;&gt;&lt;/script&gt;</code><br>　<code>&lt;script src=&quot;./abc/a.css&quot;&gt;&lt;/script&gt;</code><br>　<code>&lt;script src=&quot;./abc/a.text&quot;&gt;&lt;/script&gt;</code></p>
+<p>这样一来，我们就可以在src中发起请求，携带数据，并在后面的script标签中获取值：</p>
+<h4 id="原生jsonp"><a href="#原生jsonp" class="headerlink" title="原生jsonp"></a>原生jsonp</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="HTML"><figure class="iseeu highlight /html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://www.baidu.com/sugrec?callback=fn&amp;wd=篮球"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="actionscript">  <span class="function"><span class="keyword">function</span> <span class="title">dosomething</span><span class="params">(res)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 处理获得的数据</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(res.data)</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="jquery的jsonp"><a href="#jquery的jsonp" class="headerlink" title="jquery的jsonp"></a>jquery的jsonp</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">'https://www.baidu.com/sugrec?callback=fn&amp;wd=篮球'</span>,</span><br><span class="line">    type: <span class="string">'get'</span>,</span><br><span class="line">    dataType: <span class="string">'jsonp'</span>, <span class="comment">// 请求方式为jsonp</span></span><br><span class="line">    jsonpCallback: <span class="string">"handleCallback"</span>, <span class="comment">// 自定义回调函数名</span></span><br><span class="line">    data: &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="vue的jsonp"><a href="#vue的jsonp" class="headerlink" title="vue的jsonp"></a>vue的jsonp</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$http.jsonp(<span class="string">'https://www.baidu.com/sugrec?callback=fn&amp;wd=篮球'</span>, &#123;</span><br><span class="line">  params: &#123;&#125;,</span><br><span class="line">  jsonp: <span class="string">'handleCallback'</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res); </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h3><p>由服务端设置，允许某个域名请求这个服务器；<br>这一段来自<a href="https://blog.csdn.net/qq_38128179/article/details/84956552" target="_blank">CSDN的Demi</a></p>
+<h4 id="node中设置-Access-Control-Allow-Origin"><a href="#node中设置-Access-Control-Allow-Origin" class="headerlink" title="node中设置 Access-Control-Allow-Origin"></a>node中设置 Access-Control-Allow-Origin</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> server = http.createServer();</span><br><span class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line"> </span><br><span class="line">server.on(<span class="string">'request'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> postData = <span class="string">''</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 数据块接收中</span></span><br><span class="line">    req.addListener(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        postData += chunk;</span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 数据接收完毕</span></span><br><span class="line">    req.addListener(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        postData = qs.parse(postData);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 跨域后台设置</span></span><br><span class="line">        res.writeHead(<span class="number">200</span>, &#123;</span><br><span class="line">            <span class="string">'Access-Control-Allow-Credentials'</span>: <span class="string">'true'</span>,     <span class="comment">// 后端允许发送Cookie</span></span><br><span class="line">            <span class="string">'Access-Control-Allow-Origin'</span>: <span class="string">'http://www.domain1.com'</span>,    <span class="comment">// 允许访问的域（协议+域名+端口）</span></span><br><span class="line">            <span class="comment">/* </span></span><br><span class="line"><span class="comment">             * 此处设置的cookie还是domain2的而非domain1，因为后端也不能跨域写cookie(nginx反向代理可以实现)，</span></span><br><span class="line"><span class="comment">             * 但只要domain2中写入一次cookie认证，后面的跨域接口都能从domain2中获取cookie，从而实现所有的接口都能跨域访问</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="string">'Set-Cookie'</span>: <span class="string">'l=a123456;Path=/;Domain=www.domain2.com;HttpOnly'</span>  <span class="comment">// HttpOnly的作用是让js无法读取cookie</span></span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        res.write(<span class="built_in">JSON</span>.stringify(postData));</span><br><span class="line">        res.end();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">server.listen(<span class="string">'8080'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server is running at port 8080...'</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="前端方面"><a href="#前端方面" class="headerlink" title="前端方面"></a>前端方面</h4><p>前端需要根据<code>withCredentials</code>字段判断是否带有cookie；</p>
+<h3 id="proxy代理服务器"><a href="#proxy代理服务器" class="headerlink" title="proxy代理服务器"></a>proxy代理服务器</h3><p><strong>代理跨域(服务器正向代理跨域)</strong></p>
+<ul>
+<li>因为 <strong>浏览器不允许</strong> 你请求一个 <strong>非同源</strong> 的地址<br>=&gt; 在浏览器同源设置一个 代理服务器<br>=&gt; 把本该发送给目标服务器的请求发送给 代理服务器<br>=&gt; 由 代理服务器 转发请求给 目标服务器<br>=&gt; 目标服务器把响应返回给 代理服务器<br>=&gt; 代理服务器 在把响应给到 浏览器</li>
+</ul>
+<p><strong>怎么进行代理配置</strong></p>
+<ul>
+<li>只要是服务器就能做代理<br>=&gt; apache 代理：http 的不需要花钱(以前的传输协议, 不加密传输)，https 是需要花钱的(现在多用的传输协议, 加密传输)；<br>=&gt; nginx 代理：在server里面配置，http 和 https 都是免费的</li>
+</ul>
+<p><strong>例如在phpstud中配合nginx</strong></p>
+<ol>
+<li>打开 phpstudy 窗口，点击切换版本， php5.4.xxx + nginx</li>
+<li>打开 phpstudy 窗口，点击其他选项菜单，点击打开配置文件<code>nginx-conf(config)</code>，找到server的闭合大括号，在这个闭合大括号的上面一行书写代理配置</li>
+<li>代理配置<ul>
+<li><code>/gx</code>是代理标识符，斜线必须要有</li>
+<li><code>{}</code>里面的那个地址，就是要跨域请求的地址(目标服务器的地址)</li>
+<li>最后的分号必须有</li>
+</ul>
+</li>
+<li>修改完毕以后, 一定要重启服务器</li>
+<li>当你在 ningx 服务器上发送请求，只要请求你自己写的代理标识符，那么就会由nginx服务器来帮你转发请求到 proxy_pass 地址</li>
+<li>当你切换到 nginx 服务器以后，不管是html文件还是php文件，都不能用中文</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location &#x3D; &#x2F;gx &#123;</span><br><span class="line">    proxy_pass http:&#x2F;&#x2F;127.0.0.1&#x2F;server&#x2F;proxy.php;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/06/19/2020-05-ajax/" rel="prev" title="ajax请求">
+      <i class="fa fa-chevron-left"></i> ajax请求
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/06/21/2020-05-%E5%87%BD%E6%95%B0%E8%BF%87%E7%A8%8B%E5%92%8C%E9%97%AD%E5%8C%85/" rel="next" title="理解函数的空间，以及闭包">
+      理解函数的空间，以及闭包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域是什么"><span class="nav-number">1.</span> <span class="nav-text">跨域是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jsonp"><span class="nav-number">2.1.</span> <span class="nav-text">jsonp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原生jsonp"><span class="nav-number">2.1.1.</span> <span class="nav-text">原生jsonp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jquery的jsonp"><span class="nav-number">2.1.2.</span> <span class="nav-text">jquery的jsonp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue的jsonp"><span class="nav-number">2.1.3.</span> <span class="nav-text">vue的jsonp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cors"><span class="nav-number">2.2.</span> <span class="nav-text">cors</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#node中设置-Access-Control-Allow-Origin"><span class="nav-number">2.2.1.</span> <span class="nav-text">node中设置 Access-Control-Allow-Origin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端方面"><span class="nav-number">2.2.2.</span> <span class="nav-text">前端方面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy代理服务器"><span class="nav-number">2.3.</span> <span class="nav-text">proxy代理服务器</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

@@ -40,21 +40,21 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
   };
 </script>
 
-  <meta name="description" content="之前写的一套接口；记录一下大概的实现">
+  <meta name="description" content="记录一下写接口的大概步骤">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用node+express完成一组接口">
+<meta property="og:title" content="如何用 node + express 完成接口">
 <meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/09/06/2020-03-node%E6%8E%A5%E5%8F%A3/index.html">
 <meta property="og:site_name" content="浩华好哇的小站">
-<meta property="og:description" content="之前写的一套接口；记录一下大概的实现">
+<meta property="og:description" content="记录一下写接口的大概步骤">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-06T14:29:15.000Z">
-<meta property="article:modified_time" content="2020-05-10T17:14:46.857Z">
+<meta property="article:modified_time" content="2020-05-20T12:53:46.939Z">
 <meta property="article:author" content="浩华好哇">
 <meta name="twitter:card" content="summary">
 
@@ -70,7 +70,7 @@
   };
 </script>
 
-  <title>使用node+express完成一组接口 | 浩华好哇的小站</title>
+  <title>如何用 node + express 完成接口 | 浩华好哇的小站</title>
   
 
 
@@ -121,6 +121,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <p class="site-subtitle">想听更多的故事</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -151,14 +152,39 @@
     <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
 
   </li>
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-sitemap">
 
-    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -187,7 +213,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -195,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用node+express完成一组接口
+          如何用 node + express 完成接口
         </h1>
 
         <div class="post-meta">
@@ -212,7 +238,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-11 01:14:46" itemprop="dateModified" datetime="2020-05-11T01:14:46+08:00">2020-05-11</time>
+                <time title="修改时间：2020-05-20 20:53:46" itemprop="dateModified" datetime="2020-05-20T20:53:46+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,16 +258,16 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.6k</span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
+              <span>11 分钟</span>
             </span>
-            <div class="post-description">之前写的一套接口；记录一下大概的实现</div>
+            <div class="post-description">记录一下写接口的大概步骤</div>
 
         </div>
       </header>
@@ -271,13 +297,13 @@
 </ul>
 <h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>因为代码很多，这里记录一下主要的逻辑；</p>
 <h3 id="app-js"><a href="#app-js" class="headerlink" title="app.js"></a>app.js</h3><p>在这里可以：静态托管，配置路由，使用中间件</p>
-<h4 id="资源托管"><a href="#资源托管" class="headerlink" title="资源托管"></a>资源托管</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 静态资源托管</span><br><span class="line">app.use(express.static(path.join(__dirname, &#39;public&#39;, &#39;template&#39;)));</span><br><span class="line">app.use(&#39;&#x2F;admin&#39;, express.static(path.join(__dirname, &#39;public&#39;, &#39;admin&#39;)));</span><br><span class="line">app.use(express.static(path.join(__dirname, &#39;public&#39;))) &#x2F;&#x2F;使admin和template可以访问整个public</span><br></pre></td></tr></table></figure></div>
+<h4 id="资源托管"><a href="#资源托管" class="headerlink" title="资源托管"></a>资源托管</h4><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 静态资源托管</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">'public'</span>, <span class="string">'template'</span>)));</span><br><span class="line">app.use(<span class="string">'/admin'</span>, express.static(path.join(__dirname, <span class="string">'public'</span>, <span class="string">'admin'</span>)));</span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">'public'</span>))) <span class="comment">//使admin和template可以访问整个public</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h4><p>使用了<strong>multer</strong></p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; multer中间件</span><br><span class="line">var multer &#x3D; require(&#39;multer&#39;);</span><br><span class="line">&#x2F;&#x2F; 全部上传到upload</span><br><span class="line">&#x2F;&#x2F; let upload &#x3D; multer(&#123;</span><br><span class="line">&#x2F;&#x2F;   dest: path.join(__dirname, &quot;public&quot;, &quot;upload&quot;)</span><br><span class="line">&#x2F;&#x2F; &#125;)</span><br><span class="line">&#x2F;&#x2F; 根据不同的名字上传</span><br><span class="line">var storage &#x3D; multer.diskStorage(&#123;</span><br><span class="line">  destination: function (req, file, cb) &#123;</span><br><span class="line">    if (req.url.indexOf(&quot;user&quot;) !&#x3D;&#x3D; -1 || req.url.indexOf(&quot;reg&quot;) !&#x3D;&#x3D; -1) &#123;</span><br><span class="line">      cb(null, path.join(__dirname, &quot;public&quot;, &quot;upload&quot;, &quot;user&quot;))</span><br><span class="line">    &#125; else if (req.url.indexOf(&quot;banner&quot;) !&#x3D;&#x3D; -1) &#123;</span><br><span class="line">      cb(null, path.join(__dirname, &quot;public&quot;, &quot;upload&quot;, &quot;banner&quot;))</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      cb(null, path.join(__dirname, &quot;public&quot;, &quot;upload&quot;, &quot;product&quot;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; 文件名为原名</span><br><span class="line">  &#x2F;&#x2F; filename:function(req,file,cb)&#123;</span><br><span class="line">  &#x2F;&#x2F;   cb(null,Date.fieldname+&#39;-&#39;+file.originalname)</span><br><span class="line">  &#x2F;&#x2F; &#125;</span><br><span class="line">&#125;)</span><br><span class="line">let upload &#x3D; multer(&#123;</span><br><span class="line">  storage: storage</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 可以传任何类型的文件</span><br><span class="line">app.use(upload.any())</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// multer中间件</span></span><br><span class="line"><span class="keyword">var</span> multer = <span class="built_in">require</span>(<span class="string">'multer'</span>);</span><br><span class="line"><span class="comment">// 全部上传到upload</span></span><br><span class="line"><span class="comment">// let upload = multer(&#123;</span></span><br><span class="line"><span class="comment">//   dest: path.join(__dirname, "public", "upload")</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// 根据不同的名字上传</span></span><br><span class="line"><span class="keyword">var</span> storage = multer.diskStorage(&#123;</span><br><span class="line">  destination: <span class="function"><span class="keyword">function</span> (<span class="params">req, file, cb</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (req.url.indexOf(<span class="string">"user"</span>) !== <span class="number">-1</span> || req.url.indexOf(<span class="string">"reg"</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      cb(<span class="literal">null</span>, path.join(__dirname, <span class="string">"public"</span>, <span class="string">"upload"</span>, <span class="string">"user"</span>))</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.url.indexOf(<span class="string">"banner"</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      cb(<span class="literal">null</span>, path.join(__dirname, <span class="string">"public"</span>, <span class="string">"upload"</span>, <span class="string">"banner"</span>))</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      cb(<span class="literal">null</span>, path.join(__dirname, <span class="string">"public"</span>, <span class="string">"upload"</span>, <span class="string">"product"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 文件名为原名</span></span><br><span class="line">  <span class="comment">// filename:function(req,file,cb)&#123;</span></span><br><span class="line">  <span class="comment">//   cb(null,Date.fieldname+'-'+file.originalname)</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">let</span> upload = multer(&#123;</span><br><span class="line">  storage: storage</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 可以传任何类型的文件</span></span><br><span class="line">app.use(upload.any())</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="配置路由"><a href="#配置路由" class="headerlink" title="配置路由"></a>配置路由</h4><p>这里的意思是，当访问<code>localhost:3000/api/login</code>，即可以进入到<code>./routes/api/login</code>这个文件，在里面完成一些逻辑，并返回数据给前端</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.all(&quot;&#x2F;api&#x2F;*&quot;, require(&quot;.&#x2F;routes&#x2F;api&#x2F;params&quot;))</span><br><span class="line">app.use(&#39;&#x2F;api&#x2F;reg&#39;, require(&#39;.&#x2F;routes&#x2F;api&#x2F;reg&#39;));</span><br><span class="line">app.use(&#39;&#x2F;api&#x2F;login&#39;, require(&#39;.&#x2F;routes&#x2F;api&#x2F;login&#39;));</span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.all(<span class="string">"/api/*"</span>, <span class="built_in">require</span>(<span class="string">"./routes/api/params"</span>))</span><br><span class="line">app.use(<span class="string">'/api/reg'</span>, <span class="built_in">require</span>(<span class="string">'./routes/api/reg'</span>));</span><br><span class="line">app.use(<span class="string">'/api/login'</span>, <span class="built_in">require</span>(<span class="string">'./routes/api/login'</span>));</span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="封装mongo方法"><a href="#封装mongo方法" class="headerlink" title="封装mongo方法"></a>封装mongo方法</h3><p>　然后是把要用到的一些，操作mongodb的方法封装起来，根据需要；<br>　比如下面是一个”查询”的方法：</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mongodb = <span class="built_in">require</span>(<span class="string">"mongodb"</span>)</span><br><span class="line"><span class="keyword">let</span> mongodCt = mongodb.MongoClient</span><br><span class="line"><span class="keyword">let</span> ObjectId = mongodb.ObjectId <span class="comment">//把字符串转成ObjectId的对象类型</span></span><br><span class="line"><span class="comment">//链接库</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    dbName:数据库名称 默认值就是student</span></span><br><span class="line"><span class="comment">    collectionName:集合名字</span></span><br><span class="line"><span class="comment">    url:链接的url地址</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> open = (&#123;</span><br><span class="line">    dbName = <span class="string">'newsapp'</span>,</span><br><span class="line">    collectionName,</span><br><span class="line">    url = <span class="string">"mongodb://127.0.0.1:27017"</span></span><br><span class="line">&#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        mongodCt.connect(url, &#123;</span><br><span class="line">            useUnifiedTopology: <span class="literal">true</span></span><br><span class="line">        &#125;, (err, client) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                reject(err)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> db = client.db(dbName)</span><br><span class="line">                <span class="keyword">let</span> collection = db.collection(collectionName)</span><br><span class="line">                resolve(&#123;</span><br><span class="line">                    collection,</span><br><span class="line">                    client,</span><br><span class="line">                    ObjectId</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询库集合列表数据</span></span><br><span class="line"><span class="keyword">let</span> findList = (&#123;</span><br><span class="line">    collectionName, <span class="comment">//集合名字</span></span><br><span class="line">    dbName = <span class="string">'newsapp'</span>, <span class="comment">//默认指明的数据库的名字</span></span><br><span class="line">    _page,</span><br><span class="line">    _limit,</span><br><span class="line">    _sort,</span><br><span class="line">    q</span><br><span class="line">&#125;) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成检索条件</span></span><br><span class="line">    <span class="keyword">let</span> rule = q ? &#123;</span><br><span class="line">        title: <span class="keyword">new</span> <span class="built_in">RegExp</span>(q, <span class="string">'g'</span>)</span><br><span class="line">    &#125; : &#123;&#125; <span class="comment">//张三  张三丰   </span></span><br><span class="line">    <span class="comment">// let rule = q ? &#123;username:eval('/'+q+"/")&#125; : &#123;&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//链接数据库</span></span><br><span class="line">        open(&#123;</span><br><span class="line">                dbName,</span><br><span class="line">                collectionName</span><br><span class="line">            &#125;)</span><br><span class="line">            .then((&#123;</span><br><span class="line">                collection,</span><br><span class="line">                client</span><br><span class="line">            &#125;) =&gt; &#123;</span><br><span class="line">                <span class="comment">//查询列表</span></span><br><span class="line">                collection.find(rule, &#123;</span><br><span class="line">                    skip: _page * _limit, <span class="comment">//跳过多少条数据</span></span><br><span class="line">                    limit: _limit, <span class="comment">//限定每一页的数量</span></span><br><span class="line">                    sort: &#123;</span><br><span class="line">                        [_sort]: <span class="number">1</span></span><br><span class="line">                    &#125; <span class="comment">//排序字段_sort  当一个变量作为key使用的时候，需要采用[]的语法</span></span><br><span class="line">                &#125;).toArray(<span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!err &amp;&amp; result.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        resolve(&#123;</span><br><span class="line">                            err: <span class="number">0</span>,</span><br><span class="line">                            data: result</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        resolve(&#123;</span><br><span class="line">                            err: <span class="number">1</span>,</span><br><span class="line">                            msg: <span class="string">"查无数据..."</span></span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//关闭资源</span></span><br><span class="line">                    client.close()</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123; <span class="comment">//链接数据库失败</span></span><br><span class="line">                reject(&#123;</span><br><span class="line">                    err: <span class="number">1</span>,</span><br><span class="line">                    msg: <span class="string">"数据库链接失败...."</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.open = open; <span class="comment">//&#123;open:函数&#125;</span></span><br><span class="line">exports.findList = findList;</span><br></pre></td></tr></table></figure></div>
@@ -311,12 +337,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/" rel="prev" title="mongodb">
-      <i class="fa fa-chevron-left"></i> mongodb
+    <a href="/jackhuang-haohua.github.io/2019/09/05/2020-05-%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" rel="prev" title="认识高阶组件以及简单实现">
+      <i class="fa fa-chevron-left"></i> 认识高阶组件以及简单实现
     </a></div>
       <div class="post-nav-item">
-    <a href="/jackhuang-haohua.github.io/2019/09/29/2020-05-%E4%B8%89%E7%A7%8DApp/" rel="next" title="了解目前流行的3种App">
-      了解目前流行的3种App <i class="fa fa-chevron-right"></i>
+    <a href="/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/" rel="next" title="mongodb">
+      mongodb <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -386,20 +412,20 @@
     <img class="site-author-image" itemprop="image" alt="浩华好哇"
       src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
   <p class="site-author-name" itemprop="name">浩华好哇</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/jackhuang-haohua.github.io/archives">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/jackhuang-haohua.github.io/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -411,7 +437,7 @@
 
     </div>
 
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
   </aside>
   
   <div id="sidebar-dimmer"></div>
@@ -427,7 +453,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2018-2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -435,13 +461,15 @@
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
     </span>
-    <span title="站点总字数">251k</span>
+    <span title="站点总字数">368k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
     </span>
-    <span title="站点阅读时长">7:37</span>
+    <span title="站点阅读时长">11:10</span>
 </div>
 
 <!--
@@ -490,6 +518,10 @@
   
 
 
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
 
 
 

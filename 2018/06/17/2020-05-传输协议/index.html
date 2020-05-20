@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="传输协议，响应状态码，常见请求方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传输协议相关">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/17/2020-05-%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="传输协议，响应状态码，常见请求方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-17T14:19:54.000Z">
+<meta property="article:modified_time" content="2020-05-19T04:10:40.476Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/17/2020-05-%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>传输协议相关 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2018/06/17/2020-05-%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          传输协议相关
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-17 22:19:54" itemprop="dateCreated datePublished" datetime="2018-06-17T22:19:54+08:00">2018-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 12:10:40" itemprop="dateModified" datetime="2020-05-19T12:10:40+08:00">2020-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">传输协议，响应状态码，常见请求方式</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="了解传输协议"><a href="#了解传输协议" class="headerlink" title="了解传输协议"></a>了解传输协议</h2><p>前端怎么和后端沟通，后端又是怎么把数据传递回来的？</p>
+<p>一个 http 请求的步骤<br><strong>建立连接 -&gt; 前端发送请求 -&gt; 后端返回响应 -&gt; 断开连接</strong></p>
+<ul>
+<li>注意：这个请求只能由前端发起，四个步骤一个都不能少</li>
+<li>例子: 前端想和后端要交流两件事<br>-&gt; 建立连接 -&gt; 说第一个事情 -&gt; 后端把第一个事情做完反馈结果 -&gt; 断开连接<br>-&gt; 建立连接 -&gt; 说第二个事情 -&gt; 后端把第二个事情做完反馈结果 -&gt; 断开连接</li>
+</ul>
+<p><strong>建立连接</strong></p>
+<ul>
+<li>基于 TCP/IP 协议的三次握手</li>
+<li>目的: 保证前后端可以正常通信，确定前后端都可以正常收发消息</li>
+</ul>
+<p><strong>前端发送请求</strong></p>
+<ul>
+<li>每一个请求都以请求报文的形式发送</li>
+<li>报文：请求报文就是一个固定格式的信件，浏览器已经帮我们自动组装好</li>
+<li>请求报文里面包含哪些内容<ul>
+<li>请求报文行(请求行)：GET 请求方式 -&gt; xxx.html 请求路径, 你向服务器请求的是什么东西 -&gt; HTTP/1.1 传输协议版本</li>
+<li>请求报文头(报文头)：对本次请求进行一些描述性的信息 -&gt; Host: 请求的主机 -&gt; User-Agent: 浏览器的信息(终端信息) -&gt; Content-Type: 前端给后端的数据的数据格式 -&gt; cookie</li>
+<li>请求报文空行(请求空行)：分隔请求头和请求体的一个空行</li>
+<li>请求报文体(请求体)：前端给后端的数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>后端响应</strong></p>
+<ul>
+<li>每一个响应都以响应报文的形式返回</li>
+<li>响应报文里面包含哪些内容<ul>
+<li>响应状态行(状态行)：HTTP/1.1 传输协议版本 -&gt; 200 响应状态码 -&gt; OK 对响应状态码的简单描述</li>
+<li>响应报文头(响应头)：对本次响应的一些描述性信息 -&gt; Date: 服务器时间 -&gt; Server: 服务器信息 -&gt; Conetnt-Length: 后端返回的数据长度 -&gt; Content-Type: 后端返回的数据的格式(会让浏览器按照固定的数据格式解析内容)</li>
+<li>响应报文体(响应体)：后端给前端返回的数据</li>
+</ul>
+</li>
+<li>一个响应报文<ul>
+<li>状态行 传输协议 状态码 状态码的简单描述</li>
+<li>响应头 本次响应的描述信息</li>
+<li>响应体 后端给前端的数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>断开连接</strong></p>
+<ul>
+<li>基于 TCP/IP 协议的四次挥手</li>
+<li>保证相互都不在进行通讯了</li>
+</ul>
+<p><strong>总结: 一个 http 请求</strong></p>
+<ol>
+<li>建立连接 -&gt; 三次握手</li>
+<li>前端发送请求 -&gt; 请求报文的形式</li>
+<li>后端返回响应 -&gt; 响应报文的形式</li>
+<li>断开连接 -&gt; 四次挥手</li>
+</ol>
+<h2 id="响应状态码"><a href="#响应状态码" class="headerlink" title="响应状态码"></a>响应状态码</h2><p>在响应报文里面的一个信息，表示本次请求的状态</p>
+<ul>
+<li>响应状态码分成五类<ul>
+<li>100 ~ 199<br>-&gt; 表示连接继续, 继续请求，很少出现</li>
+<li>200 ~ 299<br>-&gt; 各种意义上的成功<br>-&gt; 200 标准成功</li>
+<li>300 ~ 399<br>-&gt; 重定向，本该请求一个路径, 但是由服务端给你换了一个路径，你看到的路径和你请求的路径不是一个, 中间有服务器给你处理了一下<br>-&gt; 304 缓存<br>-&gt; 301 永久重定向<br>-&gt; 302 临时重定向</li>
+<li>400 ~ 499<br>-&gt; 各种客户端错误<br>-&gt; 404 请求地址错误<br>-&gt; 403 权限不够不允许查看</li>
+<li>500 ~ 599<br>-&gt; 各种服务端错误<br>-&gt; 502 服务器维护或者过载</li>
+</ul>
+</li>
+</ul>
+<h2 id="常见的请求方式"><a href="#常见的请求方式" class="headerlink" title="常见的请求方式"></a>常见的请求方式</h2><ul>
+<li>常见的请求方式有八种<ol>
+<li>GET -&gt; 多用于向服务端获取一些数据</li>
+<li>POST -&gt; 多用于向服务器传递信息</li>
+<li>PUT -&gt; 多用于向服务器传递信息, 并让服务器存储起来</li>
+<li>DELETE -&gt; 多用于让服务器删除一些信息</li>
+<li>HEAD -&gt; 不需要响应体, 主要是为了获取响应头信息</li>
+<li>PACTH -&gt; 和 PUT 类似, 倾向于局部更新</li>
+<li>CONNECT -&gt; 预留方式, 管道连接改成代理连接的方式</li>
+<li>OPTIONS -&gt; 用于允许前端查看服务端性能(服务端同意)</li>
+</ol>
+</li>
+</ul>
+<h3 id="GET-和-POST-请求的区别"><a href="#GET-和-POST-请求的区别" class="headerlink" title="GET 和 POST 请求的区别"></a>GET 和 POST 请求的区别</h3><ul>
+<li><p>GET</p>
+<ol>
+<li>倾向于向服务器获取数据</li>
+<li>直接再地址后面进行拼接(请求体是空的)</li>
+<li>大小限制为 2KB 左右(因为 IE 最多传递 2KB)</li>
+<li>会被浏览器主动缓存</li>
+<li>相对于 POST 不是很安全(明文发送)</li>
+<li>数据格式必须是 url 编码的格式, 如果不是会自动转换成 url 编码</li>
+</ol>
+</li>
+<li><p>POST</p>
+<ol>
+<li>倾向于向服务器传递数据</li>
+<li>再请求体里面传递过去(地址后面没有)</li>
+<li>理论上是没有限制(但是可以被服务器限制)</li>
+<li>不会被浏览器主动缓存, 需要手动设置</li>
+<li>相对于 GET 比较安全的(暗文发送)</li>
+<li>数据格式理论上我所谓, 但是要和请求头中的 content-type 一致<br>=&gt; 请求头里面的 content-type 表示请求体的数据格式</li>
+</ol>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>当你需要传递和用户相关的隐私信息的时候, 必须要使用 POST 方式发送比如登录功能</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/03/22/2020-05-jquery2/" rel="prev" title="jQuery知识点-第二部分">
+      <i class="fa fa-chevron-left"></i> jQuery知识点-第二部分
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2018/06/19/2020-05-cookie/" rel="next" title="cookie">
+      cookie <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解传输协议"><span class="nav-number">1.</span> <span class="nav-text">了解传输协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应状态码"><span class="nav-number">2.</span> <span class="nav-text">响应状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的请求方式"><span class="nav-number">3.</span> <span class="nav-text">常见的请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET-和-POST-请求的区别"><span class="nav-number">3.1.</span> <span class="nav-text">GET 和 POST 请求的区别</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

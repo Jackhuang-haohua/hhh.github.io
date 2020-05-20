@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="简单了解。单例模式，观察者模式，组合模式...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解设计模式">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/25/2020-05-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="简单了解。单例模式，观察者模式，组合模式...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-24T16:10:25.000Z">
+<meta property="article:modified_time" content="2020-05-19T15:37:21.709Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/25/2020-05-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>了解设计模式 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/25/2020-05-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          了解设计模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-25 00:10:25" itemprop="dateCreated datePublished" datetime="2020-04-25T00:10:25+08:00">2020-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 23:37:21" itemprop="dateModified" datetime="2020-05-19T23:37:21+08:00">2020-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">简单了解。单例模式，观察者模式，组合模式...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>　针对特定问题，给出的简洁而优化的处理方案；<br>　例如一个设计模式A只能解决A类型的问题，针对B类型的问题，设计模式A解决不了，同一个问题，不一定能用同一种方案解决；<br>　设计模式只在特定的情况，特定的时期，针对特定的问题定制；<br>　市场上常用的设计模式：</p>
+<ul>
+<li>单例模式</li>
+<li>组合模式</li>
+<li>观察者模式</li>
+<li>适配器模式</li>
+<li>代理模式</li>
+<li>工厂模式</li>
+<li>构建模式</li>
+</ul>
+<h2 id="常见设计模式"><a href="#常见设计模式" class="headerlink" title="常见设计模式"></a>常见设计模式</h2><p>只列举几个。</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>　让一个构造函数只能有一个实例对象，当你需要一个构造函数只能new出一个对象的时候，就可以使用单例模式；<br>　例如，弹出层alert比较丑，用户体验极度不好，有些网站会使用一个自己写的div盒子，当作弹出层；这个弹出层不可能只弹出一次；但是也不能每次弹出就创建一个div，每次弹出的都是之前创造好的那个div，只是文字改变了；<br>　如果不用单例模式，每次new就是创造一个div，如果用了单例模式，每次new都是用的第一次的div, 只是改变文字内容；<br>　核心代码为定义一个flag，只有第一次会new；第二次以后，虽然写了new，但时并没有创建新的实例，只是为了保留原先的内容；以下代码为简单实现：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 真实的构造函数体</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Abc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'Jack'</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Abc.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 实现单例模式的核心代码</span></span><br><span class="line">  <span class="keyword">var</span> instance = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果修改为箭头函数, 那么使用的时候就不能 new</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !instance ? (instance = <span class="keyword">new</span> Abc()) : instance</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()  <span class="comment">// 自执行函数为了延长 instance 的生命周期</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 假装在 new 但是实际没有新建，为了保留原先的内容，因为单例模式是保持了构造函数, 只不过只有一个实例</span></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> Person()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1) <span class="comment">// 是 Person 的一个实例, 是个对象</span></span><br><span class="line"><span class="built_in">console</span>.log(p2) <span class="comment">// 是 Person 的一个实例, 是个对象</span></span><br><span class="line"><span class="built_in">console</span>.log(p1 === p2) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h3><p>　将若干这启动方式一样的构造函数放在一起，并准备一个总开关，总开关一启动，所有构造函数都会启动；<br>　就像是你一离开家，所有电器都自动关闭；一回到家，灯亮起来，电视打开，空调打开等等；</p>
+<p>　<strong>应用场景比如轮播图，手动搭建的轮播图会有这么一个bug：</strong><br>　基础版本的轮播图依靠定时器再左右移动，一旦切换页面以后，DOM不动，定时器保持在动，再切换回来页面的时候，就会发现轮播图的小圆点，左右切换和图片对不上；<br>　所以，当前页面的时候，应该关闭定时器；当再次回到当前页面的时候，应该再重新启动定时器<br>　一个页面多个轮播图的时候，就可以用到<strong>单例模式</strong>：做一个总开关，离开页面的时候，所有的轮播图都停止定时器；再来一个总开关，回到页面的时候，所有的轮播图再次启动；</p>
+<p>　实现组合模式：需要一个承载所有构造函数实例的数组；需要一个方法；向数组里面添加内容；需要一个方法；能把数组里面的所有内容启动；<br>　简单实现如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 组合模式的代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compose</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="comment">// 用来承载每一个实例（内容/方法）的数组</span></span><br><span class="line">    <span class="keyword">this</span>.composeArr = []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 向数组里面添加内容/方法</span></span><br><span class="line">  add (instance) &#123;</span><br><span class="line">    <span class="keyword">this</span>.composeArr.push(instance)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 启动数组里所有的方法</span></span><br><span class="line">  init () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'总开关启动了'</span>)</span><br><span class="line">    <span class="keyword">this</span>.composeArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> item.init())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// c 就是一个总开关</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> Compose()</span><br><span class="line"><span class="comment">// 每一次执行 add 方法就是向总开关上添加内容</span></span><br><span class="line">c.add(<span class="keyword">new</span> Play())</span><br><span class="line">c.add(<span class="keyword">new</span> Eat())</span><br><span class="line">c.add(<span class="keyword">new</span> Sleep())</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只要我的总开关一启动，里面的每一个构造函数就同时都启动了</span></span><br><span class="line">c.init()</span><br><span class="line"><span class="built_in">console</span>.log(c)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p>　又称发布/订阅模式，观察者模式又分为两派；</p>
+<h4 id="一派认为，发布-订阅是一个设计模式"><a href="#一派认为，发布-订阅是一个设计模式" class="headerlink" title="一派认为，发布/订阅是一个设计模式"></a>一派认为，发布/订阅是一个设计模式</h4><p>　从观察者的角度出发，让“观察者”看着“被观察者”，只要数据/状态改变了，就让“观察者”做一些事情；<br>　简单实现：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 有两个构造函数</span></span><br><span class="line"><span class="comment">// 1. 被观察者(学生, 小明, 小红, ...)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="comment">// 一个学生本身的状态, 就应该是好好学习</span></span><br><span class="line">    <span class="keyword">this</span>.state = <span class="string">'好好学习'</span></span><br><span class="line">    <span class="comment">// 准备一个数组，谁在检时者这个学生, 就放在数组里面</span></span><br><span class="line">    <span class="comment">// 将来一旦状态从 好好学习 变成 玩手机的时候, 应该让这个 [] 里面的所有老师触发技能</span></span><br><span class="line">    <span class="keyword">this</span>.observers = []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法</span></span><br><span class="line">  <span class="comment">// 1. 可以改变状态的方法</span></span><br><span class="line">  setState(value) &#123;</span><br><span class="line">    <span class="comment">// 可以把自己的状态改变</span></span><br><span class="line">    <span class="keyword">this</span>.state = value</span><br><span class="line">    <span class="comment">// 状态一旦改变, 就要通知看着你的人</span></span><br><span class="line">    <span class="keyword">this</span>.notify()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 获取自己的状态</span></span><br><span class="line">  getState() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. 添加观察着</span></span><br><span class="line">  <span class="comment">// 向 this.observers 里面追加一个看着这个同学的人</span></span><br><span class="line">  attach(observer) &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.push(observer)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 4. 通知 this.observers 数组里面的每一个人, 状态改变了</span></span><br><span class="line">  notify() &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.forEach(<span class="function"><span class="params">item</span> =&gt;</span> item.qingjiazhang(<span class="keyword">this</span>.state))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 观察着(老师, 班主任, 教学主任, 年级主任, ...)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="comment">// constructor 就相当于 es5 的构造函数体 =&gt; 构造器</span></span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="comment">// 用它来标明一下我是班主任还是年级主任还是教务主任</span></span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方法, 就是这些老师能触发的技能</span></span><br><span class="line">  qingjiazhang(state) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`我是 <span class="subst">$&#123; <span class="keyword">this</span>.name &#125;</span>, 因为你 <span class="subst">$&#123; state &#125;</span> 了, 我要请你家长来!`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xiaoming = <span class="keyword">new</span> Student() <span class="comment">// 被观察者</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> banzhuren = <span class="keyword">new</span> Observer(<span class="string">'班主任'</span>) <span class="comment">// 观察者</span></span><br><span class="line"><span class="keyword">var</span> jiaowuzhuren = <span class="keyword">new</span> Observer(<span class="string">'教务主任'</span>) <span class="comment">// 观察者</span></span><br><span class="line"><span class="keyword">var</span> nianjizhuren = <span class="keyword">new</span> Observer(<span class="string">'年级主任'</span>) <span class="comment">// 观察者</span></span><br><span class="line"><span class="comment">// 让班主任看着小明</span></span><br><span class="line">xiaoming.attach(banzhuren)</span><br><span class="line"><span class="comment">// 让教务主任看着小明</span></span><br><span class="line">xiaoming.attach(jiaowuzhuren)</span><br><span class="line"><span class="comment">// 让年级主任看着小明</span></span><br><span class="line">xiaoming.attach(nianjizhuren)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当小明状态改变的时候</span></span><br><span class="line"><span class="comment">//   xiaoming.setState() 就能改变 小明 现在的状态</span></span><br><span class="line"><span class="comment">//   就会触发 xiaoming.notify()</span></span><br><span class="line"><span class="comment">//   就会把 xiaoming.observers 这个数里里面的每一个对象的 请家长技能调用</span></span><br><span class="line">xiaoming.setState(<span class="string">'玩手机'</span>) <span class="comment">// 对象调用方式, this -&gt; 点前面是谁就是谁</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="一派认为，发布-订阅是两回事"><a href="#一派认为，发布-订阅是两回事" class="headerlink" title="一派认为，发布/订阅是两回事"></a>一派认为，发布/订阅是两回事</h4><p>　比如我要买书，我当书店里和老板说，如果某书到了就通知我一下，后来我买到书了，就告诉老板某书到了不用再通知我；<br>　在这个例子中，我是订阅者，老板是发布者，他有一个订阅的方法；很明显我和老板是两个不同的人，只不过订阅把我们联系了起来；</p>
+<p>　实际上就是手动实现 <code>addEventListener(&#39;click&#39;, fn)</code> ；<br>　实现这种模式需要几样必备的东西：</p>
+<ol>
+<li>消息盒子 {}<br>=&gt; click: [fn1, fn2, fn3]<br>=&gt; mouseover: [fn4, fn5, fn6]</li>
+<li>订阅的方法<br>=&gt; 向消息盒子里面添加内容</li>
+<li>取消订阅的方法<br>=&gt; 把已经订阅的方法从消息盒子内部拿走</li>
+<li>发布事件的方法<br>=&gt; 把消息盒子里面的对应的处理函数执行了</li>
+</ol>
+<p>　简单实现如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="comment">// 准备的消息盒子</span></span><br><span class="line">    <span class="keyword">this</span>.message = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 订阅的方法</span></span><br><span class="line">  on (type, fn) &#123;</span><br><span class="line">    <span class="comment">// 向消息盒子里面添加成员</span></span><br><span class="line">    <span class="comment">// type 事件类型, 你要订阅的类型</span></span><br><span class="line">    <span class="comment">// fn 事件处理函数, 你要给这个类型订阅一个什么行为</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 假设现在的 type === 'click'</span></span><br><span class="line">    <span class="comment">// 消息盒子里面就应该是 &#123; click: [handerA] &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果消息盒子里面没有 click 这个成员, 那么就创建一个这个成员是一个空数组</span></span><br><span class="line">    <span class="comment">//   然后添加进去</span></span><br><span class="line">    <span class="comment">// 如果消息盒子里面由这个 click 成员, 那么直接 push 就可以了</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.message[type]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.message[type] = []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.message[type].push(fn)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 取消订阅的方法</span></span><br><span class="line">  off (type, fn) &#123;</span><br><span class="line">    <span class="comment">// 删除消息盒子里面的某一个成员</span></span><br><span class="line">    <span class="comment">// type 是要取消的事件类型</span></span><br><span class="line">    <span class="comment">// fn 是要取消的事件处理函数</span></span><br><span class="line">    <span class="comment">// 先看看有没有这个事件类型, 如果没有, 不需要取消</span></span><br><span class="line">    <span class="comment">// 如果由才需要取消</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.message[type]) <span class="keyword">return</span></span><br><span class="line">    <span class="comment">// 能执行到这里, 表示 this.message[type] 是一个数组</span></span><br><span class="line">    <span class="comment">// 取消这个数组里面和 fn 一样的那个事件处理函数</span></span><br><span class="line">    <span class="comment">//   使用一个 filter 方法</span></span><br><span class="line">    <span class="keyword">this</span>.message[type] = <span class="keyword">this</span>.message[type].filter(<span class="function"><span class="params">item</span> =&gt;</span> item !== fn)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 发布的方法</span></span><br><span class="line">  emit (type, ...arg) &#123;</span><br><span class="line">    <span class="comment">// 执行消息盒子里面的某一个对应的处理函数</span></span><br><span class="line">    <span class="comment">// type 就是要触发的事件类型</span></span><br><span class="line">    <span class="comment">// 判断有没有订阅过, 如果没有订阅过, 直接return</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.message[type]) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// a,b,c 后面的所有数据都是传递给事件处理函数里面使用的内容</span></span><br><span class="line">    <span class="comment">// arg =&gt; arguments</span></span><br><span class="line">    <span class="comment">// console.log(arg)</span></span><br><span class="line">    <span class="comment">// 自己组装一个事件对象</span></span><br><span class="line">    <span class="keyword">var</span> event = &#123;</span><br><span class="line">      type: type,</span><br><span class="line">      <span class="comment">// 参数</span></span><br><span class="line">      data: arg</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果订阅过, 那么就执行一下</span></span><br><span class="line">    <span class="comment">// 调用每一个事件处理函数的时候, 都带上一个事件对象</span></span><br><span class="line">    <span class="keyword">this</span>.message[type].forEach(<span class="function"><span class="params">item</span> =&gt;</span> item(event))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将来使用的时候</span></span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> Observer()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅事件</span></span><br><span class="line">o.on(<span class="string">'click'</span>, handlerA)</span><br><span class="line">o.on(<span class="string">'click'</span>, handlerB)</span><br><span class="line"></span><br><span class="line">o.emit(<span class="string">'click'</span>, <span class="string">'hello world'</span>, <span class="number">100</span>, <span class="literal">true</span>, &#123; <span class="attr">name</span>: <span class="string">'Jack'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备几个事件处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlerA</span>(<span class="params">e</span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'我是事件处理函数 handlerA'</span>, e) &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlerB</span>(<span class="params">e</span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'我是事件处理函数 handlerB'</span>, e) &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlerC</span>(<span class="params">e</span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'我是事件处理函数 handlerC'</span>, e) &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlerD</span>(<span class="params">e</span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'我是事件处理函数 handlerD'</span>, e) &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlerE</span>(<span class="params">e</span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'我是事件处理函数 handlerE'</span>, e) &#125;</span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2020/04/20/2020-05-%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="各种题目">
+      <i class="fa fa-chevron-left"></i> 各种题目
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么"><span class="nav-number">1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见设计模式"><span class="nav-number">2.</span> <span class="nav-text">常见设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例模式"><span class="nav-number">2.1.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合模式"><span class="nav-number">2.2.</span> <span class="nav-text">组合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者模式"><span class="nav-number">2.3.</span> <span class="nav-text">观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一派认为，发布-订阅是一个设计模式"><span class="nav-number">2.3.1.</span> <span class="nav-text">一派认为，发布&#x2F;订阅是一个设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一派认为，发布-订阅是两回事"><span class="nav-number">2.3.2.</span> <span class="nav-text">一派认为，发布&#x2F;订阅是两回事</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

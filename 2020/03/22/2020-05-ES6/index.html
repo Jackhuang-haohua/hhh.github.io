@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="let和const，箭头函数，解构赋值，展开运算符，等等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6一些新特性">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="let和const，箭头函数，解构赋值，展开运算符，等等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-22T10:15:23.000Z">
+<meta property="article:modified_time" content="2020-05-20T15:55:56.136Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>ES6一些新特性 | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6一些新特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-22 18:15:23" itemprop="dateCreated datePublished" datetime="2020-03-22T18:15:23+08:00">2020-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-20 23:55:56" itemprop="dateModified" datetime="2020-05-20T23:55:56+08:00">2020-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">let和const，箭头函数，解构赋值，展开运算符，等等</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="es6是什么"><a href="#es6是什么" class="headerlink" title="es6是什么"></a>es6是什么</h2><ul>
+<li>ECMAScript 6（以下简称ES6）是JavaScript语言的某一代标准，已经在2015年6月正式发布了。Mozilla公司将在这个标准的基础上，推出JavaScript 2.0。</li>
+<li>ECMAScript和JavaScript到底是什么关系？<br>简单来说：ECMAScript是JavaScript语言的国际标准，JavaScript是ECMAScript的实现。</li>
+</ul>
+<h2 id="es6中定义变量"><a href="#es6中定义变量" class="headerlink" title="es6中定义变量"></a>es6中定义变量</h2><p>我们以前都是使用 <code>var</code> 关键字来声明变量的，在 ES6 的时候，多了两个关键字 <code>let</code> 和 <code>const</code>，也是用来声明变量的；</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>let 和 const的相同点：<ul>
+<li>声明的变量不会经历预解析</li>
+<li>声明的变量不允许有相同的变量名</li>
+<li>声明的变量必须先声明再使用</li>
+<li>在{}中声明的时候，只能在{}内能使用</li>
+</ul>
+</li>
+<li>let 和 const的区别：<ul>
+<li>let声明的是变量，后期可以更改值，可以先声明不赋值</li>
+<li>const声明的是常量，后期不可以更这个常量名的值，声明的时候必须赋值</li>
+</ul>
+</li>
+</ul>
+<h3 id="let-const-var-的区别"><a href="#let-const-var-的区别" class="headerlink" title="let/const/var 的区别"></a>let/const/var 的区别</h3><ol>
+<li><p><code>let</code> 和 <code>const</code> 不允许重复声明变量</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 var 的时候重复声明变量是没问题的，只不过就是后面会把前面覆盖掉</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 let 重复声明变量的时候就会报错了</span></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">100</span></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">200</span> <span class="comment">// 这里就会报错了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 const 重复声明变量的时候就会报错</span></span><br><span class="line"><span class="keyword">const</span> num = <span class="number">100</span></span><br><span class="line"><span class="keyword">const</span> num = <span class="number">200</span> <span class="comment">// 这里就会报错了</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>let</code> 和 <code>const</code> 声明的变量不会在预解析的时候解析（也就是没有变量提升）</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因为预解析（变量提升）的原因，在前面是有这个变量的，只不过没有赋值</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为 let 不会进行预解析（变量提升），所以直接报错了</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为 const 不会进行预解析（变量提升），所以直接报错了</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">const</span> num = <span class="number">100</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>let</code> 和 <code>const</code> 声明的变量会被所有代码块限制作用范围</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 声明的变量只有函数能限制其作用域，其他的不能限制</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let 声明的变量，除了函数可以限制，所有的代码块都可以限制其作用域（if/while/for/...）</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"><span class="keyword">let</span> num = <span class="number">100</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// const 声明的变量，除了函数可以限制，所有的代码块都可以限制其作用域（if/while/for/...）</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"><span class="keyword">const</span> num = <span class="number">100</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ol>
+<h3 id="let-和-const-的区别"><a href="#let-和-const-的区别" class="headerlink" title="let 和 const 的区别"></a><code>let</code> 和 <code>const</code> 的区别</h3><ol>
+<li><p><code>let</code> 声明的变量的值可以改变，<code>const</code> 声明的变量的值不可以改变</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">100</span></span><br><span class="line">num = <span class="number">200</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 200</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> num = <span class="number">100</span></span><br><span class="line">num = <span class="number">200</span> <span class="comment">// 这里就会报错了，因为 const 声明的变量值不可以改变（我们也叫做常量）</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>let</code> 声明的时候可以不赋值，<code>const</code> 声明的时候必须赋值</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num</span><br><span class="line">num = <span class="number">100</span></span><br><span class="line"><span class="built_in">console</span>.log(num) <span class="comment">// 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> num <span class="comment">// 这里就会报错了，因为 const 声明的时候必须赋值</span></span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ol>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>箭头函数也是一种函数，是对函数表达式的一种简写；</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>格式：<code>let fun = () =&gt;{}</code>；</p>
+<ul>
+<li>箭头函数的使用规则：<ul>
+<li>形参写在 圆括号里面</li>
+<li>当形参只有一个的时候，可以忽略圆括号</li>
+<li>当函数体只有一句话的时候，可以忽略花括号</li>
+</ul>
+</li>
+<li>箭头函数的注意点<ul>
+<li>箭头函数里面没有 this 的指向</li>
+<li>箭头函数没有arguments 对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="箭头函数实例"><a href="#箭头函数实例" class="headerlink" title="箭头函数实例"></a>箭头函数实例</h3><p>箭头函数是 ES6 里面一个简写函数的语法方式， <strong>只能简写函数表达式，不能简写声明式函数</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 不能简写</span></span><br><span class="line"><span class="keyword">const</span> fun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 可以简写</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 可以简写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>语法：<code>(函数的行参) =&gt; { 函数体内要执行的代码 }</code></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="built_in">console</span>.log(b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以使用箭头函数写成</span></span><br><span class="line"><span class="keyword">const</span> fun = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="built_in">console</span>.log(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">        <span class="built_in">console</span>.log(b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以使用箭头函数写成</span></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">    fn: <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">        <span class="built_in">console</span>.log(b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="箭头函数的特殊性"><a href="#箭头函数的特殊性" class="headerlink" title="箭头函数的特殊性"></a>箭头函数的特殊性</h3><p><strong>箭头函数内部没有 this，箭头函数的 this 是上下文的 this</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在箭头函数定义的位置往上数，这一行是可以打印出 this 的</span></span><br><span class="line"><span class="comment">// 因为这里的 this 是 window</span></span><br><span class="line"><span class="comment">// 所以箭头函数内部的 this 就是 window</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 这个位置是箭头函数的上一行，但是不能打印出 this</span></span><br><span class="line">    fun: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 箭头函数内部的 this 是书写箭头函数的上一行一个可以打印出 this 的位置</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.fn()</span><br><span class="line">obj.fun()</span><br></pre></td></tr></table></figure></div>
+<p>按照我们以前的 this 指向来判断，谁调用就指向谁，两个都应该指向 obj；<br>但是 fun 因为是箭头函数，所以 this 不指向 obj，而是指向 fun 的外层，就是 window。</p>
+<p><strong>箭头函数内部没有 <code>arguments</code> 这个参数集合</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    fun: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 会打印一个伪数组 [1, 2, 3]</span></span><br><span class="line">obj.fun(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// 会直接报错</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>函数的行参只有一个的时候可以不写 <code>()</code> 其余情况必须写</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'没有参数，必须写小括号'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    fn2: <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'一个行参，可以不写小括号'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    fn3: <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'两个或两个以上参数，必须写小括号'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>函数体只有一行代码的时候，可以不写 <code>{}</code> ，并且会自动 return</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    fn: <span class="function"><span class="params">a</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + <span class="number">10</span></span><br><span class="line">    &#125;,</span><br><span class="line">    fun: <span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(fn(<span class="number">10</span>)) <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(fun(<span class="number">10</span>)) <span class="comment">// 20</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="函数的默认值"><a href="#函数的默认值" class="headerlink" title="函数的默认值"></a>函数的默认值</h2><p>我们在定义函数的时候，有的时候需要一个默认值出现；就是当我们不传递参数的时候，使用默认值，传递参数了就使用传递的参数</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    a = a || <span class="number">10</span></span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line">fn()   <span class="comment">// 不传递参数的时候，函数内部的 a 就是 10</span></span><br><span class="line">fn(<span class="number">20</span>) <span class="comment">// 传递了参数 20 的时候，函数内部的 a 就是 20</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>在 ES6 中我们可以直接把默认值写在函数的行参位置</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a = <span class="number">10</span></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line">fn()   <span class="comment">// 不传递参数的时候，函数内部的 a 就是 10</span></span><br><span class="line">fn(<span class="number">20</span>) <span class="comment">// 传递了参数 20 的时候，函数内部的 a 就是 20</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>这个默认值的方式箭头函数也可以使用</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = <span class="function">(<span class="params">a = <span class="number">10</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line">fn()   <span class="comment">// 不传递参数的时候，函数内部的 a 就是 10</span></span><br><span class="line">fn(<span class="number">20</span>) <span class="comment">// 传递了参数 20 的时候，函数内部的 a 就是 20</span></span><br></pre></td></tr></table></figure></div>
+<p>注意：箭头函数如果你需要使用默认值的话，那么一个参数的时候也需要写()</p>
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><p>解构赋值，就是快速的从对象或者数组中取出成员的一个语法方式</p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>解构赋值之对象 <code>let {name} = obj</code></li>
+<li>解构赋值之数组 <code>let [num1] = arr</code></li>
+<li>交换两个变量 <code>var [x,y] = [y,x]</code></li>
+</ul>
+<h3 id="解构对象"><a href="#解构对象" class="headerlink" title="解构对象"></a>解构对象</h3><p>快速的从对象中获取成员</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5 的方法向得到对象中的成员</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Jack'</span>,</span><br><span class="line">    age: <span class="number">18</span>,</span><br><span class="line">    gender: <span class="string">'男'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> name = obj.name</span><br><span class="line"><span class="keyword">let</span> age = obj.age</span><br><span class="line"><span class="keyword">let</span> gender = obj.gender</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6解构赋值的方式从对象中获取成员</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Jack'</span>,</span><br><span class="line">    age: <span class="number">18</span>,</span><br><span class="line">    gender: <span class="string">'男'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 前面的 &#123;&#125; 表示我要从 obj 这个对象中获取成员了</span></span><br><span class="line"><span class="comment">// name age gender 都得是 obj 中有的成员</span></span><br><span class="line"><span class="comment">// obj 必须是一个对象</span></span><br><span class="line"><span class="keyword">let</span> &#123; name, age, gender &#125; = obj</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="解构数组"><a href="#解构数组" class="headerlink" title="解构数组"></a>解构数组</h3><p>快速的从数组中获取成员</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5 的方式从数组中获取成员</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="string">'Jack'</span>, <span class="string">'Rose'</span>, <span class="string">'Tom'</span>]</span><br><span class="line"><span class="keyword">let</span> a = arr[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> b = arr[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">let</span> c = arr[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用解构赋值的方式从数组中获取成员</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="string">'Jack'</span>, <span class="string">'Rose'</span>, <span class="string">'Tom'</span>]</span><br><span class="line"><span class="comment">// 前面的 [] 表示要从 arr 这个数组中获取成员了</span></span><br><span class="line"><span class="comment">// a b c 分别对应这数组中的索引 0 1 2</span></span><br><span class="line"><span class="comment">// arr 必须是一个数组</span></span><br><span class="line"><span class="keyword">let</span> [a, b, c] = arr</span><br></pre></td></tr></table></figure></div>
+
+
+<h2 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h2><p>ES6 里面号新添加了一个运算符<code>...</code>，叫做展开运算符；</p>
+<h3 id="展开数组"><a href="#展开数组" class="headerlink" title="展开数组"></a>展开数组</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="built_in">console</span>.log(...arr) <span class="comment">// 1 2 3 4 5</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="合并数组"><a href="#合并数组" class="headerlink" title="合并数组"></a>合并数组</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">let</span> arr2 = [...arr, <span class="number">5</span>]</span><br><span class="line"><span class="built_in">console</span>.log(arr2)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="合并对象"><a href="#合并对象" class="headerlink" title="合并对象"></a>合并对象</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'Jack'</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;</span><br><span class="line">    ...obj,</span><br><span class="line">    gender: <span class="string">'男'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj2)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="函数传递参数"><a href="#函数传递参数" class="headerlink" title="函数传递参数"></a>函数传递参数</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">    <span class="built_in">console</span>.log(b)</span><br><span class="line">    <span class="built_in">console</span>.log(c)</span><br><span class="line">&#125;</span><br><span class="line">fn(...arr)</span><br><span class="line"><span class="comment">// 等价于 fn(1, 2, 3)</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="ES6中数组的方法"><a href="#ES6中数组的方法" class="headerlink" title="ES6中数组的方法"></a>ES6中数组的方法</h2><ul>
+<li><code>includes(元素)</code>，检查数组中是否存在 指定的元素，存在就返回true，不存在就返回false</li>
+<li><code>Array.from(likeArray)</code>，把伪数组数据转成数组</li>
+<li><code>Array.of(参数1，参数2，参数3)</code>，根据参数列表来创建新的数组(消除new Array来创建数组的歧义问题)</li>
+<li><code>find(callBack)</code>，从指定的数组中查找第一个满足条件的元素，如果找到那么就直接返回该元素，如果没有找到那么返回undefined </li>
+<li><code>findIndex(callBack)</code>，从指定的数组中查找第一个满足条件的元素，如果找到那么就直接返回该元素的索引，如果没有找到那么返回-1</li>
+</ul>
+<h2 id="ES6中的for-of（结合了for和forEach的优点）"><a href="#ES6中的for-of（结合了for和forEach的优点）" class="headerlink" title="ES6中的for..of（结合了for和forEach的优点）"></a>ES6中的for..of（结合了for和forEach的优点）</h2><p>数组的遍历：</p>
+<ol>
+<li>for 循环<ul>
+<li>优点：可以随时终止（break和continue）</li>
+<li>缺点：需要知道循环的次数</li>
+</ul>
+</li>
+<li>forEach<ul>
+<li>优点：不需要知道循环的次数</li>
+<li>缺点：不可以随时终止（break和continue）</li>
+</ul>
+</li>
+<li>for of 遍历有迭代器的对象，不可以遍历对象<ul>
+<li>优点：不需要知道循环的次数，可以随时终止（break和continue）</li>
+</ul>
+</li>
+</ol>
+<p>Tip：for in 用来遍历对象</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// es5的方法</span></span><br><span class="line">arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (item === <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; arr.length;i++)&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// es6的方法</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">of</span> arr) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="生成器（Generators）"><a href="#生成器（Generators）" class="headerlink" title="生成器（Generators）"></a>生成器（Generators）</h2><ul>
+<li>在函数的名字前面 + 一个 * 表示是一个生成器</li>
+<li>生成器的好处就是可以暂停函数的执行</li>
+<li>yield “任务一”  理解为暂停</li>
+<li>next()用来调用函数  <ul>
+<li>返回值：value ：yield的值  done状态</li>
+<li>如果后面还有任务，那么done为false，如果后面没有任务了，done就为true</li>
+</ul>
+</li>
+<li>注意：生成器中遇到return ，return后面的代码不会在执行</li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'aaa'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'任务一'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'任务二'</span>);</span><br><span class="line">&#125;</span><br><span class="line">fun();</span><br><span class="line"></span><br><span class="line"><span class="comment">// es6生成器函数</span></span><br><span class="line"><span class="comment">// 主要作用就是暂停函数的执行</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'开始任务'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'开始还没有完成'</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'任务一'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'任务一没有完成'</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'任务二'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'任务二没有完成'</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'任务三'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> res = fun();</span><br><span class="line">res.next()</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="symbol符号类型（很像字符串）"><a href="#symbol符号类型（很像字符串）" class="headerlink" title="symbol符号类型（很像字符串）"></a>symbol符号类型（很像字符串）</h2><ul>
+<li>概念：symbol的功能类似于一种标识唯一性的ID</li>
+<li>symbol的基本使用：<ul>
+<li>创建： Symbol()</li>
+</ul>
+</li>
+<li>特点：<ul>
+<li>在整个代码中所有的符号类型中数据都是唯一的</li>
+<li>符号类型的键值对是私有变量，不能被枚举出来（遍历） </li>
+<li>不可以跟其他的数据类型进行运算</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Symbol 很像字符串的一种数据类型 symbol 唯一性，</span></span><br><span class="line"><span class="comment">    没创建出来的symbol对象都是唯一的</span></span><br><span class="line"><span class="comment">    一般用来创建对象的私有属性的时候</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = <span class="built_in">Symbol</span>(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(s1);</span><br><span class="line"><span class="built_in">console</span>.log(s2);</span><br><span class="line"><span class="built_in">console</span>.log(s1 == s2);</span><br><span class="line"><span class="built_in">console</span>.log(s1 + s2);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> m1 = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">m1.set(<span class="string">'name'</span>, <span class="string">'zs'</span>);</span><br><span class="line">m1.set(<span class="string">'age'</span>, <span class="number">19</span>)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> [key, value] <span class="keyword">of</span> m1) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6-MAP%E5%92%8CSET/" rel="prev" title="ES6中的set和map">
+      <i class="fa fa-chevron-left"></i> ES6中的set和map
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2020/03/28/2020-05-this%E6%8C%87%E5%90%91/" rel="next" title="this指向">
+      this指向 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#es6是什么"><span class="nav-number">1.</span> <span class="nav-text">es6是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#es6中定义变量"><span class="nav-number">2.</span> <span class="nav-text">es6中定义变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-const-var-的区别"><span class="nav-number">2.2.</span> <span class="nav-text">let&#x2F;const&#x2F;var 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let-和-const-的区别"><span class="nav-number">2.3.</span> <span class="nav-text">let 和 const 的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.</span> <span class="nav-text">箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数实例"><span class="nav-number">3.2.</span> <span class="nav-text">箭头函数实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数的特殊性"><span class="nav-number">3.3.</span> <span class="nav-text">箭头函数的特殊性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的默认值"><span class="nav-number">4.</span> <span class="nav-text">函数的默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构赋值"><span class="nav-number">5.</span> <span class="nav-text">解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">5.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构对象"><span class="nav-number">5.2.</span> <span class="nav-text">解构对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构数组"><span class="nav-number">5.3.</span> <span class="nav-text">解构数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#展开运算符"><span class="nav-number">6.</span> <span class="nav-text">展开运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#展开数组"><span class="nav-number">6.1.</span> <span class="nav-text">展开数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并数组"><span class="nav-number">6.2.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并对象"><span class="nav-number">6.3.</span> <span class="nav-text">合并对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数传递参数"><span class="nav-number">6.4.</span> <span class="nav-text">函数传递参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6中数组的方法"><span class="nav-number">7.</span> <span class="nav-text">ES6中数组的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6中的for-of（结合了for和forEach的优点）"><span class="nav-number">8.</span> <span class="nav-text">ES6中的for..of（结合了for和forEach的优点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器（Generators）"><span class="nav-number">9.</span> <span class="nav-text">生成器（Generators）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#symbol符号类型（很像字符串）"><span class="nav-number">10.</span> <span class="nav-text">symbol符号类型（很像字符串）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

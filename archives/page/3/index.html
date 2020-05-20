@@ -40,16 +40,18 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
   };
 </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="练习方式：16620153984">
+<meta property="og:type" content="website">
 <meta property="og:title" content="浩华好哇的小站">
 <meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/archives/page/3/index.html">
 <meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="练习方式：16620153984">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="浩华好哇">
 <meta name="twitter:card" content="summary">
@@ -117,6 +119,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <p class="site-subtitle">想听更多的故事</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -147,14 +150,39 @@
     <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
 
   </li>
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-sitemap">
 
-    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -180,7 +208,7 @@
     <div class="posts-collapse">
       <div class="collection-title">
         
-        <span class="collection-header">还行! 目前共计 43 篇日志。 继续努力。</span>
+        <span class="collection-header">不错! 目前共计 70 篇日志。 继续努力。</span>
       </div>
 
       
@@ -193,15 +221,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-08-22T21:15:21+08:00"
-              content="2019-08-22">
-          08-22
+              datetime="2019-09-29T13:03:42+08:00"
+              content="2019-09-29">
+          09-29
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/08/22/2020-05-un%20iapp/" itemprop="url">
-            <span itemprop="name">了解uni-app</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/29/2020-05-%E4%B8%89%E7%A7%8DApp/" itemprop="url">
+            <span itemprop="name">了解目前流行的3种App</span>
           </a>
       </h2>
 
@@ -213,15 +241,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-08-20T22:40:21+08:00"
-              content="2019-08-20">
-          08-20
+              datetime="2019-09-10T00:18:45+08:00"
+              content="2019-09-10">
+          09-10
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/08/20/2020-05-react-Router/" itemprop="url">
-            <span itemprop="name">react生命周期</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/10/2020-05-%E5%AF%8C%E6%96%87%E6%9C%AC%E5%92%8C%E5%AF%BC%E5%87%BAexcel/" itemprop="url">
+            <span itemprop="name">富文本编辑器、前端导出Excel</span>
           </a>
       </h2>
 
@@ -233,15 +261,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-08-10T19:40:45+08:00"
-              content="2019-08-10">
-          08-10
+              datetime="2019-09-06T22:29:15+08:00"
+              content="2019-09-06">
+          09-06
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" itemprop="url">
-            <span itemprop="name">react组件通信</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/06/2020-03-mongo/" itemprop="url">
+            <span itemprop="name">mongodb</span>
           </a>
       </h2>
 
@@ -253,15 +281,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-07-29T17:45:49+08:00"
-              content="2019-07-29">
-          07-29
+              datetime="2019-09-06T22:29:15+08:00"
+              content="2019-09-06">
+          09-06
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/" itemprop="url">
-            <span itemprop="name">react基础梳理</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/06/2020-03-node%E6%8E%A5%E5%8F%A3/" itemprop="url">
+            <span itemprop="name">如何用 node + express 完成接口</span>
           </a>
       </h2>
 
@@ -273,15 +301,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-07-22T14:55:23+08:00"
-              content="2019-07-22">
-          07-22
+              datetime="2019-09-05T00:18:45+08:00"
+              content="2019-09-05">
+          09-05
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/07/22/2020-04-%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/" itemprop="url">
-            <span itemprop="name">项目部署到阿里云</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/05/2020-05-%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" itemprop="url">
+            <span itemprop="name">认识高阶组件以及简单实现</span>
           </a>
       </h2>
 
@@ -293,15 +321,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-07-20T12:10:25+08:00"
-              content="2019-07-20">
-          07-20
+              datetime="2019-09-04T19:20:55+08:00"
+              content="2019-09-04">
+          09-04
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/07/20/2020-04-react%E5%B0%8F%E6%A1%88%E4%BE%8B1/" itemprop="url">
-            <span itemprop="name">react小案例1</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/04/2020-04-%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98/" itemprop="url">
+            <span itemprop="name">获取元素，浏览器，滚动条的宽高</span>
           </a>
       </h2>
 
@@ -313,15 +341,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-07-03T22:30:54+08:00"
-              content="2019-07-03">
-          07-03
+              datetime="2019-09-04T19:20:55+08:00"
+              content="2019-09-04">
+          09-04
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/07/03/2020-04-vue%E5%B0%96%E5%8F%AB%E8%AE%BE%E8%AE%A1/" itemprop="url">
-            <span itemprop="name">VUE项目-商城类WebApp</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/04/2020-04-%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/" itemprop="url">
+            <span itemprop="name">数组的方法</span>
           </a>
       </h2>
 
@@ -333,15 +361,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-06-06T22:01:43+08:00"
-              content="2019-06-06">
-          06-06
+              datetime="2019-09-04T19:20:55+08:00"
+              content="2019-09-04">
+          09-04
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/06/06/2020-03-vue+node%E6%B3%A8%E5%86%8C%E4%B8%8E%E9%AA%8C%E8%AF%81/" itemprop="url">
-            <span itemprop="name">登录注册与验证码</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/04/2020-04-%E6%AD%A3%E5%88%99/" itemprop="url">
+            <span itemprop="name">正则表达式</span>
           </a>
       </h2>
 
@@ -353,15 +381,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-05-30T19:56:11+08:00"
-              content="2019-05-30">
-          05-30
+              datetime="2019-09-03T23:30:22+08:00"
+              content="2019-09-03">
+          09-03
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/05/30/2020-03-vue%E5%8D%96%E5%BA%A7/" itemprop="url">
-            <span itemprop="name">VUE项目-电影类WebApp</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/03/2020-05-react-%E5%90%8E%E5%8F%B0%E9%A1%B9%E7%9B%AE/" itemprop="url">
+            <span itemprop="name">react做一个小demo</span>
           </a>
       </h2>
 
@@ -373,15 +401,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-05-11T22:55:40+08:00"
-              content="2019-05-11">
-          05-11
+              datetime="2019-09-01T22:29:20+08:00"
+              content="2019-09-01">
+          09-01
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/05/11/2020-04-%E5%89%8D%E7%AB%AF%E6%A8%A1%E6%8B%9F%E6%95%B0%E6%8D%AE/" itemprop="url">
-            <span itemprop="name">前端模拟接口</span>
+          <a class="post-title-link" href="/jackhuang-haohua.github.io/2019/09/01/2020-05-react-redux3/" itemprop="url">
+            <span itemprop="name">redux应用</span>
           </a>
       </h2>
 
@@ -397,7 +425,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/jackhuang-haohua.github.io/archives/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jackhuang-haohua.github.io/archives/">1</a><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/4/">4</a><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/5/">5</a><a class="extend next" rel="next" href="/jackhuang-haohua.github.io/archives/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/jackhuang-haohua.github.io/archives/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jackhuang-haohua.github.io/archives/">1</a><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/jackhuang-haohua.github.io/archives/page/7/">7</a><a class="extend next" rel="next" href="/jackhuang-haohua.github.io/archives/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -458,20 +486,20 @@
     <img class="site-author-image" itemprop="image" alt="浩华好哇"
       src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
   <p class="site-author-name" itemprop="name">浩华好哇</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/jackhuang-haohua.github.io/archives">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/jackhuang-haohua.github.io/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -483,7 +511,7 @@
 
     </div>
 
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
   </aside>
   
   <div id="sidebar-dimmer"></div>
@@ -499,7 +527,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2018-2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -507,13 +535,15 @@
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
     </span>
-    <span title="站点总字数">251k</span>
+    <span title="站点总字数">368k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
     </span>
-    <span title="站点阅读时长">7:37</span>
+    <span title="站点阅读时长">11:10</span>
 </div>
 
 <!--
@@ -562,6 +592,10 @@
   
 
 
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
 
 
 

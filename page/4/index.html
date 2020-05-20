@@ -40,16 +40,18 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
   };
 </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="练习方式：16620153984">
+<meta property="og:type" content="website">
 <meta property="og:title" content="浩华好哇的小站">
 <meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/page/4/index.html">
 <meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="练习方式：16620153984">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="浩华好哇">
 <meta name="twitter:card" content="summary">
@@ -117,6 +119,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <p class="site-subtitle">想听更多的故事</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -147,14 +150,39 @@
     <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
 
   </li>
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-sitemap">
 
-    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -178,12 +206,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/08/2020-04-vue-%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/30/2020-05-react-redux2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -192,7 +220,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/05/08/2020-04-vue-%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">VUE的一些原理</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/30/2020-05-react-redux2/" class="post-title-link" itemprop="url">redux优化</a>
         </h1>
 
         <div class="post-meta">
@@ -202,14 +230,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-05-08 22:23:26" itemprop="dateCreated datePublished" datetime="2019-05-08T22:23:26+08:00">2019-05-08</time>
+              <time title="创建时间：2019-08-30 23:30:22" itemprop="dateCreated datePublished" datetime="2019-08-30T23:30:22+08:00">2019-08-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-06 23:36:28" itemprop="dateModified" datetime="2020-05-06T23:36:28+08:00">2020-05-06</time>
+                <time title="修改时间：2020-05-06 18:59:26" itemprop="dateModified" datetime="2020-05-06T18:59:26+08:00">2020-05-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,8 +245,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
                   </a>
                 </span>
             </span>
@@ -248,10 +276,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          包括MVVM模式、双向数据绑定，虚拟dom，diff算法等...感觉自己理解还是不够深入，很多地方挺模糊的
+          react-redux和redux-thunk
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/05/08/2020-04-vue-%E5%8E%9F%E7%90%86/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/30/2020-05-react-redux2/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -275,12 +303,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/03/2020-04-vue-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -289,7 +317,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/05/03/2020-04-vue-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">VUE组件之间的通信</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/" class="post-title-link" itemprop="url">redux</a>
         </h1>
 
         <div class="post-meta">
@@ -299,14 +327,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-05-03 23:53:23" itemprop="dateCreated datePublished" datetime="2019-05-03T23:53:23+08:00">2019-05-03</time>
+              <time title="创建时间：2019-08-28 23:30:22" itemprop="dateCreated datePublished" datetime="2019-08-28T23:30:22+08:00">2019-08-28</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-06 23:23:09" itemprop="dateModified" datetime="2020-05-06T23:23:09+08:00">2020-05-06</time>
+                <time title="修改时间：2020-05-06 18:59:31" itemprop="dateModified" datetime="2020-05-06T18:59:31+08:00">2020-05-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,8 +342,105 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          react中公共仓库redux的使用。这篇文章涉及到的知识点：redux更改/订阅数据的过程，无状态组件，组件内部函数传参
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/" class="post-title-link" itemprop="url">使用gulp</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-28 19:52:45" itemprop="dateCreated datePublished" datetime="2019-08-28T19:52:45+08:00">2019-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-17 11:21:09" itemprop="dateModified" datetime="2020-05-17T11:21:09+08:00">2020-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/gulp/" itemprop="url" rel="index">
+                    <span itemprop="name">gulp</span>
                   </a>
                 </span>
             </span>
@@ -345,10 +470,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          用的比较多的：props、事件、ref、vuex；其他的通信方式还有event-bus、$attrs、provide
+          打包html，css，js，其他文件，配置服务器，代理，任务流
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/05/03/2020-04-vue-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -372,12 +497,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/05/01/2020-04-vue%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/27/2020-03-token%E4%B8%8Esession/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -386,7 +511,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/05/01/2020-04-vue%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/" class="post-title-link" itemprop="url">VUE基础梳理</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/27/2020-03-token%E4%B8%8Esession/" class="post-title-link" itemprop="url">身份验证-session与token</a>
         </h1>
 
         <div class="post-meta">
@@ -396,14 +521,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-05-01 22:53:43" itemprop="dateCreated datePublished" datetime="2019-05-01T22:53:43+08:00">2019-05-01</time>
+              <time title="创建时间：2019-08-27 22:30:45" itemprop="dateCreated datePublished" datetime="2019-08-27T22:30:45+08:00">2019-08-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-06 23:34:25" itemprop="dateModified" datetime="2020-05-06T23:34:25+08:00">2020-05-06</time>
+                <time title="修改时间：2020-05-10 20:15:32" itemprop="dateModified" datetime="2020-05-10T20:15:32+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -411,8 +536,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
                   </a>
                 </span>
             </span>
@@ -423,14 +548,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>13k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>23 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -442,10 +567,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          项目要用到的知识过一遍
+          身份验证的两种形式
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/05/01/2020-04-vue%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/27/2020-03-token%E4%B8%8Esession/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -469,12 +594,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/04/24/2020-03-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/25/2020-05-react-%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -483,7 +608,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/04/24/2020-03-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">vue生命周期</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/25/2020-05-react-%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">react利用生命周期优化性能</a>
         </h1>
 
         <div class="post-meta">
@@ -493,14 +618,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-04-24 21:02:48" itemprop="dateCreated datePublished" datetime="2019-04-24T21:02:48+08:00">2019-04-24</time>
+              <time title="创建时间：2019-08-25 23:30:28" itemprop="dateCreated datePublished" datetime="2019-08-25T23:30:28+08:00">2019-08-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-05 22:17:36" itemprop="dateModified" datetime="2020-05-05T22:17:36+08:00">2020-05-05</time>
+                <time title="修改时间：2020-05-05 20:44:49" itemprop="dateModified" datetime="2020-05-05T20:44:49+08:00">2020-05-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -508,8 +633,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
                   </a>
                 </span>
             </span>
@@ -520,14 +645,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>19 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -539,10 +664,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          vue生命周期
+          react，使用shouldComponentUpdate / PureComponent / React.memo优化性能
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/04/24/2020-03-vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/25/2020-05-react-%E4%BC%98%E5%8C%96/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -566,12 +691,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/03/30/2020-02-git%E5%92%8Cgithub/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/25/2020-02-gulp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -580,7 +705,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/03/30/2020-02-git%E5%92%8Cgithub/" class="post-title-link" itemprop="url">git和github的使用</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/25/2020-02-gulp/" class="post-title-link" itemprop="url">认识gulp</a>
         </h1>
 
         <div class="post-meta">
@@ -590,14 +715,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-30 14:50:11" itemprop="dateCreated datePublished" datetime="2019-03-30T14:50:11+08:00">2019-03-30</time>
+              <time title="创建时间：2019-08-25 18:50:46" itemprop="dateCreated datePublished" datetime="2019-08-25T18:50:46+08:00">2019-08-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-05 22:16:45" itemprop="dateModified" datetime="2020-05-05T22:16:45+08:00">2020-05-05</time>
+                <time title="修改时间：2020-05-17 01:15:17" itemprop="dateModified" datetime="2020-05-17T01:15:17+08:00">2020-05-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -605,8 +730,202 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
+                  <a href="/jackhuang-haohua.github.io/categories/gulp/" itemprop="url" rel="index">
+                    <span itemprop="name">gulp</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>795</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          前端自动化打包工具
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/25/2020-02-gulp/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/24/2020-02-node.js%E5%88%9D%E7%BA%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/jackhuang-haohua.github.io/2019/08/24/2020-02-node.js%E5%88%9D%E7%BA%A7/" class="post-title-link" itemprop="url">node.js基础整理</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-24 16:12:33" itemprop="dateCreated datePublished" datetime="2019-08-24T16:12:33+08:00">2019-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-10 23:20:09" itemprop="dateModified" datetime="2020-05-10T23:20:09+08:00">2020-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          node.js基础复习笔记
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/24/2020-02-node.js%E5%88%9D%E7%BA%A7/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/20/2020-05-react-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/jackhuang-haohua.github.io/2019/08/20/2020-05-react-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">react生命周期</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-20 22:40:21" itemprop="dateCreated datePublished" datetime="2019-08-20T22:40:21+08:00">2019-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-05 20:14:54" itemprop="dateModified" datetime="2020-05-05T20:14:54+08:00">2020-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
                   </a>
                 </span>
             </span>
@@ -636,10 +955,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          项目中git和github的使用
+          react的生命周期为啥这么多呢...
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/03/30/2020-02-git%E5%92%8Cgithub/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/20/2020-05-react-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -663,12 +982,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/03/27/2020-02-npm/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -677,7 +996,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/03/27/2020-02-npm/" class="post-title-link" itemprop="url">npm的使用</a>
+            <a href="/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">react组件通信</a>
         </h1>
 
         <div class="post-meta">
@@ -687,14 +1006,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-27 00:00:08" itemprop="dateCreated datePublished" datetime="2019-03-27T00:00:08+08:00">2019-03-27</time>
+              <time title="创建时间：2019-08-10 19:40:45" itemprop="dateCreated datePublished" datetime="2019-08-10T19:40:45+08:00">2019-08-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-05 22:15:20" itemprop="dateModified" datetime="2020-05-05T22:15:20+08:00">2020-05-05</time>
+                <time title="修改时间：2020-05-04 23:48:31" itemprop="dateModified" datetime="2020-05-04T23:48:31+08:00">2020-05-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -702,8 +1021,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
                   </a>
                 </span>
             </span>
@@ -714,104 +1033,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          JS包管理工具：npm，yarn，bower等
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/03/27/2020-02-npm/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/02/26/2020-02-sass/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浩华好哇的小站">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/jackhuang-haohua.github.io/2019/02/26/2020-02-sass/" class="post-title-link" itemprop="url">SASS--更高效的书写CSS</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-02-26 12:42:17" itemprop="dateCreated datePublished" datetime="2019-02-26T12:42:17+08:00">2019-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-28 21:43:10" itemprop="dateModified" datetime="2020-04-28T21:43:10+08:00">2020-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -830,10 +1052,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          SASS的认识与使用
+          react组件间的通信：context、props、事件、ref、redux。没想到还是vue那几位……
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/02/26/2020-02-sass/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/08/10/2020-05-react-%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -857,12 +1079,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/01/17/2020-05-%E5%8A%A8%E7%94%BBdemo2/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
       <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="练习方式：16620153984">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -871,7 +1093,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/jackhuang-haohua.github.io/2019/01/17/2020-05-%E5%8A%A8%E7%94%BBdemo2/" class="post-title-link" itemprop="url">css动画3d</a>
+            <a href="/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/" class="post-title-link" itemprop="url">react基础梳理</a>
         </h1>
 
         <div class="post-meta">
@@ -881,14 +1103,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-01-17 20:32:18" itemprop="dateCreated datePublished" datetime="2019-01-17T20:32:18+08:00">2019-01-17</time>
+              <time title="创建时间：2019-07-29 17:45:49" itemprop="dateCreated datePublished" datetime="2019-07-29T17:45:49+08:00">2019-07-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-11 21:57:11" itemprop="dateModified" datetime="2020-05-11T21:57:11+08:00">2020-05-11</time>
+                <time title="修改时间：2020-05-04 22:49:47" itemprop="dateModified" datetime="2020-05-04T22:49:47+08:00">2020-05-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -896,8 +1118,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/jackhuang-haohua.github.io/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
                   </a>
                 </span>
             </span>
@@ -908,14 +1130,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>18k</span>
+              <span>9.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>33 分钟</span>
+              <span>18 分钟</span>
             </span>
 
         </div>
@@ -927,204 +1149,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          包括：3d旋转相册，3d公转自转，旋转的正方体，旋转的两层正方体，会折叠的正方体
+          把项目中用到的react知识整理一下，没有特定顺序，学到什么就记下来
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/01/17/2020-05-%E5%8A%A8%E7%94%BBdemo2/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/01/14/2020-05-%E5%8A%A8%E7%94%BBdemo1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浩华好哇的小站">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/jackhuang-haohua.github.io/2019/01/14/2020-05-%E5%8A%A8%E7%94%BBdemo1/" class="post-title-link" itemprop="url">css动画2d</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-14 19:30:17" itemprop="dateCreated datePublished" datetime="2019-01-14T19:30:17+08:00">2019-01-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-11 21:31:29" itemprop="dateModified" datetime="2020-05-11T21:31:29+08:00">2020-05-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>9.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          为了更熟悉css动画，网上找的一些小demo自己做一做；包括：明星相册，用css画一个哆啦A梦，太极图，摩天轮，自转公转
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/01/14/2020-05-%E5%8A%A8%E7%94%BBdemo1/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/01/11/2020-01-%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="浩华好哇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浩华好哇的小站">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/jackhuang-haohua.github.io/2019/01/11/2020-01-%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/" class="post-title-link" itemprop="url">使用JavaScript循序渐进地写出轮播图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-11 19:37:43" itemprop="dateCreated datePublished" datetime="2019-01-11T19:37:43+08:00">2019-01-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-28 21:43:19" itemprop="dateModified" datetime="2020-04-28T21:43:19+08:00">2020-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jackhuang-haohua.github.io/categories/javaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">javaScript</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>31k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>57 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          利用Js基础知识做出轮播图
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jackhuang-haohua.github.io/2019/01/11/2020-01-%E7%AC%AC%E4%BA%8C%E7%AF%87-%E8%BD%AE%E6%92%AD%E5%9B%BE/">
+              <a class="btn" href="/jackhuang-haohua.github.io/2019/07/29/2020-04-react-%E5%9F%BA%E7%A1%80%E6%A2%B3%E7%90%86/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1148,7 +1176,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/jackhuang-haohua.github.io/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jackhuang-haohua.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jackhuang-haohua.github.io/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/jackhuang-haohua.github.io/page/5/">5</a><a class="extend next" rel="next" href="/jackhuang-haohua.github.io/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/jackhuang-haohua.github.io/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jackhuang-haohua.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jackhuang-haohua.github.io/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/jackhuang-haohua.github.io/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/jackhuang-haohua.github.io/page/7/">7</a><a class="extend next" rel="next" href="/jackhuang-haohua.github.io/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1209,20 +1237,20 @@
     <img class="site-author-image" itemprop="image" alt="浩华好哇"
       src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
   <p class="site-author-name" itemprop="name">浩华好哇</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/jackhuang-haohua.github.io/archives">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/jackhuang-haohua.github.io/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -1234,7 +1262,7 @@
 
     </div>
 
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=910200122&auto=1&height=66"></iframe>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
   </aside>
   
   <div id="sidebar-dimmer"></div>
@@ -1250,7 +1278,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2018-2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1258,13 +1286,15 @@
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
     </span>
-    <span title="站点总字数">251k</span>
+    <span title="站点总字数">368k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
     </span>
-    <span title="站点阅读时长">7:37</span>
+    <span title="站点阅读时长">11:10</span>
 </div>
 
 <!--
@@ -1313,6 +1343,10 @@
   
 
 
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
 
 
 

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jackhuang-haohua.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jackhuang-haohua.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jackhuang-haohua.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/jackhuang-haohua.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jackhuang-haohua.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io').hostname,
+    root: '/jackhuang-haohua.github.io/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="打包html，css，js，其他文件，配置服务器，代理，任务流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用gulp">
+<meta property="og:url" content="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/index.html">
+<meta property="og:site_name" content="浩华好哇的小站">
+<meta property="og:description" content="打包html，css，js，其他文件，配置服务器，代理，任务流">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-28T11:52:45.000Z">
+<meta property="article:modified_time" content="2020-05-17T03:21:09.349Z">
+<meta property="article:author" content="浩华好哇">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>使用gulp | 浩华好哇的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<link rel="alternate" href="/jackhuang-haohua.github.io/atom.xml" title="浩华好哇的小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/jackhuang-haohua.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">浩华好哇的小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想听更多的故事</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jackhuang-haohua.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/jackhuang-haohua.github.io/tools/" rel="section"><i class="fa fa-fw fa-briefcase"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jackhuang-haohua.github.io/categories/" rel="section"><i class="fa fa-fw fa-list"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/jackhuang-haohua.github.io/about/" rel="section"><i class="fa fa-fw fa-sitemap"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2019/08/28/2020-02-gulp2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="浩华好哇">
+      <meta itemprop="description" content="练习方式：16620153984">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="浩华好哇的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用gulp
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-28 19:52:45" itemprop="dateCreated datePublished" datetime="2019-08-28T19:52:45+08:00">2019-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-17 11:21:09" itemprop="dateModified" datetime="2020-05-17T11:21:09+08:00">2020-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jackhuang-haohua.github.io/categories/gulp/" itemprop="url" rel="index">
+                    <span itemprop="name">gulp</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">打包html，css，js，其他文件，配置服务器，代理，任务流</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h2><p>假设项目有这些页面：</p>
+<ul>
+<li>pages文件夹  -&gt; 存放html页面</li>
+<li>css文件夹  -&gt; 存放css文件</li>
+<li>js文件夹  -&gt; 存放js文件</li>
+<li>mages文件夹  -&gt; 存放图片文件</li>
+<li>fonts文件夹  -&gt; 存放字体图标文件</li>
+<li>videos文件夹  -&gt; 存放视频文件</li>
+</ul>
+<p>我们在根目录下新建gulpfile.js文件，vscode会出现一个小辣椒图标；</p>
+<h2 id="gulp一些方法"><a href="#gulp一些方法" class="headerlink" title="gulp一些方法"></a>gulp一些方法</h2><ol>
+<li>src()：<code>src(&#39;你要打包的文件的地址&#39;)</code></li>
+<li>pipe()：管道，是任务可以继续“流”向下一步</li>
+<li>dest()：用来写入文件，把已经压缩号的代码放在那一个文件夹里面；如果没有你指定的文件夹，会自动创建一个这个文件夹放进去</li>
+<li>parallel()：用来<em>并行</em>执行多个任务，<code>gulp.parallel(任务1，任务2, ...)</code></li>
+<li>series()：用来<em>逐个</em>执行多个任务，<code>gulp.series(任务1，任务2，...)</code></li>
+<li>watch()：用来监控文件变化的，<code>gulp.watch(监控的文件目录，要执行的任务)</code></li>
+</ol>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>)</span><br><span class="line"><span class="keyword">const</span> cssmin = <span class="built_in">require</span>(<span class="string">'gulp-cssmin'</span>)</span><br><span class="line"><span class="keyword">const</span> autoprefixer = <span class="built_in">require</span>(<span class="string">'gulp-autoprefixer'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cssHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./src/css/*.css'</span>)   <span class="comment">// 找到src/css目录下后缀为.css的文件</span></span><br><span class="line">             .pipe(autoprefixer())   <span class="comment">// 把css代码自动添加前缀</span></span><br><span class="line">             .pipe(cssmin())  <span class="comment">// 压缩css代码</span></span><br><span class="line">             .pipe(gulp.dest(<span class="string">'./dist/css'</span>))  <span class="comment">// 压缩完毕的css放在dist/css文件夹里</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>)</span><br><span class="line"><span class="keyword">const</span> uglify = <span class="built_in">require</span>(<span class="string">'gulp-uglify'</span>)</span><br><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">'gulp-babel'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> jsHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./src/js/*.js'</span>) <span class="comment">// 找到文件</span></span><br><span class="line">             .pipe(babel(&#123;</span><br><span class="line">               presets: [<span class="string">'@babel/env'</span>]</span><br><span class="line">             &#125;)) <span class="comment">// 转码 es6 转换成 es5</span></span><br><span class="line">             .pipe(uglify()) <span class="comment">// 压缩</span></span><br><span class="line">             .pipe(gulp.dest(<span class="string">'./dist/js'</span>)) <span class="comment">// 把压缩完毕的放入文件夹</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>)</span><br><span class="line"><span class="keyword">const</span> htmlmin = <span class="built_in">require</span>(<span class="string">'gulp-htmlmin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./src/pages/*.html'</span>) <span class="comment">// 找到要压缩的 html 文件</span></span><br><span class="line">             .pipe(htmlmin(&#123; <span class="comment">// 想进行压缩, 需要在这个对象里面进行配置</span></span><br><span class="line">               removeAttributeQuotes: <span class="literal">true</span>, <span class="comment">// 移出属性上的双引号</span></span><br><span class="line">               removeComments: <span class="literal">true</span>, <span class="comment">// 移除注释</span></span><br><span class="line">               collapseBooleanAttributes: <span class="literal">true</span>, <span class="comment">// 把值为布尔值的属性简写</span></span><br><span class="line">               collapseWhitespace: <span class="literal">true</span>, <span class="comment">// 移除所有空格, 变成一行代码</span></span><br><span class="line">               minifyCSS: <span class="literal">true</span>, <span class="comment">// 把页面里面的 style 标签里面的 css 样式也去空格</span></span><br><span class="line">               minifyJS: <span class="literal">true</span>, <span class="comment">// 把页面里面的 script 标签里面的 js 代码给去空格</span></span><br><span class="line">             &#125;)) <span class="comment">// 压缩</span></span><br><span class="line">             .pipe(gulp.dest(<span class="string">'./dist/pages'</span>)) <span class="comment">// 把压缩完毕的放到一个指定目录</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> imgHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./src/images/**'</span>) <span class="comment">// images 文件夹下的所有文件</span></span><br><span class="line">             .pipe(gulp.dest(<span class="string">'./dist/images'</span>)) <span class="comment">// 放到指定目录就可以了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="lib"><a href="#lib" class="headerlink" title="lib"></a>lib</h2><p>　其他不需要处理的文件，</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> libHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./src/lib/**'</span>)</span><br><span class="line">             .pipe(gulp.dest(<span class="string">'./dist/lib'</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="del"><a href="#del" class="headerlink" title="del"></a>del</h2><p>　最好就是在每次整体打包之前, 把 dist 目录删除了，用最新的 src 重新生成一遍内容；</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> del = <span class="built_in">require</span>(<span class="string">'del'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> delHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 这个函数的目的就是为了删除 dist 目录使用的</span></span><br><span class="line">  <span class="keyword">return</span> del([<span class="string">'./dist'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="webserver"><a href="#webserver" class="headerlink" title="webserver"></a>webserver</h2><p>　在开发过程中直接把写的东西在服务器上打开；自动刷新: 当 dist 目录里面的代码改变以后, 就会自动刷新浏览器；</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webserver = <span class="built_in">require</span>(<span class="string">'gulp-webserver'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> serverHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 要把页面在服务器上打开</span></span><br><span class="line">  <span class="comment">// 打开的是 dist 目录里面我已经压缩好的页面</span></span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./dist'</span>) <span class="comment">// 找到我要打开的页面的文件夹</span></span><br><span class="line">             .pipe(webserver(&#123; <span class="comment">// 需要一些配置项</span></span><br><span class="line">               host: <span class="string">'www.guoxiang.com'</span>, <span class="comment">// 域名, 这个域名可以自定义</span></span><br><span class="line">               port: <span class="number">8080</span>, <span class="comment">// 端口号, 0 ~ 65535, 尽量不适用 0 ~ 1023</span></span><br><span class="line">               open: <span class="string">'./pages/index.html'</span>, <span class="comment">// 你默认打开的首页, 从 dist 下面找</span></span><br><span class="line">               livereload: <span class="literal">true</span>, <span class="comment">// 自动刷新浏览器 - 热重启</span></span><br><span class="line">               <span class="comment">// 所有的代理配置都在 proxies 里面</span></span><br><span class="line">               proxies: [</span><br><span class="line">                 <span class="comment">// 每一个代理配置就是一个对象</span></span><br><span class="line">                 &#123;</span><br><span class="line">                   source: <span class="string">'/gx'</span>, <span class="comment">// 源, 你的代理标识符</span></span><br><span class="line">                   <span class="comment">// 你直接请求下面这个地址压根也拿不到东西, 因为跨域了</span></span><br><span class="line">                   target: <span class="string">'http://127.0.0.1/test.php'</span> <span class="comment">// 目标, 你要代理的地址</span></span><br><span class="line">                 &#125;,</span><br><span class="line">                 &#123;</span><br><span class="line">                   source: <span class="string">'/gx2'</span>,</span><br><span class="line">                   target: <span class="string">'http://127.0.0.1/xxx.php'</span></span><br><span class="line">                 &#125;</span><br><span class="line">               ]</span><br><span class="line">             &#125;)) <span class="comment">// 开启服务器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="自动监控"><a href="#自动监控" class="headerlink" title="自动监控"></a>自动监控</h2><p>监控 src文件夹 下的文件, 只要一修改, 就执行对应的任务</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> watchHandler = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  gulp.watch(<span class="string">'./src/css/*.css'</span>, cssHandler)</span><br><span class="line">  gulp.watch(<span class="string">'./src/js/*.js'</span>, jsHandler)</span><br><span class="line">  gulp.watch(<span class="string">'./src/pages/*.html'</span>, htmlHandler)</span><br><span class="line">  gulp.watch(<span class="string">'./src/lib/**'</span>, libHandler)</span><br><span class="line">  gulp.watch(<span class="string">'./src/images/**'</span>, imgHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="导出任务流"><a href="#导出任务流" class="headerlink" title="导出任务流"></a>导出任务流</h2><p>　导出一个默认任务，后面在命令行执行 gulp default 的时候, 就会自动把写在 parallel 里面的五个任务给一起执行了；<br>　tip：当在命令行执行 gulp default 的时候, 可以不写 default</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JS"><figure class="iseeu highlight /js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.default = gulp.series(</span><br><span class="line">  delHandler,</span><br><span class="line">  gulp.parallel(cssHandler, jsHandler, htmlHandler, imgHandler, libHandler),</span><br><span class="line">  serverHandler,</span><br><span class="line">  watchHandler</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/08/27/2020-03-token%E4%B8%8Esession/" rel="prev" title="身份验证-session与token">
+      <i class="fa fa-chevron-left"></i> 身份验证-session与token
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jackhuang-haohua.github.io/2019/08/28/2020-05-react-redux/" rel="next" title="redux">
+      redux <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp一些方法"><span class="nav-number">2.</span> <span class="nav-text">gulp一些方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css"><span class="nav-number">3.</span> <span class="nav-text">css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js"><span class="nav-number">4.</span> <span class="nav-text">js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html"><span class="nav-number">5.</span> <span class="nav-text">html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">6.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lib"><span class="nav-number">7.</span> <span class="nav-text">lib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#del"><span class="nav-number">8.</span> <span class="nav-text">del</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webserver"><span class="nav-number">9.</span> <span class="nav-text">webserver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动监控"><span class="nav-number">10.</span> <span class="nav-text">自动监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导出任务流"><span class="nav-number">11.</span> <span class="nav-text">导出任务流</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="浩华好哇"
+      src="/jackhuang-haohua.github.io/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">浩华好哇</p>
+  <div class="site-description" itemprop="description">练习方式：16620153984</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jackhuang-haohua.github.io/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jackhuang-haohua.github.io/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32544976&auto=0&height=66"></iframe>
+  </aside>
+  
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018-2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浩华好哇</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span>站点总字数</span>
+    </span>
+    <span title="站点总字数">368k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span>阅读总时长</span>
+    </span>
+    <span title="站点阅读时长">11:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>-->
+
+<!--
+  <span class="post-meta-divider">|</span>-->
+
+<!--
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/jackhuang-haohua.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jackhuang-haohua.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/utils.js"></script>
+
+<script src="/jackhuang-haohua.github.io/js/motion.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jackhuang-haohua.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jackhuang-haohua.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="js/canvas_ribbon.js"></script>
+  <script id="ribbon" size="400" alpha='0.3' zIndex="-2" src="../js/canvas_ribbon.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
+  
+  <!-- 点击爱心 -->
+  <script src="js/clicklove.js"></script>
+  <script src="../js/clicklove.js"></script>
+</html>

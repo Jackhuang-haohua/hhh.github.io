@@ -6,7 +6,7 @@
   <link href="/jackhuang-haohua.github.io/atom.xml" rel="self"/>
   
   <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/"/>
-  <updated>2020-05-19T15:37:21.709Z</updated>
+  <updated>2020-05-21T05:44:57.816Z</updated>
   <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/25/2020-05-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/25/2020-05-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-04-24T16:10:25.000Z</published>
-    <updated>2020-05-19T15:37:21.709Z</updated>
+    <updated>2020-05-21T05:44:57.816Z</updated>
     
     <summary type="html">
     
-      简单了解。单例模式，观察者模式，组合模式...
+      目前用的比较多的几种设计模式。单例模式，观察者模式，组合模式的简单实现
     
     </summary>
     
@@ -40,16 +40,16 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/20/2020-05-%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/20/2020-05-%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
     <published>2020-04-20T11:16:22.000Z</published>
-    <updated>2020-05-20T16:23:58.394Z</updated>
+    <updated>2020-05-21T04:55:19.730Z</updated>
     
     <summary type="html">
     
-      看到的一些有意思的面试题
+      看到的一些有意思的面试题；
     
     </summary>
     
     
-      <category term="面试" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
+      <category term="其他" scheme="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/categories/%E5%85%B6%E4%BB%96/"/>
     
     
   </entry>
@@ -59,11 +59,11 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/14/2020-05-mysql/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/04/14/2020-05-mysql/</id>
     <published>2020-04-14T13:18:53.000Z</published>
-    <updated>2020-05-18T16:02:28.965Z</updated>
+    <updated>2020-05-21T06:14:16.439Z</updated>
     
     <summary type="html">
     
-      php一些基础知识。因为只记录了一些自己学到过的，比较乱哈哈。
+      常用的mysql语句，增删改查等；
     
     </summary>
     
@@ -135,11 +135,11 @@
     <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/28/2020-05-this%E6%8C%87%E5%90%91/"/>
     <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/28/2020-05-this%E6%8C%87%E5%90%91/</id>
     <published>2020-03-28T11:20:50.000Z</published>
-    <updated>2020-05-18T13:50:01.951Z</updated>
+    <updated>2020-05-21T06:14:36.107Z</updated>
     
     <summary type="html">
     
-      this指向一些简单概括；call，apply，bind；箭头函数的this
+      this指向一些简单概括；使用call，apply，bind改变指向；箭头函数的this
     
     </summary>
     
@@ -150,15 +150,15 @@
   </entry>
   
   <entry>
-    <title>ES6一些新特性</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/</id>
+    <title>ES6中的set和map</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6-MAP%E5%92%8CSET/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6-MAP%E5%92%8CSET/</id>
     <published>2020-03-22T10:15:23.000Z</published>
-    <updated>2020-05-20T15:55:56.136Z</updated>
+    <updated>2020-05-21T04:57:22.604Z</updated>
     
     <summary type="html">
     
-      let和const，箭头函数，解构赋值，展开运算符，等等
+      ES6新增set和map方法，一个类似于数组，一个类似于对象
     
     </summary>
     
@@ -169,15 +169,15 @@
   </entry>
   
   <entry>
-    <title>ES6中的set和map</title>
-    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6-MAP%E5%92%8CSET/"/>
-    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6-MAP%E5%92%8CSET/</id>
+    <title>ES6一些新特性</title>
+    <link href="https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/"/>
+    <id>https://github.com/Jackhuang-haohua/jackhuang-haohua.github.io/2020/03/22/2020-05-ES6/</id>
     <published>2020-03-22T10:15:23.000Z</published>
-    <updated>2020-05-20T16:22:50.343Z</updated>
+    <updated>2020-05-21T04:59:31.676Z</updated>
     
     <summary type="html">
     
-      set和map方法
+      一些ES6中经常用到的东西。let和const，箭头函数，解构赋值，展开运算符，等等
     
     </summary>
     
